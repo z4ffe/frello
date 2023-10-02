@@ -1,1 +1,27 @@
-export class User {}
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {IUser} from '../interfaces/user.interface'
+
+@Entity()
+export class User implements IUser {
+	@PrimaryGeneratedColumn()
+	id: number
+
+	@Column()
+	login: string
+
+	@Column()
+	password: string
+
+	@Column({
+		name: 'created_at',
+		default: () => 'CURRENT_TIMESTAMP(3)',
+	})
+	created_at: Date
+
+	@Column({
+		name: 'updated_at',
+		default: () => 'CURRENT_TIMESTAMP(3)',
+		onUpdate: 'CURRENT_TIMESTAMP(3)',
+	})
+	updated_at: Date
+}
