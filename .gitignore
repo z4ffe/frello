@@ -112,3 +112,4 @@ build
 dist
 */node_modules
 */.env
+.$frello.drawio.bkp
