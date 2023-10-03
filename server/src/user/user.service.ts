@@ -41,11 +41,11 @@ export class UserService {
 
 	async updateUserPassword(body: UpdateUserDto) {
 		const {login, password, newPassword} = body
-		const isUserExist = await this.findUserByLogin(login)
-		if (!isUserExist) {
+		const user = await this.findUserByLogin(login)
+		if (!user) {
 			throw new NotFoundException('User not found')
 		}
-		const passwordCorrect = await this.checkPassword(password, isUserExist.password)
+		const passwordCorrect = await user.validatePassword(password)
 		if (!passwordCorrect) {
 			throw new UnauthorizedException('Password incorrect')
 		}
@@ -55,12 +55,12 @@ export class UserService {
 
 	async removeUserByLogin(body: DeleteUserDto) {
 		const {login, password} = body
-		const isUserExist = await this.findUserByLogin(login)
-		if (!isUserExist) {
+		const user = await this.findUserByLogin(login)
+		if (!user) {
 			throw new NotFoundException('User not found')
 		}
-		const passwordCorrect = await this.checkPassword(password, isUserExist.password)
-		if (!passwordCorrect) {
+		const isPasswordValid = await user.validatePassword(password)
+		if (!isPasswordValid) {
 			throw new UnauthorizedException('Password incorrect')
 		}
 		return await this.userRepository.delete({login})
@@ -72,9 +72,5 @@ export class UserService {
 
 	async hashPassword(password: string) {
 		return await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
-	}
-
-	async checkPassword(password: string, hashedPassword: string) {
-		return await bcrypt.compare(password, hashedPassword)
 	}
 }

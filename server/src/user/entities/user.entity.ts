@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt'
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 import {IUser} from '../interfaces/user.interface'
 
@@ -32,4 +33,8 @@ export class User implements IUser {
 		onUpdate: 'CURRENT_TIMESTAMP(3)',
 	})
 	updated_at: Date
+
+	async validatePassword(password: string) {
+		return await bcrypt.compare(password, this.password)
+	}
 }

@@ -1,5 +1,6 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Res} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Res, UseGuards} from '@nestjs/common'
 import {Response} from 'express'
+import {AuthGuard} from '../auth/auth.guard'
 import {CreateUserDto} from './dto/createUserDto'
 import {DeleteUserDto} from './dto/deleteUserDto'
 import {UpdateUserDto} from './dto/updateUserDto'
@@ -13,6 +14,7 @@ export class UserController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
 	async getAllUser() {
 		return await this.userService.getAllUsers()
 	}
