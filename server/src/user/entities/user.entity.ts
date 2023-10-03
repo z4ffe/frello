@@ -1,6 +1,11 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 import {IUser} from '../interfaces/user.interface'
 
+enum ERoles {
+	Admin = 'admin',
+	User = 'user'
+}
+
 @Entity()
 export class User implements IUser {
 	@PrimaryGeneratedColumn()
@@ -11,6 +16,9 @@ export class User implements IUser {
 
 	@Column()
 	password: string
+
+	@Column({default: ERoles.User})
+	role: ERoles
 
 	@Column({
 		name: 'created_at',
