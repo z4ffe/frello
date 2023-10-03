@@ -25,14 +25,14 @@ export class UserService {
 		})
 	}
 
-	async createUser({login, password}: CreateUserDto) {
-		const isUserExist = await this.findUserByLogin(login)
+	async createUser({username, password}: CreateUserDto) {
+		const isUserExist = await this.findUserByUserName(username)
 		if (isUserExist) {
 			throw new ConflictException('User already exist')
 		}
 		const hashedPassword = await this.hashPassword(password)
 		const user = {
-			login,
+			username: username,
 			password: hashedPassword,
 		}
 		const newUser = this.userRepository.create(user)
@@ -40,8 +40,8 @@ export class UserService {
 	}
 
 	async updateUserPassword(body: UpdateUserDto) {
-		const {login, password, newPassword} = body
-		const user = await this.findUserByLogin(login)
+		const {username, password, newPassword} = body
+		const user = await this.findUserByUserName(username)
 		if (!user) {
 			throw new NotFoundException('User not found')
 		}
@@ -50,12 +50,12 @@ export class UserService {
 			throw new UnauthorizedException('Password incorrect')
 		}
 		const hashedPassword = await this.hashPassword(newPassword)
-		return await this.userRepository.update({username: login}, {password: hashedPassword})
+		return await this.userRepository.update({username: username}, {password: hashedPassword})
 	}
 
-	async removeUserByLogin(body: DeleteUserDto) {
-		const {login, password} = body
-		const user = await this.findUserByLogin(login)
+	async removeUser(body: DeleteUserDto) {
+		const {username, password} = body
+		const user = await this.findUserByUserName(username)
 		if (!user) {
 			throw new NotFoundException('User not found')
 		}
@@ -63,11 +63,11 @@ export class UserService {
 		if (!isPasswordValid) {
 			throw new UnauthorizedException('Password incorrect')
 		}
-		return await this.userRepository.delete({username: login})
+		return await this.userRepository.delete({username: username})
 	}
 
-	async findUserByLogin(login: string) {
-		return await this.userRepository.findOneBy({username: login})
+	async findUserByUserName(username: string) {
+		return await this.userRepository.findOneBy({username})
 	}
 
 	async hashPassword(password: string) {

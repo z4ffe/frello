@@ -14,7 +14,6 @@ export class UserController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	@UseGuards(AuthGuard)
 	async getAllUser() {
 		return await this.userService.getAllUsers()
 	}
@@ -27,13 +26,15 @@ export class UserController {
 
 	@Patch()
 	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
 	async updatePassword(@Body() body: UpdateUserDto) {
 		return await this.userService.updateUserPassword(body)
 	}
 
 	@Delete()
 	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
 	async deleteUser(@Body() body: DeleteUserDto) {
-		return await this.userService.removeUserByLogin(body)
+		return await this.userService.removeUser(body)
 	}
 }

@@ -1,8 +1,7 @@
 export class TokenDto {
 	userId: number
-	login: string
+	username: string
 	role: string
 	iat: number
 	exp: number
-
 }

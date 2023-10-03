@@ -9,16 +9,12 @@ import {TokenDto} from './dto/tokenDto'
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private readonly userService: UserService,
-		private readonly jwtService: JwtService,
-		private readonly configService: ConfigService,
-	) {
+	constructor(private readonly userService: UserService, private readonly jwtService: JwtService, private readonly configService: ConfigService) {
 	}
 
 	async login(body: LoginDto) {
-		const {login, password} = body
-		const user = await this.userService.findUserByLogin(login)
+		const {username, password} = body
+		const user = await this.userService.findUserByUserName(username)
 		if (!user) {
 			throw new UnauthorizedException('Wrong login or password')
 		}
@@ -32,9 +28,7 @@ export class AuthService {
 			role: user.role,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
-		const refreshToken = await this.jwtService.signAsync(userData, {
-			expiresIn: '30d',
-		})
+		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '30d'})
 		return {accessToken, refreshToken}
 	}
 
@@ -43,22 +37,18 @@ export class AuthService {
 			throw new UnauthorizedException('Token is not valid')
 		}
 		try {
-			await this.jwtService.verifyAsync(token, {
-				secret: this.configService.getOrThrow('SECRET_PHRASE'),
-			})
+			await this.jwtService.verifyAsync(token, {secret: this.configService.getOrThrow('SECRET_PHRASE')})
 		} catch {
 			throw new UnauthorizedException('Invalid or expired refresh token')
 		}
 		const decodedToken = this.jwtService.decode(token) as TokenDto
 		const userData = {
 			userId: decodedToken.userId,
-			username: decodedToken.login,
+			username: decodedToken.username,
 			role: decodedToken.role,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
-		const refreshToken = await this.jwtService.signAsync(userData, {
-			expiresIn: '10s',
-		})
+		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '10s'})
 		return {accessToken, refreshToken}
 	}
 

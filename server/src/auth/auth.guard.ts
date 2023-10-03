@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
 					secret: this.configService.getOrThrow('SECRET_PHRASE'),
 				})
 		} catch {
-			throw new UnauthorizedException('asd')
+			throw new UnauthorizedException('Inavlid token')
 		}
 		return true
 	}

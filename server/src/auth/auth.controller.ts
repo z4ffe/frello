@@ -1,14 +1,12 @@
 import {Body, Controller, Get, HttpStatus, Post, Res} from '@nestjs/common'
-import {JwtService} from '@nestjs/jwt'
 import {Response} from 'express'
 import {Cookies} from '../decorators/cookies'
-import {UserService} from '../user/user.service'
 import {AuthService} from './auth.service'
 import {LoginDto} from './dto/loginDto'
 
 @Controller('auth')
 export class AuthController {
-	constructor(private readonly authService: AuthService, private readonly userService: UserService, private readonly jwtService: JwtService) {
+	constructor(private readonly authService: AuthService) {
 	}
 
 	@Post('login')
@@ -20,7 +18,7 @@ export class AuthController {
 		}).json({accessToken})
 	}
 
-	@Get('access-refresh')
+	@Get('refresh')
 	async refreshAccessToken(@Cookies('refreshToken') token: string, @Res() res: Response) {
 		const {accessToken, refreshToken} = await this.authService.refreshAccessToken(token)
 		res.status(HttpStatus.OK).cookie('refreshToken', refreshToken, {
