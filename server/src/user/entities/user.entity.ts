@@ -13,7 +13,7 @@ export class User implements IUser {
 	id: number
 
 	@Column()
-	login: string
+	username: string
 
 	@Column()
 	password: string

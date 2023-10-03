@@ -19,7 +19,7 @@ export class UserService {
 		return await this.userRepository.find({
 			select: {
 				id: true,
-				login: true,
+				username: true,
 				created_at: true,
 			},
 		})
@@ -50,7 +50,7 @@ export class UserService {
 			throw new UnauthorizedException('Password incorrect')
 		}
 		const hashedPassword = await this.hashPassword(newPassword)
-		return await this.userRepository.update({login}, {password: hashedPassword})
+		return await this.userRepository.update({username: login}, {password: hashedPassword})
 	}
 
 	async removeUserByLogin(body: DeleteUserDto) {
@@ -63,11 +63,11 @@ export class UserService {
 		if (!isPasswordValid) {
 			throw new UnauthorizedException('Password incorrect')
 		}
-		return await this.userRepository.delete({login})
+		return await this.userRepository.delete({username: login})
 	}
 
 	async findUserByLogin(login: string) {
-		return await this.userRepository.findOneBy({login})
+		return await this.userRepository.findOneBy({username: login})
 	}
 
 	async hashPassword(password: string) {

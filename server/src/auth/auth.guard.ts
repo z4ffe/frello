@@ -10,9 +10,9 @@ export class AuthGuard implements CanActivate {
 
 	async canActivate(ctx: ExecutionContext): Promise<boolean> {
 		const request = ctx.switchToHttp().getRequest()
-		const token = await this.authService.extractToken(request)
+		const token = await this.authService.extractTokenFromHeader(request)
 		try {
-			const tokenIsValid = await this.jwtService.verifyAsync(token,
+			await this.jwtService.verifyAsync(token,
 				{
 					secret: this.configService.getOrThrow('SECRET_PHRASE'),
 				})
