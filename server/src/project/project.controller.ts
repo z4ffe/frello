@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards} from '@nestjs/common'
 import {AuthGuard} from 'src/auth/auth.guard'
 import {Token} from '../decorators/token'
 import {CreateProjectDto} from './dto/createProjectDto'
@@ -13,11 +13,7 @@ export class ProjectController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	async getAllProjects() {
-		try {
-			return await this.projectService.getAllProjects()
-		} catch {
-			throw new NotFoundException('Something went wrong')
-		}
+		return await this.projectService.getAllProjects()
 	}
 
 	@Post()
