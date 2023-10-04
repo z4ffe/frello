@@ -29,7 +29,9 @@ export class Task implements ITask {
 	@Column()
 	status: ETaskStatus
 
-	@ManyToOne(() => Project, (project) => project.tasks)
+	@ManyToOne(() => Project, (project) => project.tasks, {
+		onDelete: 'CASCADE',
+	})
 	@JoinColumn({name: 'project_id'})
 	projectId: Project
 

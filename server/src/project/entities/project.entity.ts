@@ -11,7 +11,7 @@ export class Project implements IProject {
 	@Column()
 	name: string
 
-	@ManyToOne(() => User, (user) => user.projects)
+	@ManyToOne(() => User, (user) => user.projects, {})
 	@JoinColumn({name: 'author_id'})
 	authorId: User
 
