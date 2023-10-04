@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Task} from '../../task/entities/task.entitiy'
 import {User} from '../../user/entities/user.entity'
 import {IProject} from '../interfaces/project.interface'
 
@@ -9,10 +10,13 @@ export class Project implements IProject {
 
 	@Column()
 	name: string
-	
+
 	@ManyToOne(() => User, (user) => user.projects)
 	@JoinColumn({name: 'author_id'})
 	authorId: User
+
+	@OneToMany(() => Task, (task) => task.projectId)
+	tasks: []
 
 	@Column({
 		name: 'created_at',

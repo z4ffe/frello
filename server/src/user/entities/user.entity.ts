@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt'
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Project} from '../../project/entities/project.entity'
+import {Task} from '../../task/entities/task.entitiy'
 import {IUser} from '../interfaces/user.interface'
 
 export enum ERoles {
@@ -24,6 +25,9 @@ export class User implements IUser {
 
 	@OneToMany(() => Project, (project) => project.authorId)
 	projects: []
+
+	@OneToMany(() => Task, (task) => task.authorId)
+	tasks: []
 
 	@Column({
 		name: 'created_at',
