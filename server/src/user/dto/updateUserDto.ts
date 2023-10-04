@@ -4,13 +4,13 @@ import {IsNotEmpty} from 'class-validator'
 export class UpdateUserDto {
 	@ApiProperty()
 	@IsNotEmpty()
-	username: string
+	readonly username: string
 
 	@ApiProperty()
 	@IsNotEmpty()
-	password: string
+	readonly password: string
 
 	@ApiProperty()
 	@IsNotEmpty()
-	newPassword: string
+	readonly newPassword: string
 }

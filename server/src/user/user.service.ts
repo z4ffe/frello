@@ -15,7 +15,7 @@ export class UserService {
 	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>, private readonly ConfigService: ConfigService) {
 	}
 
-	async getAllUsers() {
+	async findAll() {
 		return await this.userRepository.find({
 			select: {
 				id: true,
@@ -25,12 +25,12 @@ export class UserService {
 		})
 	}
 
-	async createUser({username, password}: CreateUserDto) {
-		const isUserExist = await this.findUserByUserName(username)
+	async create({username, password}: CreateUserDto) {
+		const isUserExist = await this.findByName(username)
 		if (isUserExist) {
 			throw new ConflictException('User already exist')
 		}
-		const hashedPassword = await this.hashPassword(password)
+		const hashedPassword = await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
 		const user = {
 			username: username,
 			password: hashedPassword,
@@ -39,9 +39,9 @@ export class UserService {
 		return await this.userRepository.save(newUser)
 	}
 
-	async updateUserPassword(body: UpdateUserDto) {
+	async updatePassword(body: UpdateUserDto) {
 		const {username, password, newPassword} = body
-		const user = await this.findUserByUserName(username)
+		const user = await this.findByName(username)
 		if (!user) {
 			throw new NotFoundException('User not found')
 		}
@@ -49,13 +49,13 @@ export class UserService {
 		if (!passwordCorrect) {
 			throw new UnauthorizedException('Password incorrect')
 		}
-		const hashedPassword = await this.hashPassword(newPassword)
+		const hashedPassword = await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
 		return await this.userRepository.update({username: username}, {password: hashedPassword})
 	}
 
-	async removeUser(body: DeleteUserDto) {
+	async remove(body: DeleteUserDto) {
 		const {username, password} = body
-		const user = await this.findUserByUserName(username)
+		const user = await this.findByName(username)
 		if (!user) {
 			throw new NotFoundException('User not found')
 		}
@@ -66,11 +66,7 @@ export class UserService {
 		return await this.userRepository.delete({username: username})
 	}
 
-	async findUserByUserName(username: string) {
+	async findByName(username: string) {
 		return await this.userRepository.findOneBy({username})
-	}
-
-	async hashPassword(password: string) {
-		return await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
 	}
 }

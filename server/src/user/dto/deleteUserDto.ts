@@ -4,9 +4,16 @@ import {IsNotEmpty} from 'class-validator'
 export class DeleteUserDto {
 	@ApiProperty()
 	@IsNotEmpty()
-	username: string
+  @IsString()
+	readonly username: string
+  
+  @ApiProperty()
+	@IsNotEmpty()
+  @IsString()
+	readonly password: string
 
 	@ApiProperty()
-	@IsNotEmpty({})
-	password: string
+	@IsNotEmpty()
+  @IsString()
+	readonly password: string
 }

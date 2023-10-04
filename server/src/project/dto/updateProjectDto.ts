@@ -5,15 +5,15 @@ export class UpdateProjectDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsNumber()
-	id: number
+	readonly id: number
 
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsString()
-	name: string
+	readonly name: string
 
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsNumber()
-	authorId: number
+	readonly authorId: number
 }

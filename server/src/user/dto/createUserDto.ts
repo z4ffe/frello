@@ -4,9 +4,9 @@ import {IsNotEmpty} from 'class-validator'
 export class CreateUserDto {
 	@ApiProperty()
 	@IsNotEmpty()
-	username: string
+	readonly username: string
 
 	@ApiProperty()
 	@IsNotEmpty()
-	password: string
+	readonly password: string
 }

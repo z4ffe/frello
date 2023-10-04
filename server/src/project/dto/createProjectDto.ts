@@ -6,10 +6,10 @@ export class CreateProjectDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsString()
-	name: string
+	readonly name: string
 
 	@ApiProperty()
 	@IsNotEmpty()
-	@IsString()
-	authorId: Pick<User, 'id'>
+	@IsNumber()
+	readonly authorId: Pick<User, 'id'>
 }

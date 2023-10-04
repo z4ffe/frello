@@ -13,7 +13,7 @@ export class ProjectService {
 	constructor(@InjectRepository(Project) private readonly projectRepository: Repository<Project>, private readonly jwtService: JwtService) {
 	}
 
-	async getAllProjects() {
+	async findAll() {
 		return await this.projectRepository.find({
 			relations: ['authorId'],
 			select: {
@@ -25,8 +25,7 @@ export class ProjectService {
 		})
 	}
 
-
-	async addNewProject(body: CreateProjectDto) {
+	async create(body: CreateProjectDto) {
 		const {name, authorId} = body
 		const newProject = this.projectRepository.create({
 			name,
@@ -35,10 +34,10 @@ export class ProjectService {
 		return await this.projectRepository.save(newProject)
 	}
 
-	async updateProjectName(body: UpdateProjectDto, accessToken: string) {
+	async updateName(body: UpdateProjectDto, accessToken: string) {
 		const {userId} = this.jwtService.decode(accessToken) as TokenDto
 		const {name, id, authorId} = body
-		if (authorId !== userId) {
+		if (+authorId !== userId) {
 			throw new UnauthorizedException('Invalid user identifiers')
 		}
 		const project = await this.projectRepository.findOneBy({id})
@@ -48,7 +47,7 @@ export class ProjectService {
 		return await this.projectRepository.update({id}, {name})
 	}
 
-	async removeProjectById(id: string, accessToken: string) {
+	async remove(id: string, accessToken: string) {
 		const {userId, role} = this.jwtService.decode(accessToken) as TokenDto
 		const project = await this.projectRepository.findOneBy({id: +id})
 		if (!project) {
