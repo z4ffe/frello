@@ -20,7 +20,7 @@ export class UserService {
 			select: {
 				id: true,
 				username: true,
-				created_at: true,
+				createdAt: true,
 			},
 		})
 	}

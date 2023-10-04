@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt'
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Project} from '../../project/entities/project.entity'
 import {IUser} from '../interfaces/user.interface'
 
 enum ERoles {
@@ -21,18 +22,21 @@ export class User implements IUser {
 	@Column({default: ERoles.User})
 	role: ERoles
 
+	@OneToMany(() => Project, (project) => project.authorId)
+	projects: []
+
 	@Column({
 		name: 'created_at',
 		default: () => 'CURRENT_TIMESTAMP(3)',
 	})
-	created_at: Date
+	createdAt: Date
 
 	@Column({
 		name: 'updated_at',
 		default: () => 'CURRENT_TIMESTAMP(3)',
 		onUpdate: 'CURRENT_TIMESTAMP(3)',
 	})
-	updated_at: Date
+	updatedAt: Date
 
 	async validatePassword(password: string) {
 		return await bcrypt.compare(password, this.password)
