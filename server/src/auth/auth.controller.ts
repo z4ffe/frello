@@ -1,5 +1,5 @@
 import {Body, Controller, Get, HttpStatus, Post, Res} from '@nestjs/common'
-import {ApiBody, ApiTags} from '@nestjs/swagger'
+import {ApiTags} from '@nestjs/swagger'
 import {Response} from 'express'
 import {Cookies} from '../decorators/cookies'
 import {AuthService} from './auth.service'
@@ -14,7 +14,6 @@ export class AuthController {
 	}
 
 	@Post('login')
-	@ApiBody({type: LoginDto})
 	async login(@Body() body: LoginDto, @Res() res: Response) {
 		const {accessToken, refreshToken} = await this.authService.login(body)
 		res.status(HttpStatus.OK).cookie('refreshToken', refreshToken, {

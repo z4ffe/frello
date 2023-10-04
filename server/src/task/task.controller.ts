@@ -1,5 +1,5 @@
 import {Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
-import {ApiBearerAuth, ApiBody, ApiQuery, ApiTags} from '@nestjs/swagger'
+import {ApiBearerAuth, ApiQuery, ApiTags} from '@nestjs/swagger'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateTaskDto} from './dto/CreateTaskDto'
 import {Task} from './entities/task.entitiy'
@@ -25,9 +25,10 @@ export class TaskController {
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
 	@UseGuards(AuthGuard)
-	@ApiBody({type: CreateTaskDto})
 	@ApiBearerAuth('access-token')
 	async createTask(@Body() body: CreateTaskDto): Promise<Task> {
 		return this.taskService.create(body)
 	}
+
+
 }
