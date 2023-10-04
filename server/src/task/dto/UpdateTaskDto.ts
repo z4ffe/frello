@@ -1,52 +1,35 @@
 import {ApiProperty} from '@nestjs/swagger'
-import {IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString} from 'class-validator'
-import {Project} from '../../project/entities/project.entity'
-import {User} from '../../user/entities/user.entity'
+import {IsBoolean, IsEnum, IsOptional, IsString} from 'class-validator'
 import {EPriority, ETaskStatus} from '../interfaces/task.interface'
 
-export class CreateTaskDto {
+export class UpdateTaskDto {
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	readonly title: string
+	readonly title?: string
 
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsEnum(ETaskStatus)
-	readonly status: ETaskStatus
+	readonly status?: ETaskStatus
 
 	@ApiProperty()
-	@IsNotEmpty()
-	@IsNumber()
-	readonly taskNumber: number
-
-	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	readonly description: string
+	readonly description?: string
 
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	readonly deadline: string
+	readonly deadline?: string
 
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsEnum(EPriority)
-	readonly priority: EPriority
+	readonly priority?: EPriority
 
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsBoolean()
-	readonly subtaskAllowed: boolean
-
-	@ApiProperty()
-	@IsNotEmpty()
-	@IsNumber()
-	readonly projectId: Pick<Project, 'id'>
-
-	@ApiProperty()
-	@IsNotEmpty()
-	@IsNumber()
-	readonly authorId: Pick<User, 'id'>
+	readonly subtaskAllowed?: boolean
 }

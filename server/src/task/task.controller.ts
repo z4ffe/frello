@@ -1,8 +1,9 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Patch, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
 import {ApiBearerAuth, ApiQuery, ApiTags} from '@nestjs/swagger'
 import {DeleteResult} from 'typeorm'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateTaskDto} from './dto/CreateTaskDto'
+import {UpdateTaskDto} from './dto/UpdateTaskDto'
 import {Task} from './entities/task.entitiy'
 import {TaskService} from './task.service'
 
@@ -31,6 +32,15 @@ export class TaskController {
 		return await this.taskService.create(body)
 	}
 
+	@Patch()
+	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
+	@ApiBearerAuth('access-token')
+	async updateTask(@Query() query: {id: string}, @Body() body: UpdateTaskDto) {
+		const {id} = query
+		return await this.taskService.update(id, body)
+	}
+
 	@Delete()
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
@@ -42,5 +52,4 @@ export class TaskController {
 		}
 		return await this.taskService.remove(id)
 	}
-
 }

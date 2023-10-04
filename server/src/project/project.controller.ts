@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, UseGuards} from '@nestjs/common'
 import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
 import {AuthGuard} from 'src/auth/auth.guard'
 import {Token} from '../decorators/token'
@@ -34,12 +34,12 @@ export class ProjectController {
 		return await this.projectService.updateName(body, accessToken)
 	}
 
-	@Delete(':id')
+	@Delete('')
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
 	@ApiBearerAuth('access-token')
-	async deleteProject(@Param() param: {id: string}, @Token('accessToken') accessToken: string) {
-		const {id} = param
+	async deleteProject(@Query() query: {id: string}, @Token('accessToken') accessToken: string) {
+		const {id} = query
 		return await this.projectService.remove(id, accessToken)
 	}
 }
