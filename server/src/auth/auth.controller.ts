@@ -6,6 +6,8 @@ import {LoginDto} from './dto/loginDto'
 
 @Controller('auth')
 export class AuthController {
+	private readonly cookiesAge: number = 1000 * 60 * 60 * 24 * 30
+
 	constructor(private readonly authService: AuthService) {
 	}
 
@@ -14,7 +16,7 @@ export class AuthController {
 		const {accessToken, refreshToken} = await this.authService.login(body)
 		res.status(HttpStatus.OK).cookie('refreshToken', refreshToken, {
 			httpOnly: true,
-			maxAge: 1000 * 60 * 60 * 24,
+			maxAge: this.cookiesAge,
 		}).json({accessToken})
 	}
 
@@ -23,7 +25,7 @@ export class AuthController {
 		const {accessToken, refreshToken} = await this.authService.refreshAccessToken(token)
 		res.status(HttpStatus.OK).cookie('refreshToken', refreshToken, {
 			httpOnly: true,
-			maxAge: 1000 * 60 * 60 * 24,
+			maxAge: this.cookiesAge,
 		}).json({accessToken})
 	}
 }

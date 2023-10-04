@@ -3,7 +3,7 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Project} from '../../project/entities/project.entity'
 import {IUser} from '../interfaces/user.interface'
 
-enum ERoles {
+export enum ERoles {
 	Admin = 'admin',
 	User = 'user'
 }

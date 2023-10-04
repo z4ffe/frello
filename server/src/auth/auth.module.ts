@@ -19,7 +19,7 @@ import {AuthService} from './auth.service'
 			secret: new ConfigService().getOrThrow<string>('SECRET_PHRASE'),
 			global: true,
 			signOptions: {
-				expiresIn: '60s',
+				expiresIn: '30m',
 			},
 		})],
 	providers: [AuthService, UserService],

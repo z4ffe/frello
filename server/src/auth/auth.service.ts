@@ -48,7 +48,7 @@ export class AuthService {
 			role: decodedToken.role,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
-		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '10s'})
+		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '30d'})
 		return {accessToken, refreshToken}
 	}
 
