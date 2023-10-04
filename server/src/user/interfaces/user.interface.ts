@@ -9,4 +9,6 @@ export interface IUser {
 	tasks: Task[]
 	createdAt: Date
 	updatedAt: Date
+
+	validatePassword: (password: string) => Promise<boolean>
 }

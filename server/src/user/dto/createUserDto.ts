@@ -2,8 +2,8 @@ import {IsNotEmpty} from 'class-validator'
 
 export class CreateUserDto {
 	@IsNotEmpty()
-	username: string
+	readonly username: string
 
 	@IsNotEmpty()
-	password: string
+	readonly password: string
 }

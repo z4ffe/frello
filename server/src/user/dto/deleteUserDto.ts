@@ -2,8 +2,8 @@ import {IsNotEmpty} from 'class-validator'
 
 export class DeleteUserDto {
 	@IsNotEmpty()
-	username: string
+	readonly username: string
 
-	@IsNotEmpty({})
-	password: string
+	@IsNotEmpty()
+	readonly password: string
 }

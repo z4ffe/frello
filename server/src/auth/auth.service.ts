@@ -14,7 +14,7 @@ export class AuthService {
 
 	async login(body: LoginDto) {
 		const {username, password} = body
-		const user = await this.userService.findUserByUserName(username)
+		const user = await this.userService.findByName(username)
 		if (!user) {
 			throw new UnauthorizedException('Wrong login or password')
 		}
@@ -32,7 +32,7 @@ export class AuthService {
 		return {accessToken, refreshToken}
 	}
 
-	async refreshAccessToken(token: string) {
+	async refreshTokens(token: string) {
 		if (!token) {
 			throw new UnauthorizedException('Token is not valid')
 		}

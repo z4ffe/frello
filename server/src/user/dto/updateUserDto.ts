@@ -2,11 +2,11 @@ import {IsNotEmpty} from 'class-validator'
 
 export class UpdateUserDto {
 	@IsNotEmpty()
-	username: string
+	readonly username: string
 
 	@IsNotEmpty()
-	password: string
+	readonly password: string
 
 	@IsNotEmpty()
-	newPassword: string
+	readonly newPassword: string
 }

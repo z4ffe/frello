@@ -26,7 +26,7 @@ export class Task implements ITask {
 	@Column()
 	priority: EPriority
 
-	@Column({default: ETaskStatus.Queue})
+	@Column()
 	status: ETaskStatus
 
 	@ManyToOne(() => Project, (project) => project.tasks)

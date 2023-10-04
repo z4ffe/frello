@@ -22,7 +22,7 @@ export class AuthController {
 
 	@Get('refresh')
 	async refreshAccessToken(@Cookies('refreshToken') token: string, @Res() res: Response) {
-		const {accessToken, refreshToken} = await this.authService.refreshAccessToken(token)
+		const {accessToken, refreshToken} = await this.authService.refreshTokens(token)
 		res.status(HttpStatus.OK).cookie('refreshToken', refreshToken, {
 			httpOnly: true,
 			maxAge: this.cookiesAge,

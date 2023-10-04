@@ -1,9 +1,9 @@
 import {ERoles} from '../../user/entities/user.entity'
 
 export class TokenDto {
-	userId: number
-	username: string
-	role: ERoles
-	iat: number
-	exp: number
+	readonly userId: number
+	readonly username: string
+	readonly role: ERoles
+	readonly iat: number
+	readonly exp: number
 }

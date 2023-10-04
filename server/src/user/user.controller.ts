@@ -15,12 +15,12 @@ export class UserController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	async getAllUser() {
-		return await this.userService.getAllUsers()
+		return await this.userService.findAll()
 	}
 
 	@Post()
 	async createUser(@Body() body: CreateUserDto, @Res() res: Response<User>) {
-		const createdUser = await this.userService.createUser(body)
+		const createdUser = await this.userService.create(body)
 		return res.status(HttpStatus.OK).json(createdUser)
 	}
 
@@ -28,13 +28,13 @@ export class UserController {
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
 	async updatePassword(@Body() body: UpdateUserDto) {
-		return await this.userService.updateUserPassword(body)
+		return await this.userService.updatePassword(body)
 	}
 
 	@Delete()
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
 	async deleteUser(@Body() body: DeleteUserDto) {
-		return await this.userService.removeUser(body)
+		return await this.userService.remove(body)
 	}
 }
