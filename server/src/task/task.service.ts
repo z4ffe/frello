@@ -29,4 +29,12 @@ export class TaskService {
 			throw new NotFoundException(error.detail)
 		}
 	}
+
+	async remove(id: string) {
+		try {
+			return await this.taskRepository.delete({id: +id})
+		} catch (error) {
+			throw new NotFoundException(error.detail)
+		}
+	}
 }

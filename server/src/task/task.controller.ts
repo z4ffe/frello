@@ -1,5 +1,6 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
 import {ApiBearerAuth, ApiQuery, ApiTags} from '@nestjs/swagger'
+import {DeleteResult} from 'typeorm'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateTaskDto} from './dto/CreateTaskDto'
 import {Task} from './entities/task.entitiy'
@@ -14,7 +15,7 @@ export class TaskController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	@ApiQuery({name: 'project', description: 'Project ID', type: Number})
-	async getAllTasks(@Query() query: {project: string}) {
+	async getAllTasks(@Query() query: {project: string}): Promise<Task[]> {
 		const {project} = query
 		if (!project) {
 			throw new UnauthorizedException('Project id was not provided')
@@ -27,8 +28,19 @@ export class TaskController {
 	@UseGuards(AuthGuard)
 	@ApiBearerAuth('access-token')
 	async createTask(@Body() body: CreateTaskDto): Promise<Task> {
-		return this.taskService.create(body)
+		return await this.taskService.create(body)
 	}
 
+	@Delete()
+	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
+	@ApiBearerAuth('access-token')
+	async deleteTask(@Query() query: {id: string}): Promise<DeleteResult> {
+		const {id} = query
+		if (!id) {
+			throw new NotFoundException('Task id was not provided')
+		}
+		return await this.taskService.remove(id)
+	}
 
 }
