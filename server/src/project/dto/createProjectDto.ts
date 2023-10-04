@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger'
-import {IsNotEmpty, IsString} from 'class-validator'
+import {IsNotEmpty, IsNumber, IsString} from 'class-validator'
 import {User} from '../../user/entities/user.entity'
 
 export class CreateProjectDto {

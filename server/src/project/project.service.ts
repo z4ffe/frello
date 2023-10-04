@@ -53,7 +53,6 @@ export class ProjectService {
 		if (!project) {
 			throw new NotFoundException('Project not found')
 		}
-		console.log(userId)
 		if (userId === +project.authorId || role === ERoles.Admin) {
 			return await this.projectRepository.delete({id: +id})
 		} else {

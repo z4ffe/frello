@@ -1,4 +1,5 @@
 import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Res, UseGuards} from '@nestjs/common'
+import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
 import {Response} from 'express'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateUserDto} from './dto/createUserDto'
@@ -7,6 +8,7 @@ import {UpdateUserDto} from './dto/updateUserDto'
 import {User} from './entities/user.entity'
 import {UserService} from './user.service'
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
 	constructor(private readonly userService: UserService) {
@@ -27,6 +29,7 @@ export class UserController {
 	@Patch()
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
+	@ApiBearerAuth('access-token')
 	async updatePassword(@Body() body: UpdateUserDto) {
 		return await this.userService.updatePassword(body)
 	}
@@ -34,6 +37,7 @@ export class UserController {
 	@Delete()
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
+	@ApiBearerAuth('access-token')
 	async deleteUser(@Body() body: DeleteUserDto) {
 		return await this.userService.remove(body)
 	}
