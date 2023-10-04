@@ -49,11 +49,17 @@ export class ProjectService {
 
 	async remove(id: string, accessToken: string) {
 		const {userId, role} = this.jwtService.decode(accessToken) as TokenDto
-		const project = await this.projectRepository.findOneBy({id: +id})
+		const project = await this.projectRepository.findOne({
+			where: {id: +id},
+			relations: ['authorId'],
+			select: {
+				authorId: {id: true},
+			},
+		})
 		if (!project) {
 			throw new NotFoundException('Project not found')
 		}
-		if (userId === +project.authorId || role === ERoles.Admin) {
+		if (userId === +project.authorId.id || role === ERoles.Admin) {
 			return await this.projectRepository.delete({id: +id})
 		} else {
 			throw new UnauthorizedException('Invalid credentials')
