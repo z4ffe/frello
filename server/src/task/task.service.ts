@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common'
 
 @Injectable()
-export class TaskService {}
+export class TaskService {
+	async addNewTask() {
+		return 'dsa'
+	}
+}
