@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
 import {Task} from '../../task/entities/task.entitiy'
 import {IUser} from '../interfaces/user.interface'
@@ -28,6 +29,9 @@ export class User implements IUser {
 
 	@OneToMany(() => Task, (task) => task.authorId)
 	tasks: []
+
+	@OneToMany(() => Comment, (comment) => comment.authorId)
+	comments: Comment[]
 
 	@Column({
 		name: 'created_at',
