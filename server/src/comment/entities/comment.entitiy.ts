@@ -39,4 +39,7 @@ export class Comment implements IComment {
 		onUpdate: 'CURRENT_TIMESTAMP(3)',
 	})
 	updatedAt: Date
+
+	@Column({default: false})
+	deleted: boolean
 }

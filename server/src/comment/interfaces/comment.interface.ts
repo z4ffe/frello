@@ -8,4 +8,5 @@ export interface IComment {
 	parentId: Comment
 	taskId: Task
 	authorId: User
+	deleted: boolean
 }
