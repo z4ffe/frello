@@ -32,6 +32,9 @@ export class CommentService {
 				},
 			},
 			relations: ['parentId', 'authorId'],
+			order: {
+				id: 'ASC',
+			},
 		})
 		return this.filterCascadeComments(commentsList)
 	}
@@ -67,7 +70,7 @@ export class CommentService {
 	}
 
 	filterCascadeComments(commentsList: Comment[]) {
-		const result: IFilteredComments[] = commentsList.map(el => {
+		const resultList: IFilteredComments[] = commentsList.map(el => {
 			return {
 				id: el.id,
 				text: el.text,
@@ -80,7 +83,7 @@ export class CommentService {
 			}
 		})
 		const filterComments = (commList: IFilteredComments[]) => {
-			let result = commList.sort((a, b) => a.id - b.id)
+			let result = commList
 			for (let i = result.length - 1; i >= 0; i--) {
 				if (result[i].parent) {
 					for (let j = result.length - 1; j >= 0; j--) {
@@ -94,6 +97,6 @@ export class CommentService {
 			}
 			return result
 		}
-		return filterComments(result)
+		return filterComments(resultList)
 	}
 }
