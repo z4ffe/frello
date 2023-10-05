@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
 import {User} from '../../user/entities/user.entity'
 import {EPriority, ETaskStatus, ITask} from '../interfaces/task.interface'
@@ -38,6 +39,9 @@ export class Task implements ITask {
 	@ManyToOne(() => User, (user) => user.tasks)
 	@JoinColumn({name: 'author_id'})
 	authorId: User
+
+	@OneToMany(() => Comment, (comment) => comment.taskId)
+	comments: Comment[]
 
 	@Column({
 		name: 'created_at',

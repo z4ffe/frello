@@ -1,3 +1,4 @@
+import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
 import {Task} from '../../task/entities/task.entitiy'
 
@@ -7,6 +8,7 @@ export interface IUser {
 	password: string
 	projects: Project[]
 	tasks: Task[]
+	comments: Comment[]
 	createdAt: Date
 	updatedAt: Date
 
