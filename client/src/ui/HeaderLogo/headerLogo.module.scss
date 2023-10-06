@@ -1,0 +1,30 @@
+.logo {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  .icon {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: var(--var--main-lightblue);
+    border-radius: 50%;
+
+    .icon__text {
+      display: block;
+      font-size: 15px;
+    }
+  }
+
+  .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--var--main-lightblue);
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,45 @@
+.nav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 34px;
+  font-size: 13px;
+  font-weight: 400;
+
+  .project__link {
+    transition: .3s;
+
+
+    &:visited {
+      color: var(--var--main-font-color);
+    }
+
+    &:hover {
+      color: var(--var--main-lightblue);
+    }
+
+    &:active {
+      color: var(--var--active-lightblue) !important;
+    }
+  }
+
+
+  .auth__button {
+    border: none;
+    background: transparent;
+    transition: .3s;
+    width: 50px;
+
+    &:hover {
+      color: var(--var--main-lightblue);
+    }
+
+    &:active {
+      color: var(--var--active-lightblue);
+    }
+  }
+}
+
+:global .active {
+  color: var(--var--main-lightblue) !important;
+}
