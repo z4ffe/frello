@@ -10,14 +10,6 @@
   .search__icon {
     margin-left: 20px;
     transition: .3s ease-in-out;
-
-    &:hover {
-      transform: scale(110%);
-    }
-
-    &:active {
-      transform: scale(100%);
-    }
   }
 
   .input {
