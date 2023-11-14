@@ -1,0 +1,23 @@
+.projectTile {
+  display: flex;
+  width: 408px;
+  height: 332px;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: 0 10px 30px 0 rgba(32, 56, 85, 0.15);
+  transition: 0.4s;
+  padding: 28px;
+
+  &:hover {
+    transform: translateY(10px);
+    background: #fff;
+  }
+
+  &__title {
+    color: var(--var--main-font-color);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0.3px;
+  }
+}

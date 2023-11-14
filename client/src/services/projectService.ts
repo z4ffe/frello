@@ -1,8 +1,10 @@
+import {AxiosResponse} from 'axios'
 import {apiInstance} from '../lib/axios/apiInstance.ts'
+import {IProject} from '../types/interfaces/project.interface.ts'
 
 class ProjectService {
 	async getAllProjects() {
-		const response = await apiInstance.get('/project')
+		const response: AxiosResponse<IProject[]> = await apiInstance.get('/project')
 		return response.data
 	}
 }
