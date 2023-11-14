@@ -1,6 +1,8 @@
 .projectTile {
   display: flex;
-  width: 408px;
+  flex-direction: column;
+  width: 360px;
+  min-width: 360px;
   height: 332px;
   border-radius: 8px;
   background: #fafafa;
@@ -9,8 +11,9 @@
   padding: 28px;
 
   &:hover {
-    transform: translateY(10px);
+    transform: scale(102%);
     background: #fff;
+    box-shadow: 0 30px 60px 0 rgba(32, 56, 85, 0.35);
   }
 
   &__title {
@@ -19,5 +22,61 @@
     font-weight: 500;
     line-height: 27px;
     letter-spacing: 0.3px;
+  }
+
+  &__date {
+    margin-top: 14px;
+    color: var(--var--lighgray);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  &__desc {
+    margin-top: 22px;
+    color: rgba(65, 71, 94, 0.7);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+  }
+
+  &__progress {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      &__title {
+        color: var(--var--main-font-color);
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.3px;
+      }
+
+      &__percent {
+        text-align: right;
+        color: var(--var--main-font-color);
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.3px;
+      }
+    }
+
+    .progressBar {
+      margin-top: 12px;
+      height: 7px;
+      background: var(--var--green);
+      box-shadow: 2px 14px 15px -7px rgba(30, 166, 250, 0.36);
+      border-radius: 50px;
+      transition: all 0.5s;
+    }
   }
 }
