@@ -7,5 +7,5 @@ const projectsSlice = createSlice({
 	extraReducers: {},
 })
 
-export const projects = projectsSlice.reducer
+export const projectsReducer = projectsSlice.reducer
 export const projectsActions = projectsSlice.actions

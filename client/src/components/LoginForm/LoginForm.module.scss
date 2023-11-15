@@ -1,0 +1,32 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 20px;
+
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
+
+    .inputLabel {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 12px;
+      letter-spacing: 0.3px;
+      padding: 0 0 8px 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 8px 8px 16px;
+      border-radius: 6px;
+      border: 1px solid #E5E5E5;
+      background-color: #F2F2F2;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #808080;
+    }
+
+  }
+}
