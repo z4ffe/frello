@@ -5,7 +5,7 @@ import {LoaderDots} from '../../ui/Spinner/LoaderDots.tsx'
 import styles from './projects.module.scss'
 
 export const Projects = () => {
-	const {isPending, error, data} = useQuery({
+	const {isPending, data} = useQuery({
 		queryKey: ['projects'],
 		queryFn: () => projectService.getAllProjects(),
 	})
