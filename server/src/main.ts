@@ -11,7 +11,10 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule, {
 		logger: ['warn', 'debug', 'error', 'fatal'],
 	})
-	app.enableCors()
+	app.enableCors({
+		credentials: true,
+		origin: 'http://localhost:3000',
+	})
 	app.use(cookieParser())
 	app.useGlobalPipes(new ValidationPipe())
 	app.setGlobalPrefix(`${PREFIX}`)

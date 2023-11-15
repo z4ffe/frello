@@ -30,4 +30,9 @@ export class AuthController {
 			maxAge: this.cookiesAge,
 		}).json({accessToken})
 	}
+
+	@Get('logout')
+	async logout(@Res() res: Response) {
+		res.status(HttpStatus.OK).clearCookie('refreshToken').json({message: 'Succesfully logged out'})
+	}
 }
