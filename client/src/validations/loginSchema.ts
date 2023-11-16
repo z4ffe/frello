@@ -1,5 +1,10 @@
 import {z} from 'zod'
 
+export const loginDefaultValues: loginSchemaType = {
+	username: '',
+	password: '',
+}
+
 export const loginSchema = z.object({
 	username: z.string()
 		.min(3, 'Nickname must be longer than 3 symbols')
