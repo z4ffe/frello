@@ -1,8 +1,13 @@
+import {FC} from 'react'
 import styles from './headerLogo.module.scss'
 
-export const HeaderLogo = () => {
+interface Props {
+	customClass?: string
+}
+
+export const HeaderLogo: FC<Props> = ({customClass}) => {
 	return (
-		<div className={styles.logo}>
+		<div className={`${styles.logo} ${customClass}`}>
 			<div className={styles.icon}>
 				<span className={styles.icon__text}>F</span>
 			</div>

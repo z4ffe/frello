@@ -28,6 +28,13 @@
     height: 100%;
     padding-top: 35px;
 
+    div {
+      .logo {
+        cursor: auto;
+      }
+    }
+
+
     .welcomeText {
       margin-top: 20px;
       color: var(--var--main-font-color);

@@ -26,3 +26,14 @@ export const logout = createAsyncThunk('user/loginThunk', async () => {
 		throw new Error('Something went wrong')
 	}
 })
+
+export const refreshToken = createAsyncThunk('user/refreshTokenThunk', async () => {
+	try {
+		const response: AxiosResponse<ILoginResponse> = await apiInstance.get('auth/refresh')
+		return response.data
+	} catch (error) {
+		localStorage.removeItem('accessToken')
+		console.error(error)
+		throw new Error('Wrong credentials')
+	}
+})

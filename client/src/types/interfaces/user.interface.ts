@@ -8,7 +8,7 @@ export interface ILogoutResponse {
 
 export interface ITokenPayload {
 	userId: number
-	login: string
+	username: string
 	role: 'user' | 'admin'
 	iat: number
 	exp: number

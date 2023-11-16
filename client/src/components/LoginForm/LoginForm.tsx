@@ -10,7 +10,7 @@ import styles from './LoginForm.module.scss'
 export const LoginForm = () => {
 	const loading = useAppSelector(state => state.user.loading)
 	const dispatch = useAppDispatch()
-	const {register, handleSubmit, resetField} = useForm<loginSchemaType>({
+	const {register, handleSubmit} = useForm<loginSchemaType>({
 		defaultValues: {
 			username: '',
 			password: '',
@@ -18,13 +18,13 @@ export const LoginForm = () => {
 		resolver: zodResolver(loginSchema),
 	})
 
-	const asd = async (values: loginSchemaType) => {
+	const formSubmit = async (values: loginSchemaType) => {
 		await dispatch(login(values)).unwrap().catch((res) => console.log(res))
 		dispatch(uiActions.resetState())
 	}
 
 	return (
-		<form className={styles.loginForm} onSubmit={handleSubmit(asd)}>
+		<form className={styles.loginForm} onSubmit={handleSubmit(formSubmit)}>
 			<div className={styles.inputWrapper}>
 				<label className={styles.inputLabel}>Login</label>
 				<input type='text' placeholder='Username' {...register('username')} />

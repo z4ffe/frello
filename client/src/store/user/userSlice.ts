@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {ITokenPayload} from '../../types/interfaces/user.interface.ts'
 import {jwtDecode} from '../../utils/jwtDecode.ts'
-import {login} from './userThunks.ts'
+import {login, refreshToken} from './userThunks.ts'
 
 interface IUserSlice {
 	isAuth: boolean
@@ -32,15 +32,32 @@ const userSlice = createSlice({
 			state.loading = true
 		})
 		builder.addCase(login.fulfilled, (state, action) => {
-			state.loading = false
 			const tokenPayloadData: ITokenPayload = JSON.parse(jwtDecode(action.payload.accessToken))
+			localStorage.setItem('accessToken', action.payload.accessToken)
+			state.loading = false
 			state.id = tokenPayloadData.userId
-			state.username = tokenPayloadData.login
+			state.username = tokenPayloadData.username
 			state.role = tokenPayloadData.role
 			state.token = action.payload.accessToken
 			state.isAuth = true
 		})
 		builder.addCase(login.rejected, (state) => {
+			state.loading = false
+		})
+		builder.addCase(refreshToken.pending, (state) => {
+			state.loading = true
+		})
+		builder.addCase(refreshToken.fulfilled, (state, action) => {
+			const tokenPayloadData: ITokenPayload = JSON.parse(jwtDecode(action.payload.accessToken))
+			localStorage.setItem('accessToken', action.payload.accessToken)
+			state.loading = false
+			state.id = tokenPayloadData.userId
+			state.username = tokenPayloadData.username
+			state.role = tokenPayloadData.role
+			state.token = action.payload.accessToken
+			state.isAuth = true
+		})
+		builder.addCase(refreshToken.rejected, (state) => {
 			state.loading = false
 		})
 	},
