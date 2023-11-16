@@ -9,6 +9,7 @@ interface IUserSlice {
 	id: null | number
 	username: string
 	role: string
+	saveSession: boolean
 	loading: boolean
 }
 
@@ -18,6 +19,7 @@ const initState: IUserSlice = {
 	id: null,
 	username: '',
 	role: '',
+	saveSession: false,
 	loading: false,
 }
 
@@ -26,6 +28,9 @@ const userSlice = createSlice({
 	initialState: initState,
 	reducers: {
 		logoutUser: () => initState,
+		handleSaveSession: (state, action) => {
+			state.saveSession = action.payload
+		},
 	},
 	extraReducers: builder => {
 		builder.addCase(login.pending, (state) => {
@@ -33,13 +38,17 @@ const userSlice = createSlice({
 		})
 		builder.addCase(login.fulfilled, (state, action) => {
 			const tokenPayloadData: ITokenPayload = JSON.parse(jwtDecode(action.payload.accessToken))
-			localStorage.setItem('accessToken', action.payload.accessToken)
+			if (state.saveSession) {
+				localStorage.setItem('accessToken', action.payload.accessToken)
+			}
+			if (tokenPayloadData) {
+				state.id = tokenPayloadData.userId
+				state.username = tokenPayloadData.username
+				state.role = tokenPayloadData.role
+				state.token = action.payload.accessToken
+				state.isAuth = true
+			}
 			state.loading = false
-			state.id = tokenPayloadData.userId
-			state.username = tokenPayloadData.username
-			state.role = tokenPayloadData.role
-			state.token = action.payload.accessToken
-			state.isAuth = true
 		})
 		builder.addCase(login.rejected, (state) => {
 			state.loading = false
@@ -49,13 +58,15 @@ const userSlice = createSlice({
 		})
 		builder.addCase(refreshToken.fulfilled, (state, action) => {
 			const tokenPayloadData: ITokenPayload = JSON.parse(jwtDecode(action.payload.accessToken))
+			if (tokenPayloadData) {
+				state.id = tokenPayloadData.userId
+				state.username = tokenPayloadData.username
+				state.role = tokenPayloadData.role
+				state.token = action.payload.accessToken
+				state.isAuth = true
+			}
 			localStorage.setItem('accessToken', action.payload.accessToken)
 			state.loading = false
-			state.id = tokenPayloadData.userId
-			state.username = tokenPayloadData.username
-			state.role = tokenPayloadData.role
-			state.token = action.payload.accessToken
-			state.isAuth = true
 		})
 		builder.addCase(refreshToken.rejected, (state) => {
 			state.loading = false

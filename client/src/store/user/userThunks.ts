@@ -17,9 +17,10 @@ export const login = createAsyncThunk('user/loginThunk', async ({username, passw
 	}
 })
 
-export const logout = createAsyncThunk('user/loginThunk', async () => {
+export const logout = createAsyncThunk('user/logoutThunk', async () => {
 	try {
 		const response: AxiosResponse<ILogoutResponse> = await apiInstance.get('auth/logout')
+		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)

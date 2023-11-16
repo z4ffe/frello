@@ -5,8 +5,6 @@ import styles from './search.module.scss'
 export const Search = () => {
 	const location = useLocation()
 
-	console.log(location)
-
 	const searchPrefix = () => {
 		switch (location.pathname) {
 			case('/projects'):

@@ -11,9 +11,9 @@ export const NavAuthBar = () => {
 	const dispatch = useAppDispatch()
 
 	const handleLogout = async () => {
+		localStorage.removeItem('accessToken')
 		dispatch(userActions.logoutUser())
 		await dispatch(logout())
-		localStorage.removeItem('accessToken')
 	}
 
 	return (
