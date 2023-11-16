@@ -9,5 +9,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		<Frello />
 		<div id='modal'></div>
 		<div id='tooltip'></div>
+		<div id='search'></div>
 	</React.StrictMode>,
 )

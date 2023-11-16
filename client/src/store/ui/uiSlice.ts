@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 interface IUISlice {
+	search: boolean,
 	modal: {
 		isOpen: boolean
 		login: boolean
@@ -9,6 +10,7 @@ interface IUISlice {
 }
 
 const initState: IUISlice = {
+	search: false,
 	modal: {
 		isOpen: false,
 		login: false,
@@ -21,6 +23,12 @@ const uiSlice = createSlice({
 	name: 'ui',
 	initialState: initState,
 	reducers: {
+		searchOn: (state) => {
+			state.search = true
+		},
+		searchOff: (state) => {
+			state.search = false
+		},
 		openLoginModal: (state) => {
 			state.modal.isOpen = true
 			state.modal.login = true

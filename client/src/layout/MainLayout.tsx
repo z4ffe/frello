@@ -2,6 +2,7 @@ import {FC, PropsWithChildren, useEffect} from 'react'
 import {Header} from '../components/Header/Header.tsx'
 import {useAppDispatch} from '../lib/redux/hooks/typedHooks.ts'
 import {refreshToken} from '../store/user/userThunks.ts'
+import {SearchBackground} from '../ui/SearchBackground/SearchBackground.tsx'
 import styles from './mainLayout.module.scss'
 
 export const MainLayout: FC<PropsWithChildren> = ({children}) => {
@@ -19,6 +20,7 @@ export const MainLayout: FC<PropsWithChildren> = ({children}) => {
 		<div className={styles.main__layout}>
 			<Header />
 			{children}
+			<SearchBackground />
 		</div>
 	)
 }
