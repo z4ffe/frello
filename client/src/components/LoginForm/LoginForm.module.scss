@@ -26,7 +26,16 @@
       font-weight: 400;
       line-height: 20px;
       color: #808080;
-    }
+      transition: .2s;
 
+      &:focus {
+        outline: none;
+        box-shadow: 0 5px 15px 0 rgba(32, 56, 85, 0.15);
+      }
+    }
+  }
+
+  .loginBtn {
+    background-color: red;
   }
 }

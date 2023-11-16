@@ -1,5 +1,5 @@
 import closeImg from '../../assets/images/svg/close.svg'
-import bannerImage from '../../assets/images/svg/support-team.svg'
+import bannerImage from '../../assets/images/svg/login-banner.svg'
 import {useAppDispatch} from '../../lib/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {HeaderLogo} from '../../ui/HeaderLogo/HeaderLogo.tsx'

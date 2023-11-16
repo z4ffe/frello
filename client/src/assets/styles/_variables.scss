@@ -6,3 +6,13 @@
   --var--lighgray: rgba(65, 71, 94, 0.5);
   --var--green: #46BD84;
 }
+
+//
+
+@function stripUnit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function rem($pxValue) {
+  @return #{stripUnit($pxValue) / stripUnit(16px)}rem;
+}

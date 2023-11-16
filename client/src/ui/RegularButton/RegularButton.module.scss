@@ -1,0 +1,52 @@
+.regularButton {
+  position: relative;
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007AFF;
+  transition: .2s;
+
+  &:hover {
+    background-color: #0364d3;
+  }
+
+  &:active {
+    transform: scale(97%);
+  }
+
+  .btnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .text {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .spinner {
+      margin-left: 10px;
+      width: 18px;
+      height: 18px;
+      border: 5px solid #FFF;
+      border-bottom-color: var(--var--main-lightblue);
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

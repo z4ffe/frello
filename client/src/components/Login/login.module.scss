@@ -7,13 +7,18 @@
   box-shadow: 0 10px 30px 0 rgba(32, 56, 85, 0.15);
   transition: 0.4s;
   transform: scale(100%);
-  padding: 28px;
+  padding: rem(28);
+  gap: rem(28);
 
   &__banner {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 450px;
+    overflow: hidden;
+
+    img {
+      width: rem(350);
+    }
   }
 
   &__formWrapper {

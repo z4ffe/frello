@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {AxiosResponse} from 'axios'
 import {apiInstance} from '../../lib/axios/apiInstance.ts'
-import {ILoginResponse} from '../../types/interfaces/user.interface.ts'
+import {ILoginResponse, ILogoutResponse} from '../../types/interfaces/user.interface.ts'
 import {loginSchemaType} from '../../validations/loginSchema.ts'
 
 export const login = createAsyncThunk('user/loginThunk', async ({username, password}: loginSchemaType) => {
@@ -14,5 +14,15 @@ export const login = createAsyncThunk('user/loginThunk', async ({username, passw
 	} catch (error) {
 		console.error(error)
 		throw new Error('Wrong credentials')
+	}
+})
+
+export const logout = createAsyncThunk('user/loginThunk', async () => {
+	try {
+		const response: AxiosResponse<ILogoutResponse> = await apiInstance.get('auth/logout')
+		return response.data
+	} catch (error) {
+		console.error(error)
+		throw new Error('Something went wrong')
 	}
 })

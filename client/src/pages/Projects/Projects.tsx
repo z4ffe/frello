@@ -1,9 +1,9 @@
 import {useQuery} from '@tanstack/react-query'
 import {Login} from '../../components/Login/Login.tsx'
 import {projectService} from '../../services/projectService.ts'
+import {LoaderDots} from '../../ui/LoaderDots/LoaderDots.tsx'
 import {ModalContainer} from '../../ui/ModalContainer/ModalContainer.tsx'
 import {ProjectTile} from '../../ui/ProjectTile/ProjectTile.tsx'
-import {LoaderDots} from '../../ui/Spinner/LoaderDots.tsx'
 import styles from './projects.module.scss'
 
 export const Projects = () => {
