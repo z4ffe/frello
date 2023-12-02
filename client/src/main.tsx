@@ -7,8 +7,8 @@ import {Frello} from './Frello.tsx'
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Frello />
-		<div id='modal'></div>
-		<div id='tooltip'></div>
-		<div id='search'></div>
+		<div id='modal' />
+		<div id='tooltip' />
+		<div id='search' />
 	</React.StrictMode>,
 )

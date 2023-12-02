@@ -10,8 +10,13 @@ export class TaskService {
 	constructor(@InjectRepository(Task) private readonly taskRepository: Repository<Task>) {
 	}
 
-	async findAll() {
+	async findAll(project: string) {
 		return await this.taskRepository.find({
+			where: {
+				projectId: {
+					id: +project,
+				},
+			},
 			relations: ['authorId'],
 			select: {
 				authorId: {

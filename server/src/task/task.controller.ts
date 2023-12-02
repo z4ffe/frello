@@ -21,7 +21,7 @@ export class TaskController {
 		if (!project) {
 			throw new UnauthorizedException('Project id was not provided')
 		}
-		return await this.taskService.findAll()
+		return await this.taskService.findAll(project)
 	}
 
 	@Post()

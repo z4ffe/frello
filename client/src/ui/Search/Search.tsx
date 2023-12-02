@@ -9,14 +9,9 @@ export const Search = () => {
 	const dispatch = useAppDispatch()
 
 	const searchPrefix = () => {
-		switch (location.pathname) {
-			case('/projects'):
-				return 'projects'
-			case('/tasks'):
-				return 'tasks'
-			default:
-				return 'something'
-		}
+		if (location.pathname.includes('projects')) return 'projects'
+		if (location.pathname.includes('tasks')) return 'tasks'
+		return 'something'
 	}
 
 	const handleSearchOn = () => {

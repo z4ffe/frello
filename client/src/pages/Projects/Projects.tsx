@@ -13,7 +13,7 @@ export const Projects = () => {
 	})
 
 	if (isPending) {
-		return <LoaderDots />
+		return <div style={{margin: 'auto 0'}}><LoaderDots /></div>
 	}
 
 	return (
