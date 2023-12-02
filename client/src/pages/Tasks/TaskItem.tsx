@@ -7,7 +7,7 @@ interface Props {
 	task: ITask
 }
 
-export const Task: FC<Props> = ({task}) => {
+export const TaskItem: FC<Props> = ({task}) => {
 	const {attributes, listeners, setNodeRef, transform} = useDraggable({
 		id: task.id,
 		data: task,

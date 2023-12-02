@@ -48,7 +48,7 @@ export class TaskController {
 	async deleteTask(@Query() query: {id: string}): Promise<DeleteResult> {
 		const {id} = query
 		if (!id) {
-			throw new NotFoundException('Task id was not provided')
+			throw new NotFoundException('TaskItem id was not provided')
 		}
 		return await this.taskService.remove(id)
 	}
