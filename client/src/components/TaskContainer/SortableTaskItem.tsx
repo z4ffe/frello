@@ -10,6 +10,7 @@ interface Props {
 export const SortableTaskItem: FC<PropsWithChildren<Props>> = ({children, task}) => {
 	const {setNodeRef, transform, transition, isDragging, attributes, listeners} = useSortable({
 		id: task.id,
+		data: task,
 	})
 
 	const style = {

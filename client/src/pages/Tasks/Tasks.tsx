@@ -2,11 +2,11 @@ import {closestCorners, DndContext, DragEndEvent, DragOverlay, DragStartEvent, K
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 import {useParams} from 'react-router-dom'
+import {TaskContainer} from '../../components/TaskContainer/TaskContainer.tsx'
+import {TaskItem} from '../../components/TaskContainer/TaskItem.tsx'
 import {taskService} from '../../services/taskService.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {Spinner} from '../../ui/Spinner/Spinner.tsx'
-import {Droppable} from './Droppable.tsx'
-import {TaskItem} from './TaskItem.tsx'
 
 export const Tasks = () => {
 	const [active, setActive] = useState<ITask | null>(null)
@@ -30,7 +30,7 @@ export const Tasks = () => {
 	return (
 		<div>
 			<DndContext collisionDetection={closestCorners} onDragEnd={onDragEnd} onDragStart={handleDragStart} sensors={sensors}>
-				{data ? <Droppable data={data} /> : <Spinner />}
+				{data ? <TaskContainer data={data} /> : <Spinner />}
 				<DragOverlay>
 					{active && (<TaskItem task={active} />)}
 				</DragOverlay>
