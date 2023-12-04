@@ -1,10 +1,9 @@
 import {useDroppable} from '@dnd-kit/core'
-import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable'
 import {FC} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
-import {SortableTaskItem} from '../../ui/SortableTaskItem/SortableTaskItem.tsx'
-import {TaskItem} from '../../ui/TaskItem/TaskItem.tsx'
+import {TaskDropZone} from '../../ui/TaskDropZone/TaskDropZone.tsx'
+import {tasksFilter} from '../../utils/tasksFilter.ts'
 import styles from './taskContainer.module.scss'
 
 interface Props {
@@ -16,50 +15,27 @@ export const TaskContainer: FC<Props> = ({data}) => {
 	const {setNodeRef: devZone} = useDroppable({id: 'dev'})
 	const {setNodeRef: doneZone} = useDroppable({id: 'done'})
 
+	const dropZones = [
+		{
+			title: 'Queue',
+			nodeRef: queueZone,
+			data: tasksFilter(data, ETaskStatus.Queue),
+		},
+		{
+			title: 'In Progress',
+			nodeRef: devZone,
+			data: tasksFilter(data, ETaskStatus.Development),
+		},
+		{
+			title: 'Done',
+			nodeRef: doneZone,
+			data: tasksFilter(data, ETaskStatus.Done),
+		},
+	]
+
 	return (
 		<div className={styles.taskContainer}>
-			<SortableContext
-				id='queue'
-				items={data.filter(el => el.status === ETaskStatus.Queue)}
-				strategy={verticalListSortingStrategy}
-			>
-				<div ref={queueZone} style={{display: 'flex', flexDirection: 'column', width: '300px', height: '500px', backgroundColor: 'beige', gap: '5px'}}>
-					<h5>{data.filter(el => el.status === ETaskStatus.Queue).length}</h5>
-					{data.map(task => {
-						if (task.status === ETaskStatus.Queue) {
-							return <SortableTaskItem key={task.id} task={task}><TaskItem task={task} /></SortableTaskItem>
-						}
-					})}
-				</div>
-			</SortableContext>
-			<SortableContext
-				id='dev'
-				items={data.filter(el => el.status === ETaskStatus.Development)}
-				strategy={verticalListSortingStrategy}
-			>
-				<div ref={devZone} style={{display: 'flex', flexDirection: 'column', width: '300px', height: '500px', backgroundColor: 'bisque', gap: '5px'}}>
-					<h5>{data.filter(el => el.status === ETaskStatus.Development).length}</h5>
-					{data.map(task => {
-						if (task.status === ETaskStatus.Development) {
-							return <SortableTaskItem key={task.id} task={task}><TaskItem task={task} /></SortableTaskItem>
-						}
-					})}
-				</div>
-			</SortableContext>
-			<SortableContext
-				id='done'
-				items={data.filter(el => el.status === ETaskStatus.Done)}
-				strategy={verticalListSortingStrategy}
-			>
-				<div ref={doneZone} style={{display: 'flex', flexDirection: 'column', width: '300px', height: '500px', backgroundColor: 'bisque', gap: '5px'}}>
-					<h5>{data.filter(el => el.status === ETaskStatus.Done).length}</h5>
-					{data.map(task => {
-						if (task.status === ETaskStatus.Done) {
-							return <SortableTaskItem key={task.id} task={task}><TaskItem task={task} /></SortableTaskItem>
-						}
-					})}
-				</div>
-			</SortableContext>
+			{dropZones.map(zone => <TaskDropZone key={zone.title} title={zone.title} nodeRef={zone.nodeRef} data={zone.data} />)}
 		</div>
 	)
 }

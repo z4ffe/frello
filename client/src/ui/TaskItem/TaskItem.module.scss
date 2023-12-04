@@ -1,4 +1,37 @@
 .taskItem {
   display: flex;
-  
+  flex-direction: column;
+  box-shadow: 0 0 5px 1px rgba(34, 60, 80, 0.1);
+  padding: rem(10) rem(15);
+  border-radius: 8px;
+  gap: rem(10);
+
+  &:hover {
+    box-shadow: 0 0 5px 1px rgba(34, 60, 80, 0.2);
+    transition: .4s;
+  }
+
+  &__title {
+    font-size: rem(16);
+    font-weight: 500;
+  }
+
+  &__desc {
+    font-size: rem(14);
+    opacity: .7;
+  }
+
+
+}
+
+.low {
+  border-left: rem(3) solid rgba(52, 167, 112, 0.3);
+}
+
+.med {
+  border-left: rem(3) solid rgba(8, 160, 247, 0.3);
+}
+
+.high {
+  border-left: rem(3) solid rgba(248, 86, 64, 0.3);
 }

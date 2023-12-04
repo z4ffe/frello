@@ -3,4 +3,16 @@
   width: 100%;
   justify-content: center;
   gap: 2%;
+
+  .dropZone {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 25%;
+
+    &__title {
+      display: flex;
+    }
+  }
 }

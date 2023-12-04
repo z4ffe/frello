@@ -1,11 +1,12 @@
 import {closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core'
+import {restrictToWindowEdges} from '@dnd-kit/modifiers'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {TaskContainer} from '../../components/TaskContainer/TaskContainer.tsx'
 import {taskService} from '../../services/taskService.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
-import {Spinner} from '../../ui/Spinner/Spinner.tsx'
+import {LoaderDots} from '../../ui/LoaderDots/LoaderDots.tsx'
 import {TaskItem} from '../../ui/TaskItem/TaskItem.tsx'
 import styles from './Tasks.module.scss'
 
@@ -18,8 +19,15 @@ export const Tasks = () => {
 	})
 	const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor), useSensor(KeyboardSensor))
 
-	const onDragEnd = (event: DragEndEvent) => {
+	const handleDragMove = (event: DragEndEvent) => {
+		console.log('Drag MOVE', event.over?.id)
+	}
+	const handleDragEnd = (event: DragEndEvent) => {
 		console.log('Drag END', event)
+	}
+
+	const handleDragOver = (event: DragEndEvent) => {
+		console.log('Drag OVER', event)
 	}
 
 	const handleDragStart = (event: DragStartEvent) => {
@@ -30,10 +38,10 @@ export const Tasks = () => {
 
 	return (
 		<div className={styles.tasks}>
-			<DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd} onDragStart={handleDragStart} sensors={sensors}>
-				{data ? <TaskContainer data={data} /> : <Spinner />}
-				<DragOverlay>
-					{active && (<TaskItem task={active} />)}
+			<DndContext collisionDetection={closestCenter} onDragMove={handleDragMove} onDragEnd={handleDragEnd} onDragStart={handleDragStart} onDragOver={handleDragOver} sensors={sensors}>
+				{data ? <TaskContainer data={data} /> : <LoaderDots />}
+				<DragOverlay modifiers={[restrictToWindowEdges]}>
+					{active && <div className={styles.dragOverlay}><TaskItem task={active} /></div>}
 				</DragOverlay>
 			</DndContext>
 		</div>

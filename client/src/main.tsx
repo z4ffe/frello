@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Frello />
 		<div id='modal' />
-		<div id='tooltip' />
+		<div id='portal' />
 		<div id='search' />
 	</React.StrictMode>,
 )

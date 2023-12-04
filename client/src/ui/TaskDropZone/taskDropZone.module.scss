@@ -1,0 +1,38 @@
+.taskDropZone {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: var(--var--main-shadow);
+  padding: rem(10) rem(20);
+  color: var(--var--main-font-color);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--var--divider-color);
+    font-size: rem(16px);
+    padding: rem(10) 0;
+    margin-bottom: rem(10);
+
+
+    .taskCount {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: rem(28);
+      height: rem(28);
+      border-radius: 50%;
+      background-color: #e8e8e8;
+      font-size: rem(18);
+    }
+  }
+
+  &__tasks {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+  }
+}

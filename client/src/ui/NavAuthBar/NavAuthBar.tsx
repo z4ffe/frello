@@ -18,6 +18,7 @@ export const NavAuthBar = () => {
 
 	return (
 		<div className={styles.nav}>
+			<NavLink to='/tasks/2' className={styles.project__link}>Tasks</NavLink>
 			<NavLink to='/projects' className={styles.project__link}>Projects</NavLink>
 			{user.isAuth && user.username ?
 				<div className={styles.user}>
