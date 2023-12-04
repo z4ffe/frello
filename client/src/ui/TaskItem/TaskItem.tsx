@@ -2,6 +2,7 @@ import {useDraggable} from '@dnd-kit/core'
 import {CSS} from '@dnd-kit/utilities'
 import {FC} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
+import styles from './TaskItem.module.scss'
 
 interface Props {
 	task: ITask
@@ -19,7 +20,7 @@ export const TaskItem: FC<Props> = ({task}) => {
 	}
 
 	return (
-		<div ref={setNodeRef} {...listeners} {...attributes} style={style}>
+		<div className={styles.taskItem} ref={setNodeRef} {...listeners} {...attributes} style={style}>
 			{task.id} - {task.title}
 		</div>
 	)

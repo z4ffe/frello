@@ -3,8 +3,9 @@ import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable'
 import {FC} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
-import {SortableTaskItem} from './SortableTaskItem.tsx'
-import {TaskItem} from './TaskItem.tsx'
+import {SortableTaskItem} from '../../ui/SortableTaskItem/SortableTaskItem.tsx'
+import {TaskItem} from '../../ui/TaskItem/TaskItem.tsx'
+import styles from './taskContainer.module.scss'
 
 interface Props {
 	data: ITask[]
@@ -16,7 +17,7 @@ export const TaskContainer: FC<Props> = ({data}) => {
 	const {setNodeRef: doneZone} = useDroppable({id: 'done'})
 
 	return (
-		<div style={{display: 'flex', gap: '10px'}}>
+		<div className={styles.taskContainer}>
 			<SortableContext
 				id='queue'
 				items={data.filter(el => el.status === ETaskStatus.Queue)}
