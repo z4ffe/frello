@@ -1,7 +1,9 @@
 import {FC, PropsWithChildren, useEffect} from 'react'
 import {Header} from '../components/Header/Header.tsx'
+import {Login} from '../components/Login/Login.tsx'
 import {useAppDispatch} from '../lib/redux/hooks/typedHooks.ts'
 import {refreshToken} from '../store/user/userThunks.ts'
+import {ModalContainer} from '../ui/ModalContainer/ModalContainer.tsx'
 import {SearchBackground} from '../ui/SearchBackground/SearchBackground.tsx'
 import styles from './mainLayout.module.scss'
 
@@ -21,6 +23,9 @@ export const MainLayout: FC<PropsWithChildren> = ({children}) => {
 			<Header />
 			{children}
 			<SearchBackground />
+			<ModalContainer>
+				<Login />
+			</ModalContainer>
 		</div>
 	)
 }
