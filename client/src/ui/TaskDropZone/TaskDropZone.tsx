@@ -1,21 +1,39 @@
-import {FC} from 'react'
+import {FC, LegacyRef} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
+import {ETaskStatus} from '../../types/taskType.ts'
 import {TaskItem} from '../TaskItem/TaskItem.tsx'
 import styles from './taskDropZone.module.scss'
 
 interface Props {
 	title: string
-	nodeRef: any
+	nodeRef: LegacyRef<any>
 	data: ITask[]
+	isOver: boolean | undefined
+	status: ETaskStatus
 }
 
-export const TaskDropZone: FC<Props> = ({title, nodeRef, data}) => {
+
+export const TaskDropZone: FC<Props> = ({title, nodeRef, data, isOver, status}) => {
+	const countStyle = () => {
+		switch (status) {
+			case ETaskStatus.Queue:
+				return `rgba(8, 160, 247, 0.9)`
+			case ETaskStatus.Development:
+				return `rgba(251, 166, 60, 0.9)`
+			case ETaskStatus.Done:
+				return `rgba(52, 167, 112, 0.9)`
+		}
+	}
+
 	return (
-		<div ref={nodeRef} className={styles.taskDropZone}>
+		<div ref={nodeRef} className={styles.taskDropZone} style={{transform: `scale(${isOver ? '102' : '100'}%)`, borderBottom: `2px solid ${countStyle()}`}}>
 			<div className={styles.taskDropZone__title}>
-				<p>{title}</p>
-				<div className={styles.taskCount}>
+				<div className={`${styles.taskCount}`} style={{backgroundColor: countStyle()}}>
 					<p>{data.length}</p>
+				</div>
+				<p>{title}</p>
+				<div className={styles.addTask}>
+					<p>+</p>
 				</div>
 			</div>
 			<div className={styles.taskDropZone__tasks}>

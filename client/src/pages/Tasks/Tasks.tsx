@@ -20,20 +20,20 @@ export const Tasks = () => {
 	const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor), useSensor(KeyboardSensor))
 
 	const handleDragMove = (event: DragEndEvent) => {
-		console.log('Drag MOVE', event.over?.id)
+		// console.log('Drag MOVE', event.over?.id)
 	}
 	const handleDragEnd = (event: DragEndEvent) => {
-		console.log('Drag END', event)
+		// console.log('Drag END', event)
 	}
 
 	const handleDragOver = (event: DragEndEvent) => {
-		console.log('Drag OVER', event)
+		// console.log('Drag OVER', event)
 	}
 
 	const handleDragStart = (event: DragStartEvent) => {
 		const activeTask = event.active.data.current as ITask
 		setActive(activeTask)
-		console.log('Drag START', event)
+		// console.log('Drag START', event)
 	}
 
 	return (

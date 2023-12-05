@@ -5,28 +5,54 @@
   border-radius: 8px;
   width: 100%;
   box-shadow: var(--var--main-shadow);
-  padding: rem(10) rem(20);
+  padding: rem(10) rem(20) rem(20);
   color: var(--var--main-font-color);
+  transition: .4s;
 
   &__title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-bottom: 1px solid var(--var--divider-color);
-    font-size: rem(16px);
+    font-size: rem(17px);
     padding: rem(10) 0;
     margin-bottom: rem(10);
+    gap: rem(10);
 
 
     .taskCount {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: rem(25);
+      height: rem(25);
+      border-radius: 50%;
+      font-size: rem(16);
+      color: #fff;
+    }
+
+    .addTask {
+      display: flex;
+      margin-left: auto;
+      align-items: center;
+      justify-content: center;
       width: rem(28);
       height: rem(28);
       border-radius: 50%;
-      background-color: #e8e8e8;
-      font-size: rem(18);
+      font-size: rem(20);
+      color: var(--var--lighgray);
+      border: 1px dashed var(--var--lighgray);
+      transition: .3s;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--var--main-font-color);
+        border: 1px dashed var(--var--main-font-color);
+      }
+
+      &:active {
+        transform: scale(95%);
+        transition: .1s;
+      }
     }
   }
 
@@ -35,4 +61,16 @@
     flex-direction: column;
     gap: rem(10);
   }
+}
+
+.queue {
+  background-color: rgba(8, 160, 247, 0.9);
+}
+
+.dev {
+  background-color: rgba(251, 166, 60, 0.9);
+}
+
+.done {
+  background-color: rgba(52, 167, 112, 0.9);
 }
