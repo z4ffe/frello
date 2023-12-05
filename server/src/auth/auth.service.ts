@@ -57,7 +57,7 @@ export class AuthService {
 			throw new UnauthorizedException('Invalid token')
 		}
 		const [type, token] = req.headers.authorization.split(' ')
-		if (type !== 'Bearer' || !token.length) {
+		if (type !== 'Bearer' || !token || !token.length) {
 			throw new UnauthorizedException('Invalid token')
 		}
 		return token

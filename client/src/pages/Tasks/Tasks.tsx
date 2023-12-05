@@ -1,6 +1,6 @@
 import {closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core'
 import {restrictToWindowEdges} from '@dnd-kit/modifiers'
-import {useQuery} from '@tanstack/react-query'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {TaskContainer} from '../../components/TaskContainer/TaskContainer.tsx'
@@ -18,27 +18,27 @@ export const Tasks = () => {
 		queryFn: () => taskService.getAllTasks(+id),
 	})
 	const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor), useSensor(KeyboardSensor))
+	const queryClient = useQueryClient()
 
-	const handleDragMove = (event: DragEndEvent) => {
-		// console.log('Drag MOVE', event.over?.id)
-	}
+	const mutation = useMutation({
+		mutationFn: ({id, status}: {id: number, status: any}) => taskService.updateTask(id, status),
+		onSuccess: () => {
+			void queryClient.invalidateQueries({queryKey: ['tasks']})
+		},
+	})
+
 	const handleDragEnd = (event: DragEndEvent) => {
-		// console.log('Drag END', event)
-	}
-
-	const handleDragOver = (event: DragEndEvent) => {
-		// console.log('Drag OVER', event)
+		mutation.mutate({id: active!.id, status: event.over?.id})
 	}
 
 	const handleDragStart = (event: DragStartEvent) => {
 		const activeTask = event.active.data.current as ITask
 		setActive(activeTask)
-		// console.log('Drag START', event)
 	}
 
 	return (
 		<div className={styles.tasks}>
-			<DndContext collisionDetection={closestCenter} onDragMove={handleDragMove} onDragEnd={handleDragEnd} onDragStart={handleDragStart} onDragOver={handleDragOver} sensors={sensors}>
+			<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
 				{data ? <TaskContainer data={data} /> : <LoaderDots />}
 				<DragOverlay modifiers={[restrictToWindowEdges]}>
 					{active && <div className={styles.dragOverlay}><TaskItem task={active} /></div>}
