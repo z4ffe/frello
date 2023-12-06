@@ -6,6 +6,7 @@ interface IUISlice {
 		isOpen: boolean
 		login: boolean
 		register: boolean
+		task: boolean
 	}
 }
 
@@ -15,6 +16,7 @@ const initState: IUISlice = {
 		isOpen: false,
 		login: false,
 		register: false,
+		task: false,
 	},
 }
 
@@ -32,6 +34,10 @@ const uiSlice = createSlice({
 		openLoginModal: (state) => {
 			state.modal.isOpen = true
 			state.modal.login = true
+		},
+		openTaskModal: (state) => {
+			state.modal.isOpen = true
+			state.modal.task = true
 		},
 		resetState: () => initState,
 	},

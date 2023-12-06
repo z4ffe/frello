@@ -1,13 +1,14 @@
 import {NavLink} from 'react-router-dom'
 import signoutIcon from '../../assets/images/svg/signout.svg'
-import {useAppDispatch, useAppSelector} from '../../lib/redux/hooks/typedHooks.ts'
+import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {userActions} from '../../store/user/userSlice.ts'
 import {logout} from '../../store/user/userThunks.ts'
 import styles from './navAuthBar.module.scss'
 
 export const NavAuthBar = () => {
-	const user = useAppSelector(state => state.user)
+	const {isAuth, username} = useAppSelector(state => state.user)
+	const projectId = useAppSelector(state => state.projects.id)
 	const dispatch = useAppDispatch()
 
 	const handleLogout = async () => {
@@ -18,11 +19,11 @@ export const NavAuthBar = () => {
 
 	return (
 		<div className={styles.nav}>
-			<NavLink to='/tasks/2' className={styles.project__link}>Tasks</NavLink>
+			<NavLink to={projectId ? `/tasks/${projectId}` : '/projects'} className={styles.project__link}>Tasks</NavLink>
 			<NavLink to='/projects' className={styles.project__link}>Projects</NavLink>
-			{user.isAuth && user.username ?
+			{isAuth && username ?
 				<div className={styles.user}>
-					<span>Hello, {user.username.toUpperCase()}</span>
+					<span>Hello, {username.toUpperCase()}</span>
 					<img src={signoutIcon} alt='SignOut' onClick={handleLogout} />
 				</div>
 				:

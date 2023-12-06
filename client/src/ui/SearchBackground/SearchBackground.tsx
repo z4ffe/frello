@@ -1,5 +1,5 @@
 import {AnimatePresence, motion} from 'framer-motion'
-import {useAppSelector} from '../../lib/redux/hooks/typedHooks.ts'
+import {useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {modalAnimation} from '../ModalContainer/modalAnimation.ts'
 import styles from './searchBackground.module.scss'
 

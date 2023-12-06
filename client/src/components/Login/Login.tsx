@@ -1,6 +1,6 @@
 import closeImg from '../../assets/images/svg/close.svg'
 import bannerImage from '../../assets/images/svg/login-banner.svg'
-import {useAppDispatch} from '../../lib/redux/hooks/typedHooks.ts'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {HeaderLogo} from '../../ui/HeaderLogo/HeaderLogo.tsx'
 import {LoginForm} from '../LoginForm/LoginForm.tsx'
@@ -16,7 +16,7 @@ export const Login = () => {
 			</div>
 			<div className={styles.login__formWrapper}>
 				<div>
-					<HeaderLogo customClass={styles.logo} />
+					<HeaderLogo customClass={styles.logo} homeRedirect={false} />
 				</div>
 				<span className={styles.welcomeText}>Nice to see you again</span>
 				<LoginForm />

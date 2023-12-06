@@ -1,7 +1,7 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {Provider} from 'react-redux'
 import {BrowserRouter} from 'react-router-dom'
-import {MainLayout} from './layout/MainLayout.tsx'
+import {MainLayout} from './layouts/MainLayout.tsx'
 import {Router} from './routes/Router.tsx'
 import {store} from './store/store.ts'
 

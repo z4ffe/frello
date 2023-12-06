@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {AxiosResponse} from 'axios'
-import {apiInstance} from '../../lib/axios/apiInstance.ts'
+import {apiInstance} from '../../libs/axios/apiInstance.ts'
 import {ILoginResponse, ILogoutResponse} from '../../types/interfaces/user.interface.ts'
 import {loginSchemaType} from '../../validations/loginSchema.ts'
 

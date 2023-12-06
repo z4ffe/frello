@@ -1,6 +1,8 @@
 import {useDraggable} from '@dnd-kit/core'
 import {CSS} from '@dnd-kit/utilities'
 import {FC} from 'react'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
+import {uiActions} from '../../store/ui/uiSlice.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskPriority} from '../../types/taskType.ts'
 import {Divider} from '../Divider/Divider.tsx'
@@ -11,6 +13,7 @@ interface Props {
 }
 
 export const TaskItem: FC<Props> = ({task}) => {
+	const dispatch = useAppDispatch()
 	const {attributes, listeners, setNodeRef, transform} = useDraggable({
 		id: task.id,
 		data: task,
@@ -34,7 +37,7 @@ export const TaskItem: FC<Props> = ({task}) => {
 	}
 
 	return (
-		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => alert('asd')}>
+		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => dispatch(uiActions.openTaskModal())}>
 			<h2 className={styles.taskItem__title}>{task.title}</h2>
 			<p className={styles.taskItem__desc}>{task.description}</p>
 			<Divider />

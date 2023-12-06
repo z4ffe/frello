@@ -1,6 +1,6 @@
 import {useLocation} from 'react-router-dom'
 import searchIcon from '../../assets/images/svg/search.svg'
-import {useAppDispatch} from '../../lib/redux/hooks/typedHooks.ts'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import styles from './search.module.scss'
 

@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios'
-import {apiInstance} from '../lib/axios/apiInstance.ts'
+import {apiInstance} from '../libs/axios/apiInstance.ts'
 import {IProject} from '../types/interfaces/project.interface.ts'
 
 class ProjectService {

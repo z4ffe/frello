@@ -1,12 +1,8 @@
-import {apiInstance} from '../lib/axios/apiInstance.ts'
+import {apiHealth} from '../libs/axios/apiHealth.ts'
 
 export class HealthService {
 	async healthCheck() {
-		const response = await apiInstance.get('/health')
-		return {
-			data: response.data,
-			status: response.status,
-		}
+		return await apiHealth.get('/health')
 	}
 }
 
