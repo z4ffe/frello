@@ -1,10 +1,11 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Patch, Post, Query, UnauthorizedException, UseGuards} from '@nestjs/common'
-import {ApiBearerAuth, ApiQuery, ApiTags} from '@nestjs/swagger'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Patch, Post, Query, UseGuards} from '@nestjs/common'
+import {ApiBearerAuth, ApiOperation, ApiQuery, ApiTags} from '@nestjs/swagger'
 import {DeleteResult} from 'typeorm'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateTaskDto} from './dto/CreateTaskDto'
 import {UpdateTaskDto} from './dto/UpdateTaskDto'
 import {Task} from './entities/task.entitiy'
+import {ITask} from './interfaces/task.interface'
 import {TaskService} from './task.service'
 
 @ApiTags('Task')
@@ -15,13 +16,18 @@ export class TaskController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	@ApiQuery({name: 'project', description: 'Project ID', type: Number})
-	async getAllTasks(@Query() query: {project: string}): Promise<Task[]> {
-		const {project} = query
-		if (!project) {
-			throw new UnauthorizedException('Project id was not provided')
+	@ApiQuery({name: 'project', description: 'Project ID', type: Number, required: false})
+	@ApiQuery({name: 'task', description: 'Task ID', type: Number, required: false})
+	@ApiOperation({description: 'Method accept only request with TaskID or with ProjectID. Request with Task ID return task by ID and request with Project ID returns all tasks in this project'})
+	async getAllTasks(@Query() query: {projectId: string, id: string}): Promise<Task[] | ITask> {
+		const {projectId, id} = query
+		if (!projectId && !id) {
+			throw new NotFoundException('Project ID or Task ID not found')
 		}
-		return await this.taskService.findAll(project)
+		if (id) {
+			return await this.taskService.findOne(id)
+		}
+		return await this.taskService.findAll(projectId)
 	}
 
 	@Post()
@@ -48,7 +54,7 @@ export class TaskController {
 	async deleteTask(@Query() query: {id: string}): Promise<DeleteResult> {
 		const {id} = query
 		if (!id) {
-			throw new NotFoundException('TaskItem id was not provided')
+			throw new NotFoundException('Task ID is wrong')
 		}
 		return await this.taskService.remove(id)
 	}

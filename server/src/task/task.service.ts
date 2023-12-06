@@ -27,9 +27,11 @@ export class TaskService {
 		})
 	}
 
+	async findOne(task: string) {
+		return await this.taskRepository.findOneBy({id: +task})
+	}
+
 	async update(id: string, body: UpdateTaskDto) {
-		const task = await this.taskRepository.findOneBy({id: +id})
-		const updatedTask = {...task, ...body}
 		return await this.taskRepository.update({id: +id}, {...body})
 	}
 

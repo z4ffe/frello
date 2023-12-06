@@ -11,6 +11,7 @@ export const useTasksQuery = (id: number) => {
 	const {data, isError, isLoading} = useQuery({
 		queryKey: ['tasks', id],
 		queryFn: () => taskService.getAllTasks(id),
+		refetchOnWindowFocus: 'always',
 	})
 
 	const {mutate} = useMutation({
