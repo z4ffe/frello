@@ -6,7 +6,7 @@ import styles from './taskDropZone.module.scss'
 
 interface Props {
 	title: string
-	nodeRef: LegacyRef<any>
+	nodeRef: LegacyRef<HTMLDivElement>
 	data: ITask[]
 	isOver: boolean | undefined
 	status: ETaskStatus
