@@ -1,0 +1,32 @@
+.projectPanel {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 rem(22);
+
+  &__title {
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+
+    .icon {
+      width: rem(20);
+    }
+
+    .text {
+      font-weight: 600;
+      letter-spacing: .3px;
+      font-size: rem(20);
+      opacity: .75;
+    }
+  }
+
+  &__assigned {
+    display: flex;
+    align-items: center;
+
+
+    div:not(:first-child) {
+      margin-left: rem(-10);
+    }
+  }
+}

@@ -12,6 +12,7 @@ interface Props {
 }
 
 export const MenuButtons: FC<Props> = ({type, handler, disabled, isActive}) => {
+	const buttonIsActive = isActive ? styles.isActive : ''
 	const icons: Record<ButtonTypes, ReactElement> = {
 		RotateLeft: <EditorIcons.RotateLeft />,
 		RotateRight: <EditorIcons.RotateRight />,
@@ -23,7 +24,7 @@ export const MenuButtons: FC<Props> = ({type, handler, disabled, isActive}) => {
 	}
 
 	return (
-		<button onClick={handler} disabled={disabled} className={isActive ? styles.isActive : ''}>
+		<button onClick={handler} disabled={disabled} className={buttonIsActive}>
 			{icons[type]}
 		</button>
 	)

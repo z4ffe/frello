@@ -4,15 +4,13 @@ import {Search} from '../../ui/Search/Search.tsx'
 import styles from './header.module.scss'
 
 export const Header = () => {
-
-
 	return (
-		<div className={styles.header}>
+		<header className={styles.header}>
 			<div className={styles.container}>
 				<HeaderLogo homeRedirect={true} />
 				<Search />
 				<NavAuthBar />
 			</div>
-		</div>
+		</header>
 	)
 }

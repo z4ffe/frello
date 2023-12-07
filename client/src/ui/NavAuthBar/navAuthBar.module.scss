@@ -24,35 +24,6 @@
       color: var(--var--active-lightblue) !important;
     }
   }
-
-  .user {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    img {
-      width: 15px;
-      padding-bottom: 1px;
-      cursor: pointer;
-    }
-  }
-
-
-  .auth__button {
-    border: none;
-    background: transparent;
-    transition: .3s;
-    width: 50px;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--var--main-lightblue);
-    }
-
-    &:active {
-      color: var(--var--active-lightblue);
-    }
-  }
 }
 
 :global .active {
