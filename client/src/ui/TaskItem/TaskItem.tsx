@@ -5,6 +5,7 @@ import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskPriority} from '../../types/taskType.ts'
+import {convertEditorText} from '../../utils/convertEditorText.ts'
 import {Divider} from '../Divider/Divider.tsx'
 import styles from './TaskItem.module.scss'
 
@@ -37,9 +38,9 @@ export const TaskItem: FC<Props> = ({task}) => {
 	}
 
 	return (
-		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => dispatch(uiActions.openTaskModal())}>
+		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => dispatch(uiActions.openTaskModal(task.id))}>
 			<h2 className={styles.taskItem__title}>{task.title}</h2>
-			<p className={styles.taskItem__desc}>{task.description}</p>
+			<p className={styles.taskItem__desc}>{convertEditorText(task.description)}</p>
 			<Divider />
 		</div>
 	)

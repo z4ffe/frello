@@ -15,7 +15,7 @@ export const useTasksQuery = (id: number) => {
 	})
 
 	const {mutate} = useMutation({
-		mutationFn: ({id, status}: {id: number, status: ETaskStatus}) => taskService.updateTask(id, status),
+		mutationFn: ({id, status}: {id: number, status: ETaskStatus}) => taskService.updateTaskStatus(id, status),
 		onSuccess: () => {
 			void queryClient.invalidateQueries({queryKey: ['tasks']})
 		},

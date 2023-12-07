@@ -1,0 +1,20 @@
+.editorMenu {
+  display: flex;
+  align-items: center;
+  gap: rem(5);
+
+  .saveBtn {
+    margin-left: auto;
+    font-size: rem(13);
+    text-transform: uppercase;
+    color: white;
+    background-color: var(--var--main-lightblue);
+    padding: rem(5);
+    border-radius: rem(4);
+
+    &:hover {
+      color: white;
+      background-color: var(--var--active-lightblue);
+    }
+  }
+}

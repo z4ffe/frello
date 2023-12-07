@@ -1,31 +1,30 @@
-import {FC} from 'react'
-import * as EditorIcons from './Icons/EditorMenuIcons.tsx'
+import {FC, ReactElement} from 'react'
+import * as EditorIcons from '../Icons/EditorMenuIcons.tsx'
+import styles from './Buttons.module.scss'
+
+type ButtonTypes = 'RotateLeft' | 'RotateRight' | 'Bold' | 'Italic' | 'Underline' | 'Strikethrough' | 'Code'
 
 interface Props {
+	type: ButtonTypes
 	handler: () => void
 	disabled?: boolean
+	isActive?: boolean
 }
 
-export const RotateLeft: FC<Props> = ({handler, disabled}) => {
-	return (
-		<button onClick={handler} disabled={disabled}>
-			<EditorIcons.RotateLeft />
-		</button>
-	)
-}
+export const MenuButtons: FC<Props> = ({type, handler, disabled, isActive}) => {
+	const icons: Record<ButtonTypes, ReactElement> = {
+		RotateLeft: <EditorIcons.RotateLeft />,
+		RotateRight: <EditorIcons.RotateRight />,
+		Bold: <EditorIcons.Bold />,
+		Italic: <EditorIcons.Italic />,
+		Underline: <EditorIcons.Underline />,
+		Strikethrough: <EditorIcons.Strikethrough />,
+		Code: <EditorIcons.Code />,
+	}
 
-export const RotateRight: FC<Props> = ({handler, disabled}) => {
 	return (
-		<button onClick={handler} disabled={disabled}>
-			<EditorIcons.RotateRight />
-		</button>
-	)
-}
-
-export const Bold: FC<Props> = ({handler}) => {
-	return (
-		<button onClick={handler}>
-			<EditorIcons.Bold />
+		<button onClick={handler} disabled={disabled} className={isActive ? styles.isActive : ''}>
+			{icons[type]}
 		</button>
 	)
 }

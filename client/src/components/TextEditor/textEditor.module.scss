@@ -1,0 +1,21 @@
+.textEditor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+  gap: 5px;
+
+  kbd,
+  code {
+    padding: 4px;
+
+    border-radius: 4px;
+    background-color: #eceff1;
+    color: #3b424b;
+
+    box-decoration-break: clone;
+
+    font-size: 14px;
+  }
+}

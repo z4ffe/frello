@@ -18,7 +18,38 @@ class TaskService {
 		}
 	}
 
-	async updateTask(id: number, status: ETaskStatus) {
+	async getTaskById(id: number) {
+		try {
+			const response: AxiosResponse<ITask> = await apiInstance.get('/task', {
+				params: {
+					id: id,
+				},
+			})
+			return response.data
+		} catch (error) {
+			console.error(error)
+			throw new Error()
+		}
+	}
+
+	async updateTaskDescription(id: number, text: string) {
+		try {
+			const response: AxiosResponse<void> = await apiInstance.patch('/task', {
+				description: text,
+			}, {
+				params: {
+					id,
+				},
+			})
+			return response.data
+		} catch (error) {
+			console.error(error)
+			throw new Error()
+		}
+	}
+
+
+	async updateTaskStatus(id: number, status: ETaskStatus) {
 		try {
 			const response: AxiosResponse<void> = await apiInstance.patch('/task', {
 				status: status,

@@ -1,3 +1,22 @@
 .tasksCard {
   display: flex;
+  flex-direction: column;
+  padding: rem(20);
+  width: 800px;
+  height: 600px;
+  background-color: #fff;
+  border-radius: rem(8);
+  box-shadow: var(--var--main-shadow);
+  gap: rem(15);
+
+  &__title {
+    font-size: rem(22);
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: rem(10);
+    font-size: rem(14);
+    font-weight: 600;
+  }
 }

@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 interface IUISlice {
 	search: boolean,
@@ -6,7 +6,7 @@ interface IUISlice {
 		isOpen: boolean
 		login: boolean
 		register: boolean
-		task: boolean
+		task: number | null
 	}
 }
 
@@ -16,7 +16,7 @@ const initState: IUISlice = {
 		isOpen: false,
 		login: false,
 		register: false,
-		task: false,
+		task: null,
 	},
 }
 
@@ -35,9 +35,9 @@ const uiSlice = createSlice({
 			state.modal.isOpen = true
 			state.modal.login = true
 		},
-		openTaskModal: (state) => {
+		openTaskModal: (state, action: PayloadAction<number>) => {
 			state.modal.isOpen = true
-			state.modal.task = true
+			state.modal.task = action.payload
 		},
 		resetState: () => initState,
 	},

@@ -19,15 +19,15 @@ export class TaskController {
 	@ApiQuery({name: 'project', description: 'Project ID', type: Number, required: false})
 	@ApiQuery({name: 'task', description: 'Task ID', type: Number, required: false})
 	@ApiOperation({description: 'Method accept only request with TaskID or with ProjectID. Request with Task ID return task by ID and request with Project ID returns all tasks in this project'})
-	async getAllTasks(@Query() query: {projectId: string, id: string}): Promise<Task[] | ITask> {
-		const {projectId, id} = query
-		if (!projectId && !id) {
+	async getAllTasks(@Query() query: {project: string, id: string}): Promise<Task[] | ITask> {
+		const {project, id} = query
+		if (!project && !id) {
 			throw new NotFoundException('Project ID or Task ID not found')
 		}
 		if (id) {
 			return await this.taskService.findOne(id)
 		}
-		return await this.taskService.findAll(projectId)
+		return await this.taskService.findAll(project)
 	}
 
 	@Post()

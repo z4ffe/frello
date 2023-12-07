@@ -1,0 +1,26 @@
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: rem(22);
+  margin: 0;
+  padding: 0 rem(8);
+  border: 0;
+  border-radius: (4);
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    color: var(--var--active-lightblue);
+  }
+}
+
+.isActive {
+  background-color: #edf1f6 !important;
+  color: var(--var--main-font-color) !important;
+}

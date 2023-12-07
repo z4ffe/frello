@@ -1,11 +1,16 @@
+import {Underline} from '@tiptap/extension-underline'
 import {Editor} from '@tiptap/react'
+import {StarterKit} from '@tiptap/starter-kit'
 import {validateJSON} from './validateJSON.ts'
 
-export const restoreEditorText = (json: string): string => {
-	const isJson = validateJSON(json)
+const extensions = [StarterKit, Underline]
+
+export const convertEditorText = (content: string): string => {
+	const isJson = validateJSON(content)
 	if (!isJson) {
 		return 'No description'
 	}
-	const editor = new Editor({content: json})
+	const parsedContent = JSON.parse(content)
+	const editor = new Editor({content: parsedContent, extensions})
 	return editor.getText()
 }

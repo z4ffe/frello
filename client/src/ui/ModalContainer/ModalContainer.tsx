@@ -1,5 +1,5 @@
 import {AnimatePresence, motion} from 'framer-motion'
-import {FC, PropsWithChildren, SyntheticEvent} from 'react'
+import {FC, PropsWithChildren, SyntheticEvent, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
@@ -16,6 +16,12 @@ export const ModalContainer: FC<PropsWithChildren> = ({children}) => {
 			dispatch(uiActions.resetState())
 		}
 	}
+
+	useEffect(() => {
+		return () => {
+			dispatch(uiActions.resetState())
+		}
+	}, [])
 
 	const modalElement = (
 		<AnimatePresence>
