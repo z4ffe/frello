@@ -1,4 +1,4 @@
-import avatar from '../../assets/images/avatar.png'
+import avatar2 from '../../assets/images/avatar2.png'
 import signoutIcon from '../../assets/images/svg/signout.svg'
 import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
@@ -27,7 +27,7 @@ export const AuthProfile = () => {
 				:
 				<button className={styles.auth__button} onClick={() => dispatch(uiActions.openLoginModal())}>Sign in</button>
 			}
-			<Avatar src={avatar} />
+			<Avatar src={avatar2} />
 		</div>
 	)
 }

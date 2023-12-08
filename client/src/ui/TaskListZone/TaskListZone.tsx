@@ -1,8 +1,9 @@
 import {FC, LegacyRef} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
+import {AddButton} from '../AddButton/AddButton.tsx'
 import {TaskItem} from '../TaskItem/TaskItem.tsx'
-import styles from './taskDropZone.module.scss'
+import styles from './taskListZone.module.scss'
 
 interface Props {
 	title: string
@@ -13,7 +14,7 @@ interface Props {
 }
 
 
-export const TaskDropZone: FC<Props> = ({title, nodeRef, data, isOver, status}) => {
+export const TaskListZone: FC<Props> = ({title, nodeRef, data, isOver, status}) => {
 	const countStyle = () => {
 		switch (status) {
 			case ETaskStatus.Queue:
@@ -31,9 +32,9 @@ export const TaskDropZone: FC<Props> = ({title, nodeRef, data, isOver, status}) 
 				<div className={`${styles.taskCount}`} style={{backgroundColor: countStyle()}}>
 					<p>{data.length}</p>
 				</div>
-				<p>{title}</p>
+				<p className={styles.titleText}>{title}</p>
 				<div className={styles.addTask}>
-					<p>+</p>
+					<AddButton />
 				</div>
 			</div>
 			<div className={styles.taskDropZone__tasks}>

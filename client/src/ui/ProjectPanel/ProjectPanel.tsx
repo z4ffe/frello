@@ -1,7 +1,6 @@
 import avatar from '../../assets/images/avatar.png'
 import avatar2 from '../../assets/images/avatar2.png'
 import avatar3 from '../../assets/images/avatar3.png'
-import assignBtn from '../../assets/images/svg/assign_icon.svg'
 import projectIcon from '../../assets/images/svg/project_icon.svg'
 import {useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {Avatar} from '../Avatar/Avatar.tsx'
@@ -20,8 +19,8 @@ export const ProjectPanel = () => {
 				<Avatar src={avatar} />
 				<Avatar src={avatar2} />
 				<Avatar src={avatar3} />
-				<button>
-					<img src={assignBtn} alt='add user' />
+				<button className={styles.assignBtn}>
+					{/* <img src={assignBtn} alt='add user' /> */}
 				</button>
 			</div>
 		</div>

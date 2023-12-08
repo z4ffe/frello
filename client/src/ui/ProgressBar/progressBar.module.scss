@@ -1,8 +1,15 @@
 .progressBar {
   margin-top: 12px;
   height: 7px;
-  background: var(--var--green);
+  background: rgba(70, 189, 132, 0.1);
   box-shadow: 2px 14px 15px -7px rgba(30, 166, 250, 0.36);
   border-radius: 50px;
   transition: all 0.5s;
+  width: 100%;
+  overflow: hidden;
+
+  &__line {
+    height: 7px;
+    background: var(--var--green);
+  }
 }

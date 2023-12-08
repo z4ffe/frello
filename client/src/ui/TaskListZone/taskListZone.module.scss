@@ -19,41 +19,29 @@
     margin-bottom: rem(10);
     gap: rem(10);
 
+    .titleText {
+      font-weight: 500;
+    }
+
 
     .taskCount {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: rem(25);
-      height: rem(25);
+      width: rem(28);
+      height: rem(28);
       border-radius: 50%;
       font-size: rem(16);
       color: #fff;
+
+      p {
+        font-weight: 500;
+      }
     }
 
     .addTask {
       display: flex;
       margin-left: auto;
-      align-items: center;
-      justify-content: center;
-      width: rem(28);
-      height: rem(28);
-      border-radius: 50%;
-      font-size: rem(20);
-      color: var(--var--lighgray);
-      border: 1px dashed var(--var--lighgray);
-      transition: .3s;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--var--main-font-color);
-        border: 1px dashed var(--var--main-font-color);
-      }
-
-      &:active {
-        transform: scale(95%);
-        transition: .1s;
-      }
     }
   }
 

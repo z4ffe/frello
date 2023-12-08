@@ -2,7 +2,7 @@ import {useDroppable} from '@dnd-kit/core'
 import {FC} from 'react'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
-import {TaskDropZone} from '../../ui/TaskDropZone/TaskDropZone.tsx'
+import {TaskListZone} from '../../ui/TaskListZone/TaskListZone.tsx'
 import {tasksFilter} from '../../utils/tasksFilter.ts'
 import styles from './taskContainer.module.scss'
 
@@ -41,7 +41,7 @@ export const TaskContainer: FC<Props> = ({data}) => {
 
 	return (
 		<div className={styles.taskContainer}>
-			{dropZones.map(zone => <TaskDropZone
+			{dropZones.map(zone => <TaskListZone
 				key={zone.title}
 				title={zone.title}
 				nodeRef={zone.nodeRef}
