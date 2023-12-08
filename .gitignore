@@ -114,3 +114,4 @@ dist
 server/.env.development
 .$frello.drawio.bkp
 */.env.development
+taskWindow.png

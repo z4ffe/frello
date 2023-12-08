@@ -3,19 +3,24 @@
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  min-height: 100%;
-  gap: 5px;
+  padding: rem(10) rem(5);
+  gap: rem(10);
+  font-size: rem(14);
+  background-color: #FAFBFC;
+  border: 1px solid #EEEEEE;
+  border-radius: rem(8);
+  min-height: rem(200);
+  max-height: rem(200);
+  overflow: scroll;
 
   kbd,
   code {
-    padding: 4px;
-
-    border-radius: 4px;
+    padding: rem(4);
+    border-radius: rem(4);
     background-color: #eceff1;
     color: #3b424b;
-
     box-decoration-break: clone;
-
-    font-size: 14px;
+    font-size: rem(14);
   }
 }
+

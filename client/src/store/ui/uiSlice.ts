@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 interface IUISlice {
 	search: boolean,
+	tasksLayout: boolean
 	modal: {
 		isOpen: boolean
 		login: boolean
@@ -12,6 +13,7 @@ interface IUISlice {
 
 const initState: IUISlice = {
 	search: false,
+	tasksLayout: false,
 	modal: {
 		isOpen: false,
 		login: false,
@@ -25,6 +27,9 @@ const uiSlice = createSlice({
 	name: 'ui',
 	initialState: initState,
 	reducers: {
+		changeTasksLayout: (state) => {
+			state.tasksLayout = !state.tasksLayout
+		},
 		searchOn: (state) => {
 			state.search = true
 		},

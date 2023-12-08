@@ -1,17 +1,32 @@
 .tasksCard {
   display: flex;
   flex-direction: column;
-  padding: rem(20);
+  padding: rem(30);
   width: 800px;
   height: 600px;
   background-color: #fff;
   border-radius: rem(8);
-  box-shadow: var(--var--main-shadow);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   gap: rem(15);
 
+  &__breadcrumbs {
+    font-size: rem(14);
+    font-weight: 500;
+    opacity: .6;
+  }
+
   &__title {
+    margin-top: rem(10);
     font-size: rem(22);
     font-weight: 600;
+  }
+
+  .subTaskBtn {
+    font-size: rem(14);
+    font-weight: 500;
+    background-color: #eeeeee;
+    width: fit-content;
+    padding: rem(12) rem(12);
   }
 
   &__desc {

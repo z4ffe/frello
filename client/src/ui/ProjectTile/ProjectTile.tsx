@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import {FC} from 'react'
 import {useNavigate} from 'react-router-dom'
 import avatar from '../../assets/images/avatar.png'
@@ -18,7 +19,6 @@ interface Props {
 
 export const ProjectTile: FC<Props> = ({project}) => {
 	const dispatch = useAppDispatch()
-	const deadline = new Date(project.createdAt).toDateString()
 	const randomProgress = Math.round(Math.random() * 100)
 	const rndDesc = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae dignissimos dolor ducimus eius, error illum in odit possimus quam quisquam tenetur. Molestiae nihil odit quasi repellendus repudiandae sapiente sequi.'
 	const navigate = useNavigate()
@@ -36,7 +36,7 @@ export const ProjectTile: FC<Props> = ({project}) => {
 	return (
 		<div className={styles.projectTile} onClick={handleProjectDispatch}>
 			<h2 className={styles.projectTile__title}>{project.name}</h2>
-			<span className={styles.projectTile__date}>Due {deadline}</span>
+			<span className={styles.projectTile__date}>Due {dayjs(project.createdAt).format('MMM DD')}</span>
 			<p className={styles.projectTile__desc}>{rndDesc}</p>
 			<div className={styles.projectTile__progress}>
 				<div className={styles.header}>

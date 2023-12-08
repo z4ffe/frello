@@ -8,8 +8,8 @@ import {useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
 import {LoaderDots} from '../../ui/LoaderDots/LoaderDots.tsx'
-import {ProjectPanel} from '../../ui/ProjectPanel/ProjectPanel.tsx'
 import {TaskItem} from '../../ui/TaskItem/TaskItem.tsx'
+import {TasksPanel} from '../../ui/TasksPanel/TasksPanel.tsx'
 import styles from './Tasks.module.scss'
 
 export const Tasks = () => {
@@ -47,7 +47,7 @@ export const Tasks = () => {
 
 	return (
 		<div className={styles.tasks}>
-			<ProjectPanel />
+			<TasksPanel />
 			<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
 				{tasks ? <TaskContainer data={tasks} /> : <LoaderDots />}
 				<DragOverlay modifiers={[restrictToWindowEdges]}>

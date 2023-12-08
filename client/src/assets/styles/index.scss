@@ -25,3 +25,12 @@ a:visited {
   color: #fff;
 }
 
+.ProseMirror {
+  padding: rem(10);
+  margin-top: rem(4);
+}
+
+.ProseMirror-focused {
+  border-color: black;
+  outline: none;
+}
