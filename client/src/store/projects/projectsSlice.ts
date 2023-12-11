@@ -32,7 +32,6 @@ const projectsSlice = createSlice({
 				return action.payload
 		},
 	},
-	extraReducers: {},
 })
 
 export const projectsReducer = projectsSlice.reducer

@@ -34,4 +34,9 @@
     font-size: rem(14);
     font-weight: 600;
   }
+
+  .comments {
+    height: 100%;
+    overflow: scroll;
+  }
 }

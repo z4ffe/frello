@@ -52,7 +52,9 @@ export const TaskCard = () => {
 			<span className={styles.tasksCard__desc}>Description</span>
 			{description && <TextEditor content={description} handleContentChange={handleDescription} handleSave={mutate} />}
 			<span>Activity</span>
-			{comments?.length ? comments.map(comment => <Comment comment={comment} />) : null}
+			<div className={styles.comments}>
+				{comments?.length && comments.map(comment => <Comment key={comment.id} comment={comment} />)}
+			</div>
 		</div>
 	)
 }

@@ -10,7 +10,7 @@ export const Comment: FC<Props> = ({comment}) => {
 	return (
 		<div className={styles.comment}>
 			<span>{comment.username}</span> - <span>{comment.text}</span>
-			{comment.child.length ? comment.child.map(comment => <Comment comment={comment} />) : null}
+			{comment.child.length ? comment.child.map(comment => <Comment key={comment.id} comment={comment} />) : null}
 		</div>
 	)
 }

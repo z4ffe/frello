@@ -57,7 +57,7 @@ export const LoginForm = () => {
 			<RegularButton type={'submit'} text='Sign in' loading={loading} />
 			<Divider />
 			<div className={styles.signUpSection}>
-				<span>Dont have an account?</span>
+				<span>Don't have an account?</span>
 				<button type='button'>Sign up now</button>
 			</div>
 		</form>
