@@ -8,11 +8,14 @@ export class Project implements IProject {
 	@PrimaryGeneratedColumn()
 	id: number
 
-	@Column()
+	@Column({length: 50})
 	name: string
 
-	/* @Column()
-	description: string */
+	@Column({length: 255})
+	description: string
+
+	@Column({default: false})
+	flagged: boolean
 
 	@ManyToOne(() => User, (user) => user.projects, {})
 	@JoinColumn({name: 'author_id'})
@@ -20,6 +23,11 @@ export class Project implements IProject {
 
 	@OneToMany(() => Task, (task) => task.projectId)
 	tasks: []
+
+	@Column({
+		default: () => 'CURRENT_TIMESTAMP(3)',
+	})
+	deadline: string
 
 	@Column({
 		name: 'created_at',

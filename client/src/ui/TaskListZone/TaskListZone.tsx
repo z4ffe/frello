@@ -27,7 +27,10 @@ export const TaskListZone: FC<Props> = ({title, nodeRef, data, isOver, status}) 
 	}
 
 	return (
-		<div ref={nodeRef} className={styles.taskDropZone} style={{transform: `scale(${isOver ? '102' : '100'}%)`, borderBottom: `2px solid ${countStyle()}`}}>
+		<div ref={nodeRef}
+			  className={styles.taskDropZone}
+			  style={{transform: `scale(${isOver ? '102' : '100'}%)`, borderBottom: `2px solid ${countStyle()}`}}
+		>
 			<div className={styles.taskDropZone__title}>
 				<div className={`${styles.taskCount}`} style={{backgroundColor: countStyle()}}>
 					<p>{data.length}</p>

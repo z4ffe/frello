@@ -25,18 +25,20 @@ export class UserService {
 		})
 	}
 
-	async create({username, password}: CreateUserDto) {
+	async create({username, password, firstName, lastName, avatar, country}: CreateUserDto) {
 		const isUserExist = await this.findByName(username)
 		if (isUserExist) {
 			throw new ConflictException('User already exist')
 		}
 		const hashedPassword = await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
 		const user = {
-			username: username,
+			username: username.trim(),
 			password: hashedPassword,
+			firstName, lastName, avatar, country,
 		}
 		const newUser = this.userRepository.create(user)
-		return await this.userRepository.save(newUser)
+		await this.userRepository.save(newUser)
+		return {message: 'User created'}
 	}
 
 	async updatePassword(body: UpdateUserDto) {

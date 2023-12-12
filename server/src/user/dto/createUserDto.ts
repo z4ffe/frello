@@ -9,4 +9,19 @@ export class CreateUserDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	readonly password: string
+
+	@ApiProperty()
+	@IsNotEmpty()
+	readonly firstName: string
+
+	@ApiProperty()
+	@IsNotEmpty()
+	readonly lastName: string
+
+	@ApiProperty()
+	@IsNotEmpty()
+	readonly country: string
+
+	@ApiProperty()
+	readonly avatar: string
 }

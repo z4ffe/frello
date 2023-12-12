@@ -8,6 +8,7 @@ import { ProjectModule } from './project/project.module';
 import { CommentModule } from './comment/comment.module';
 import { TaskModule } from './task/task.module';
 import { SubtaskModule } from './subtask/subtask.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
 	imports: [
@@ -20,6 +21,7 @@ import { SubtaskModule } from './subtask/subtask.module';
 		CommentModule,
 		TaskModule,
 		SubtaskModule,
+		RoleModule,
 	],
 })
 export class AppModule {
