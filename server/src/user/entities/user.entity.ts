@@ -49,14 +49,14 @@ export class User implements IUser {
 	@JoinTable({
 		name: 'project_assigned',
 		joinColumn: {
-			name: 'project_id',
+			name: 'user_id',
 			referencedColumnName: 'id',
 		}, inverseJoinColumn: {
-			name: 'user_id',
+			name: 'project_id',
 			referencedColumnName: 'id',
 		},
 	})
-	projectsAssigned: []
+	projectsAssigned: Project[]
 
 	@Column({
 		name: 'created_at',

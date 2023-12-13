@@ -14,7 +14,7 @@ export class Project implements IProject {
 	@Column({length: 255})
 	description: string
 
-	@Column({default: false})
+	@Column({default: false, nullable: true})
 	flagged: boolean
 
 	@ManyToOne(() => User, (user) => user.projects, {})
@@ -24,9 +24,7 @@ export class Project implements IProject {
 	@OneToMany(() => Task, (task) => task.projectId)
 	tasks: []
 
-	@Column({
-		default: () => 'CURRENT_TIMESTAMP(3)',
-	})
+	@Column()
 	deadline: string
 
 	@Column({

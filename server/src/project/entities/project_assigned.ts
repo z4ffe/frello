@@ -15,17 +15,17 @@ export class ProjectAssigned implements IProjectAssigned {
 	})
 	userId: number
 
-	@ManyToOne(() => Project, (project) => project.id)
+	@ManyToOne(() => Project, (project) => project.id, {cascade: true})
 	@JoinColumn({
 		name: 'project_id',
 		referencedColumnName: 'id',
 	})
-	projects: []
+	project: Project
 
-	@ManyToOne(() => User, (user) => user.id)
+	@ManyToOne(() => User, (user) => user.id, {cascade: true})
 	@JoinColumn({
 		name: 'user_id',
 		referencedColumnName: 'id',
 	})
-	users: []
+	user: User
 }

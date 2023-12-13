@@ -51,7 +51,7 @@ export class UserService {
 		if (!passwordCorrect) {
 			throw new UnauthorizedException('Password incorrect')
 		}
-		const hashedPassword = await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
+		const hashedPassword = await bcrypt.hash(newPassword, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
 		return await this.userRepository.update({username: username}, {password: hashedPassword})
 	}
 

@@ -4,11 +4,12 @@ import {AuthService} from '../auth/auth.service'
 import {User} from '../user/entities/user.entity'
 import {UserService} from '../user/user.service'
 import {Project} from './entities/project.entity'
+import {ProjectAssigned} from './entities/project_assigned'
 import {ProjectController} from './project.controller'
 import {ProjectService} from './project.service'
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Project, User])],
+	imports: [TypeOrmModule.forFeature([Project, User, ProjectAssigned])],
 	controllers: [ProjectController],
 	providers: [ProjectService, AuthService, UserService],
 })

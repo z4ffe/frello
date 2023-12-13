@@ -3,6 +3,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config'
 import {TypeOrmModule} from '@nestjs/typeorm'
 import {Comment} from '../comment/entities/comment.entitiy'
 import {Project} from '../project/entities/project.entity'
+import {ProjectAssigned} from '../project/entities/project_assigned'
 import {Task} from '../task/entities/task.entitiy'
 import {User} from '../user/entities/user.entity'
 
@@ -18,7 +19,7 @@ import {User} from '../user/entities/user.entity'
 				username: configService.getOrThrow('DB_USER'),
 				password: configService.getOrThrow('DB_PASSWORD'),
 				database: configService.getOrThrow('DB_NAME'),
-				entities: [User, Project, Task, Comment],
+				entities: [User, Project, Task, Comment, ProjectAssigned],
 				synchronize: true,
 				ssl: true,
 			}),

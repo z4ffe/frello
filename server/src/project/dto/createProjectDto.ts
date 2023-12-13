@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger'
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator'
+import {IsBoolean, IsNotEmpty, IsNumber, IsString} from 'class-validator'
 import {User} from '../../user/entities/user.entity'
 
 export class CreateProjectDto {
@@ -12,4 +12,18 @@ export class CreateProjectDto {
 	@IsNotEmpty()
 	@IsNumber()
 	readonly authorId: Pick<User, 'id'>
+
+	@ApiProperty()
+	@IsNotEmpty()
+	@IsString()
+	readonly description: string
+
+	@ApiProperty()
+	@IsNotEmpty()
+	@IsString()
+	readonly deadline: string
+
+	@ApiProperty()
+	@IsBoolean()
+	readonly flagged: boolean
 }

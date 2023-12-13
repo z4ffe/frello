@@ -4,6 +4,7 @@ import {AuthGuard} from 'src/auth/auth.guard'
 import {Token} from '../decorators/token'
 import {CreateProjectDto} from './dto/createProjectDto'
 import {UpdateProjectDto} from './dto/updateProjectDto'
+import {UserAssignDto} from './dto/UserAssignDto'
 import {ProjectService} from './project.service'
 
 @ApiTags('Project')
@@ -24,6 +25,14 @@ export class ProjectController {
 	@ApiBearerAuth('access-token')
 	async createProject(@Body() body: CreateProjectDto) {
 		return await this.projectService.create(body)
+	}
+
+	@Patch('/assign')
+	@HttpCode(HttpStatus.OK)
+	@UseGuards(AuthGuard)
+	@ApiBearerAuth('access-token')
+	async assignUserToProject(@Body() body: UserAssignDto, @Token('accessToken') accessToken: string) {
+		return await this.projectService.assignUser(body, accessToken)
 	}
 
 	@Patch()

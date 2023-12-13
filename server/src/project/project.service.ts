@@ -3,14 +3,20 @@ import {JwtService} from '@nestjs/jwt'
 import {InjectRepository} from '@nestjs/typeorm'
 import {Repository} from 'typeorm'
 import {TokenDto} from '../auth/dto/tokenDto'
-import {ERoles} from '../user/entities/user.entity'
+import {ERoles, User} from '../user/entities/user.entity'
 import {CreateProjectDto} from './dto/createProjectDto'
 import {UpdateProjectDto} from './dto/updateProjectDto'
+import {UserAssignDto} from './dto/UserAssignDto'
 import {Project} from './entities/project.entity'
+import {ProjectAssigned} from './entities/project_assigned'
 
 @Injectable()
 export class ProjectService {
-	constructor(@InjectRepository(Project) private readonly projectRepository: Repository<Project>, private readonly jwtService: JwtService) {
+	constructor(
+		@InjectRepository(Project) private readonly projectRepository: Repository<Project>, private readonly jwtService: JwtService,
+		@InjectRepository(ProjectAssigned) private readonly projectAssignedRepository: Repository<ProjectAssigned>,
+		@InjectRepository(User) private readonly userRepository: Repository<User>,
+	) {
 	}
 
 	async findAll() {
@@ -26,12 +32,37 @@ export class ProjectService {
 	}
 
 	async create(body: CreateProjectDto) {
-		const {name, authorId} = body
+		const {name, authorId, description, deadline, flagged} = body
+		const user = await this.userRepository.findOneBy({id: +authorId})
 		const newProject = this.projectRepository.create({
-			name,
-			authorId,
+			name, authorId, description, deadline, flagged,
 		})
-		return await this.projectRepository.save(newProject)
+		const project = await this.projectRepository.save(newProject)
+		await this.projectAssignedRepository.save({userId: user.id, projectId: project.id})
+		return {message: 'Project created'}
+	}
+
+	async assignUser({userId, projectId}: UserAssignDto, accessToken: string) {
+		if (!userId || !projectId) {
+			throw new NotFoundException('Something went wrong')
+		}
+		const project = await this.projectRepository.findOneBy({id: projectId})
+		const user = await this.userRepository.findOneBy({id: userId})
+		if (!project || !user) {
+			throw new NotFoundException('User/Project not found')
+		}
+		const hasProjectAssigned = await this.projectAssignedRepository.findOne({
+			where: {
+				userId: user.id,
+				projectId: project.id,
+			},
+		})
+		if (hasProjectAssigned) {
+			await this.projectAssignedRepository.remove(hasProjectAssigned)
+			return {message: 'User unassigned'}
+		}
+		await this.projectAssignedRepository.save({projectId: project.id, userId: user.id})
+		return {message: 'User assigned'}
 	}
 
 	async updateName(body: UpdateProjectDto, accessToken: string) {
