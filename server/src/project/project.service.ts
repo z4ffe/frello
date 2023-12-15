@@ -3,33 +3,54 @@ import {JwtService} from '@nestjs/jwt'
 import {InjectRepository} from '@nestjs/typeorm'
 import {Repository} from 'typeorm'
 import {TokenDto} from '../auth/dto/tokenDto'
+import {Task} from '../task/entities/task.entitiy'
+import {ETaskStatus} from '../task/interfaces/task.interface'
 import {ERoles, User} from '../user/entities/user.entity'
 import {CreateProjectDto} from './dto/createProjectDto'
 import {UpdateProjectDto} from './dto/updateProjectDto'
 import {UserAssignDto} from './dto/UserAssignDto'
 import {Project} from './entities/project.entity'
-import {ProjectAssigned} from './entities/project_assigned'
+import {ProjectAssignedEntity} from './entities/projectAssigned.entity'
 
 @Injectable()
 export class ProjectService {
 	constructor(
 		@InjectRepository(Project) private readonly projectRepository: Repository<Project>, private readonly jwtService: JwtService,
-		@InjectRepository(ProjectAssigned) private readonly projectAssignedRepository: Repository<ProjectAssigned>,
+		@InjectRepository(ProjectAssignedEntity) private readonly projectAssignedRepository: Repository<ProjectAssignedEntity>,
 		@InjectRepository(User) private readonly userRepository: Repository<User>,
+		@InjectRepository(Task) private readonly taskRepository: Repository<Task>,
 	) {
 	}
 
-	async findAll() {
-		return await this.projectRepository.find({
-			relations: ['authorId'],
+	async findAll(userId: number) {
+		const response = []
+		const projects = await this.projectRepository.find({
+			relations: {
+				projectAssigned: true,
+				authorId: true,
+			},
 			select: {
+				projectAssigned: {
+					id: true,
+					username: true,
+				},
 				authorId: {
 					id: true,
 					username: true,
 				},
 			},
 		})
+		for (let project of projects) {
+			const progress = await this.calculateProgress(project.id)
+			project.projectAssigned.forEach(user => {
+				if (user.id === userId) {
+					response.push({...project, progress: progress})
+				}
+			})
+		}
+		return response
 	}
+
 
 	async create(body: CreateProjectDto) {
 		const {name, authorId, description, deadline, flagged} = body
@@ -95,5 +116,25 @@ export class ProjectService {
 		} else {
 			throw new UnauthorizedException('Invalid credentials')
 		}
+	}
+
+	async calculateProgress(project: number) {
+		let completed = 0
+		const tasks = await this.taskRepository.find({
+			where: {
+				projectId: {
+					id: project,
+				},
+			},
+		})
+		if (!tasks.length) {
+			return 0
+		}
+		tasks.forEach(task => {
+			if (task.status === ETaskStatus.Done) {
+				completed++
+			}
+		})
+		return Math.round(completed / tasks.length * 100)
 	}
 }

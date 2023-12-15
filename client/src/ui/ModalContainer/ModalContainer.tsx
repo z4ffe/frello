@@ -8,10 +8,12 @@ import styles from './ModalContainer.module.scss'
 
 export const ModalContainer: FC<PropsWithChildren> = ({children}) => {
 	const isOpen = useAppSelector(state => state.ui.modal.isOpen)
+	const auth = useAppSelector(state => state.user.isAuth)
 	const dispatch = useAppDispatch()
 	const modalHTMLElement = document.getElementById('modal') as HTMLElement
 
 	const outsideClose = (event: SyntheticEvent) => {
+		if (!auth) return
 		if (event.target === event.currentTarget) {
 			dispatch(uiActions.resetState())
 		}

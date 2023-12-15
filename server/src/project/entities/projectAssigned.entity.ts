@@ -4,7 +4,7 @@ import {IProjectAssigned} from '../interfaces/projectAssigned.interface'
 import {Project} from './project.entity'
 
 @Entity()
-export class ProjectAssigned implements IProjectAssigned {
+export class ProjectAssignedEntity implements IProjectAssigned {
 	@PrimaryColumn({
 		name: 'project_id',
 	})
@@ -15,17 +15,17 @@ export class ProjectAssigned implements IProjectAssigned {
 	})
 	userId: number
 
-	@ManyToOne(() => Project, (project) => project.id, {cascade: true})
+	@ManyToOne(() => Project, (project) => project.id)
 	@JoinColumn({
 		name: 'project_id',
 		referencedColumnName: 'id',
 	})
-	project: Project
+	projects: Project[]
 
-	@ManyToOne(() => User, (user) => user.id, {cascade: true})
+	@ManyToOne(() => User, (user) => user.id)
 	@JoinColumn({
 		name: 'user_id',
 		referencedColumnName: 'id',
 	})
-	user: User
+	users: User[]
 }

@@ -22,8 +22,10 @@ export const LoginForm = () => {
 	})
 
 	const formSubmit = async (values: loginSchemaType) => {
-		await dispatch(login(values))
-		dispatch(uiActions.resetState())
+		const response = await dispatch(login(values)).unwrap()
+		if (response.accessToken) {
+			dispatch(uiActions.resetState())
+		}
 	}
 
 	const handleSaveSession = () => {

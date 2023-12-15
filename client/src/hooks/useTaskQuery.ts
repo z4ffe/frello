@@ -3,13 +3,14 @@ import {useAppSelector} from '../libs/redux/hooks/typedHooks.ts'
 import {taskService} from '../services/taskService.ts'
 
 
-export const useTaskQuery = (description: string) => {
+export const useTaskQuery = (description: string, enabled: boolean = true) => {
 	const taskId = useAppSelector(state => state.ui.modal.task) as number
 	const queryClient = useQueryClient()
 
 	const {data, isLoading} = useQuery({
 		queryKey: ['task'],
 		queryFn: () => taskService.getTaskById(taskId),
+		enabled: enabled,
 	})
 
 	const {mutate} = useMutation({

@@ -4,6 +4,6 @@ import {Project} from '../entities/project.entity'
 export class IProjectAssigned {
 	projectId: number
 	userId: number
-	project: Project
-	user: User
+	projects: Project[]
+	users: User[]
 }

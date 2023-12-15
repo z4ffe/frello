@@ -38,7 +38,7 @@ export const TaskItem: FC<Props> = ({task}) => {
 	}
 
 	return (
-		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => dispatch(uiActions.openTaskModal(task.id))}>
+		<div className={`${styles.taskItem} ${taskPriority()}`} ref={setNodeRef} {...listeners} {...attributes} style={style} onClick={() => dispatch(uiActions.openEditTaskModal(task.id))}>
 			<h2 className={styles.taskItem__title}>{task.title}</h2>
 			<p className={styles.taskItem__desc}>{convertEditorText(task.description)}</p>
 			<Divider />

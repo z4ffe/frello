@@ -1,4 +1,6 @@
 import {FC, LegacyRef} from 'react'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
+import {uiActions} from '../../store/ui/uiSlice.ts'
 import {ITask} from '../../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../../types/taskType.ts'
 import {AddButton} from '../AddButton/AddButton.tsx'
@@ -15,6 +17,7 @@ interface Props {
 
 
 export const TaskListZone: FC<Props> = ({title, nodeRef, data, isOver, status}) => {
+	const dispatch = useAppDispatch()
 	const countStyle = () => {
 		switch (status) {
 			case ETaskStatus.Queue:
@@ -24,6 +27,10 @@ export const TaskListZone: FC<Props> = ({title, nodeRef, data, isOver, status}) 
 			case ETaskStatus.Done:
 				return `rgba(52, 167, 112, 0.9)`
 		}
+	}
+
+	const handleAddModal = () => {
+		dispatch(uiActions.openAddTaskModal())
 	}
 
 	return (
@@ -37,7 +44,7 @@ export const TaskListZone: FC<Props> = ({title, nodeRef, data, isOver, status}) 
 				</div>
 				<p className={styles.titleText}>{title}</p>
 				<div className={styles.addTask}>
-					<AddButton />
+					<AddButton handler={handleAddModal} />
 				</div>
 			</div>
 			<div className={styles.taskDropZone__tasks}>

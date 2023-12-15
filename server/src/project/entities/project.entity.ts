@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Task} from '../../task/entities/task.entitiy'
 import {User} from '../../user/entities/user.entity'
 import {IProject} from '../interfaces/project.interface'
@@ -26,6 +26,19 @@ export class Project implements IProject {
 
 	@Column()
 	deadline: string
+
+	@ManyToMany(() => User, (user) => user.id)
+	@JoinTable({
+		name: 'project_assigned',
+		joinColumn: {
+			name: 'project_id',
+			referencedColumnName: 'id',
+		}, inverseJoinColumn: {
+			name: 'user_id',
+			referencedColumnName: 'id',
+		},
+	})
+	projectAssigned: User[]
 
 	@Column({
 		name: 'created_at',

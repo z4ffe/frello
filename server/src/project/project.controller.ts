@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, UseGuards} from '@nestjs/common'
+import {BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, UseGuards} from '@nestjs/common'
 import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
 import {AuthGuard} from 'src/auth/auth.guard'
 import {Token} from '../decorators/token'
@@ -15,8 +15,12 @@ export class ProjectController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	async getAllProjects() {
-		return await this.projectService.findAll()
+	async getAllProjects(@Query() query: {user: string}) {
+		const {user} = query
+		if (isNaN(+user)) {
+			throw new BadRequestException()
+		}
+		return await this.projectService.findAll(+user)
 	}
 
 	@Post()

@@ -56,7 +56,7 @@ export class User implements IUser {
 			referencedColumnName: 'id',
 		},
 	})
-	projectsAssigned: Project[]
+	projectAssigned: Project[]
 
 	@Column({
 		name: 'created_at',
