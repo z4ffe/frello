@@ -32,7 +32,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: rem(10);
+      gap: rem(25);
 
       img {
         width: rem(20);
@@ -42,11 +42,11 @@
         display: flex;
         font-size: rem(15);
         letter-spacing: .7px;
-        padding: rem(15) rem(20);
+        padding: rem(15) rem(5);
         transition: .4s;
 
         &:hover {
-          transform: scale(105%) translateX(10px);
+          transform: scale(102%) translateX(5px);
         }
       }
 

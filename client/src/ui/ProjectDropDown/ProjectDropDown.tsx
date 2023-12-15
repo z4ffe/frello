@@ -31,9 +31,9 @@ export const ProjectDropDown = () => {
 			<AnimatePresence>
 				{dropDown &&
 					<motion.div
-						initial={{opacity: 0}}
-						animate={{opacity: 1}}
-						exit={{opacity: 0}}
+						initial={{opacity: 0, scale: '0%'}}
+						animate={{opacity: 1, scale: '100%'}}
+						exit={{opacity: 0, scale: '0'}}
 						className={styles.dropdown__project}>
 						<div className={styles.btn__wrapper}>
 							<img src={editIcon} alt='edit' />

@@ -14,3 +14,11 @@ export interface ITokenPayload {
 	exp: number
 }
 
+export interface IUsers {
+	id: number
+	firstName: string
+	lastName: string
+	createdAt: string
+	projectAssigned: boolean
+	projectsCount: number
+}

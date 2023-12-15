@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Res, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, Res, UseGuards} from '@nestjs/common'
 import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
 import {Response} from 'express'
 import {AuthGuard} from '../auth/auth.guard'
@@ -16,8 +16,9 @@ export class UserController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	async getAllUser() {
-		return await this.userService.findAll()
+	async getAllUser(@Query() query: {project: string}) {
+		const {project} = query
+		return await this.userService.findAll(project)
 	}
 
 	@Post()

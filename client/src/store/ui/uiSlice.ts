@@ -10,6 +10,7 @@ interface IUISlice {
 		task: number | null
 		taskAdd: boolean
 		taskEdit: boolean
+		assign: number | null
 	}
 }
 
@@ -23,6 +24,7 @@ const initState: IUISlice = {
 		task: null,
 		taskAdd: false,
 		taskEdit: false,
+		assign: null,
 	},
 }
 
@@ -39,6 +41,10 @@ const uiSlice = createSlice({
 		},
 		searchOff: (state) => {
 			state.search = false
+		},
+		openUserAssign: (state, action: PayloadAction<number>) => {
+			state.modal.isOpen = true
+			state.modal.assign = action.payload
 		},
 		openLoginModal: (state) => {
 			state.modal.isOpen = true

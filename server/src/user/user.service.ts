@@ -15,13 +15,32 @@ export class UserService {
 	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>, private readonly ConfigService: ConfigService) {
 	}
 
-	async findAll() {
-		return await this.userRepository.find({
+	async findAll(project?: string) {
+		const users = await this.userRepository.find({
+			relations: {
+				projectAssigned: !!project,
+			},
 			select: {
 				id: true,
-				username: true,
+				firstName: true,
+				lastName: true,
 				createdAt: true,
+				projectAssigned: {
+					id: !!project,
+				},
 			},
+		})
+		if (!project) {
+			return users
+		}
+		return users.map(user => {
+			const projectsCount = user.projectAssigned.length
+			const isAssigned = user.projectAssigned.find(arrProject => arrProject.id === +project)
+			if (isAssigned) {
+				return {...user, projectAssigned: true, projectsCount}
+			} else {
+				return {...user, projectAssigned: false, projectsCount}
+			}
 		})
 	}
 

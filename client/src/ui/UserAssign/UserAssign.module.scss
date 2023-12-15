@@ -1,0 +1,71 @@
+.userAssign {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  filter: drop-shadow(0px 30px 60px rgba(32, 56, 85, 0.15));
+  padding: rem(10) rem(17);
+  border-radius: rem(8);
+  min-width: rem(200);
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: rem(10);
+    padding: rem(10);
+
+    img {
+      width: rem(24);
+    }
+
+    h1 {
+      font-size: rem(14);
+      font-weight: 400;
+    }
+  }
+
+  .users {
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(10);
+    gap: rem(10);
+
+    .user {
+      height: rem(60);
+      display: flex;
+      align-items: center;
+      border-radius: rem(8);
+      padding: rem(5) rem(10);
+      transition: .3s;
+
+      &:hover {
+        background-color: #F0F5FC;
+        transform: scale(102%);
+      }
+
+      &:active {
+        background-color: #F0F5FC;
+        transform: scale(98%);
+      }
+
+
+      .name {
+        padding-left: rem(6);
+        font-weight: 500;
+        font-size: rem(14);
+        opacity: .7;
+      }
+
+      .inprogress {
+        color: #41475E;
+        opacity: .5;
+        font-size: rem(12);
+        padding-left: rem(50)
+      }
+    }
+  }
+}
+
+.user__active {
+  background-color: #F0F5FC;
+}

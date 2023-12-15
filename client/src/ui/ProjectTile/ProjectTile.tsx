@@ -3,7 +3,9 @@ import {FC} from 'react'
 import avatar from '../../assets/images/avatar.png'
 import avatar2 from '../../assets/images/avatar2.png'
 import avatar3 from '../../assets/images/avatar3.png'
-import {useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
+import flag from '../../assets/images/svg/icon-flag.svg'
+import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
+import {uiActions} from '../../store/ui/uiSlice.ts'
 import {IProject} from '../../types/interfaces/project.interface.ts'
 import {ERoles} from '../../types/roleType.ts'
 import {AddButton} from '../AddButton/AddButton.tsx'
@@ -18,9 +20,9 @@ interface Props {
 
 export const ProjectTile: FC<Props> = ({project}) => {
 	const role = useAppSelector(state => state.user.role)
+	const dispatch = useAppDispatch()
 
-	/* const dispatch = useAppDispatch()
-	const navigate = useNavigate()
+	/* const navigate = useNavigate()
 
 	const handleProjectDispatch = () => {
 		dispatch(projectsActions.setProject(project))
@@ -35,7 +37,10 @@ export const ProjectTile: FC<Props> = ({project}) => {
 	return (
 		<div className={styles.projectTile}>
 			<h2 className={styles.projectTile__title}>{project.name}</h2>
-			<span className={styles.projectTile__date}>Due {dayjs(project.deadline).format('MMM DD')}</span>
+			<div className={styles.information}>
+				{project.flagged ? <img className={styles.flag} src={flag} alt='flagged' /> : null}
+				<span className={styles.deadline}>Due {dayjs(project.deadline).format('MMM DD')}</span>
+			</div>
 			<p className={styles.projectTile__desc}>{project.description}</p>
 			<div className={styles.projectTile__progress}>
 				<div className={styles.header}>
@@ -48,8 +53,7 @@ export const ProjectTile: FC<Props> = ({project}) => {
 				<div className={styles.authorAvatars}>
 					{new Array(Math.ceil(Math.random() * project.projectAssigned.length)).fill(null).map((_, idx) => <Avatar key={idx} src={randomAvatar()} />)}
 				</div>
-				{role === ERoles.Admin ? <AddButton handler={() => {
-				}} /> : null}
+				{role === ERoles.Admin ? <AddButton handler={() => dispatch(uiActions.openUserAssign(project.id))} /> : null}
 			</div>
 			<ProjectDropDown />
 		</div>

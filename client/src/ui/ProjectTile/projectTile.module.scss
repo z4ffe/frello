@@ -24,13 +24,24 @@
     letter-spacing: 0.3px;
   }
 
-  &__date {
-    margin-top: 14px;
-    color: var(--var--lighgray);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 12px;
-    letter-spacing: 0.3px;
+  .information {
+    display: flex;
+    align-items: center;
+    margin-top: rem(15);
+    gap: rem(5);
+
+    .flag {
+      width: rem(18);
+    }
+
+    .deadline {
+      padding-top: rem(2);
+      color: var(--var--lighgray);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 12px;
+      letter-spacing: 0.3px;
+    }
   }
 
   &__desc {
