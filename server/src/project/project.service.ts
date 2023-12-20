@@ -39,6 +39,9 @@ export class ProjectService {
 					username: true,
 				},
 			},
+			order: {
+				flagged: 'DESC',
+			},
 		})
 		for (let project of projects) {
 			const progress = await this.calculateProgress(project.id)

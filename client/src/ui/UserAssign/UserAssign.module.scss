@@ -5,7 +5,9 @@
   filter: drop-shadow(0px 30px 60px rgba(32, 56, 85, 0.15));
   padding: rem(10) rem(17);
   border-radius: rem(8);
-  min-width: rem(200);
+  min-width: rem(400);
+  gap: rem(5);
+  overflow: hidden;
 
   .title {
     display: flex;
@@ -15,12 +17,44 @@
     padding: rem(10);
 
     img {
-      width: rem(24);
+      width: rem(26);
     }
 
     h1 {
-      font-size: rem(14);
+      font-size: rem(15);
       font-weight: 400;
+    }
+  }
+
+  .search {
+    display: flex;
+    width: 100%;
+    height: rem(35);
+    align-self: center;
+    justify-content: start;
+    align-items: center;
+    border-radius: 200px;
+    background-color: #F4F7FC;
+    font-size: rem(14);
+    transition: .3s;
+    overflow: scroll;
+
+    &:focus-within {
+      box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
+    }
+
+    .icon {
+      margin-left: rem(18);
+    }
+
+    .input {
+      padding-left: rem(12);
+      border: none;
+      background-color: transparent;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -57,6 +91,7 @@
       }
 
       .inprogress {
+        margin-left: auto;
         color: #41475E;
         opacity: .5;
         font-size: rem(12);
