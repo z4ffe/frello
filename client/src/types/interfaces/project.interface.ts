@@ -1,4 +1,4 @@
-interface ProjectAssigned {
+interface projectAssign {
 	id: number
 	username: string
 	avatar: null | string
@@ -13,7 +13,7 @@ export interface IProject {
 	deadline: string
 	createdAt: string
 	updatedAt: string
-	projectAssigned: ProjectAssigned[]
+	projectAssign: projectAssign[]
 	authorId: {
 		id: number
 		username: string

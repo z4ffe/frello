@@ -25,7 +25,7 @@ export class AuthService {
 		const userData = {
 			userId: user.id,
 			username: user.username,
-			role: user.role,
+			role: user.role.name,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
 		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '30d'})

@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
 import {User} from '../../user/entities/user.entity'
@@ -43,16 +43,15 @@ export class Task implements ITask {
 	@OneToMany(() => Comment, (comment) => comment.taskId)
 	comments: Comment[]
 
-	@Column({
+	@CreateDateColumn({
 		name: 'created_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	createdAt: Date
 
-	@Column({
+	@UpdateDateColumn({
 		name: 'updated_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
-		onUpdate: 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	updatedAt: Date
 }

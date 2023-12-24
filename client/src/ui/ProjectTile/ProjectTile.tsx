@@ -51,7 +51,7 @@ export const ProjectTile: FC<Props> = ({project}) => {
 			</div>
 			<div className={styles.authorSection}>
 				<div className={styles.authorAvatars}>
-					{new Array(Math.ceil(Math.random() * project.projectAssigned.length)).fill(null).map((_, idx) => <Avatar key={idx} src={randomAvatar()} />)}
+					{new Array(project.projectAssign.length).fill(null).map((_, idx) => <Avatar key={idx} src={randomAvatar()} />)}
 				</div>
 				{role === ERoles.Admin ? <AddButton handler={() => dispatch(uiActions.openUserAssign(project.id))} /> : null}
 			</div>

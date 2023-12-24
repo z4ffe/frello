@@ -10,6 +10,8 @@ interface IUISlice {
 		task: number | null
 		taskAdd: boolean
 		taskEdit: boolean
+		projectAdd: boolean
+		projectEdit: number | null
 		assign: number | null
 	}
 }
@@ -24,6 +26,8 @@ const initState: IUISlice = {
 		task: null,
 		taskAdd: false,
 		taskEdit: false,
+		projectAdd: false,
+		projectEdit: null,
 		assign: null,
 	},
 }
@@ -33,6 +37,14 @@ const uiSlice = createSlice({
 	name: 'ui',
 	initialState: initState,
 	reducers: {
+		addProject: (state) => {
+			state.modal.isOpen = true
+			state.modal.projectAdd = true
+		},
+		edit: (state, action: PayloadAction<number>) => {
+			state.modal.isOpen = true
+			state.modal.projectEdit = action.payload
+		},
 		changeTasksLayout: (state) => {
 			state.tasksLayout = !state.tasksLayout
 		},

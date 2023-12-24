@@ -28,7 +28,9 @@ export class CommentService {
 				},
 				authorId: {
 					username: true,
-					role: true,
+					role: {
+						id: true,
+					},
 				},
 			},
 			relations: ['parentId', 'authorId'],

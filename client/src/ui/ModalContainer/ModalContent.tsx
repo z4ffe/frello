@@ -3,23 +3,33 @@ import {Login} from '../../components/Login/Login.tsx'
 import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {ErrorPage} from '../../pages/ErrorPage/NotFound.tsx'
 import {uiActions} from '../../store/ui/uiSlice.ts'
+import {ProjectCard} from '../ProjectCard/ProjectCard.tsx'
 import {TaskCard} from '../TaskCard/TaskCard.tsx'
 import {Assign} from '../UserAssign/UserAssign.tsx'
 
 export const ModalContent = () => {
-	const {login, register, task, taskEdit, taskAdd, assign} = useAppSelector(state => state.ui.modal)
+	const {login, register, task, taskEdit, taskAdd, assign, projectAdd, projectEdit} = useAppSelector(state => state.ui.modal)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (!login && !register && !taskAdd && !assign && !(task && taskEdit)) {
+		if (!login && !register && !taskAdd && !assign && !projectAdd && !(task && taskEdit)) {
 			dispatch(uiActions.resetState())
 		}
 	}, [])
 
 
-	if (login) return <Login />
-	if (register) return <ErrorPage />
-	if (taskAdd) return <TaskCard taskEdit={false} />
-	if (task && taskEdit) return <TaskCard taskEdit={true} />
-	if (assign) return <Assign />
+	switch (true) {
+		case (login):
+			return <Login />
+		case (register):
+			return <ErrorPage />
+		case (taskAdd):
+			return <TaskCard taskEdit={false} />
+		case (task && taskEdit):
+			return <TaskCard taskEdit={true} />
+		case (!!assign):
+			return <Assign />
+		case (projectAdd):
+			return <ProjectCard />
+	}
 }

@@ -10,3 +10,7 @@ export interface IProject {
 	createdAt: Date
 	updatedAt: Date
 }
+
+export interface IProjectResponse extends IProject {
+	progress: number
+}

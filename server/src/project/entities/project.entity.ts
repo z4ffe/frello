@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Task} from '../../task/entities/task.entitiy'
 import {User} from '../../user/entities/user.entity'
 import {IProject} from '../interfaces/project.interface'
@@ -17,7 +17,7 @@ export class Project implements IProject {
 	@Column({default: false, nullable: true})
 	flagged: boolean
 
-	@ManyToOne(() => User, (user) => user.projects, {})
+	@ManyToOne(() => User, (user) => user.projects)
 	@JoinColumn({name: 'author_id'})
 	authorId: User
 
@@ -29,7 +29,7 @@ export class Project implements IProject {
 
 	@ManyToMany(() => User, (user) => user.id)
 	@JoinTable({
-		name: 'project_assigned',
+		name: 'project_assign',
 		joinColumn: {
 			name: 'project_id',
 			referencedColumnName: 'id',
@@ -38,18 +38,17 @@ export class Project implements IProject {
 			referencedColumnName: 'id',
 		},
 	})
-	projectAssigned: User[]
+	projectAssign: User[]
 
-	@Column({
+	@CreateDateColumn({
 		name: 'created_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	createdAt: Date
 
-	@Column({
+	@UpdateDateColumn({
 		name: 'updated_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
-		onUpdate: 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	updatedAt: Date
 }

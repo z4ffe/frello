@@ -1,8 +1,9 @@
-import {ConflictException, Injectable, Logger, NotFoundException, UnauthorizedException} from '@nestjs/common'
+import {BadRequestException, ConflictException, Injectable, Logger, NotFoundException, UnauthorizedException} from '@nestjs/common'
 import {ConfigService} from '@nestjs/config'
 import {InjectRepository} from '@nestjs/typeorm'
 import * as bcrypt from 'bcrypt'
 import {Repository} from 'typeorm'
+import {Role} from '../role/entities/role.entity'
 import {CreateUserDto} from './dto/createUserDto'
 import {DeleteUserDto} from './dto/deleteUserDto'
 import {UpdateUserDto} from './dto/updateUserDto'
@@ -12,20 +13,22 @@ import {User} from './entities/user.entity'
 export class UserService {
 	private readonly logger = new Logger('UserService')
 
-	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>, private readonly ConfigService: ConfigService) {
+	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>,
+					@InjectRepository(Role) private readonly roleRepository: Repository<Role>,
+					private readonly ConfigService: ConfigService) {
 	}
 
 	async findAll(project?: string) {
 		const users = await this.userRepository.find({
 			relations: {
-				projectAssigned: !!project,
+				projectAssign: !!project,
 			},
 			select: {
 				id: true,
 				firstName: true,
 				lastName: true,
 				createdAt: true,
-				projectAssigned: {
+				projectAssign: {
 					id: !!project,
 				},
 			},
@@ -34,8 +37,8 @@ export class UserService {
 			return users
 		}
 		return users.map(user => {
-			const projectsCount = user.projectAssigned.length
-			const isAssigned = user.projectAssigned.find(arrProject => arrProject.id === +project)
+			const projectsCount = user.projectAssign.length
+			const isAssigned = user.projectAssign.find(arrProject => arrProject.id === +project)
 			if (isAssigned) {
 				return {...user, projectAssigned: true, projectsCount}
 			} else {
@@ -50,10 +53,18 @@ export class UserService {
 			throw new ConflictException('User already exist')
 		}
 		const hashedPassword = await bcrypt.hash(password, +this.ConfigService.getOrThrow('SALT_ROUNDS'))
+		const defaultRole = await this.roleRepository.findOneBy({name: 'user'})
+		if (!defaultRole) {
+			throw new BadRequestException('Default role not found')
+		}
 		const user = {
 			username: username.trim(),
 			password: hashedPassword,
-			firstName, lastName, avatar, country,
+			role: defaultRole,
+			firstName,
+			lastName,
+			avatar,
+			country,
 		}
 		const newUser = this.userRepository.create(user)
 		await this.userRepository.save(newUser)
@@ -88,6 +99,19 @@ export class UserService {
 	}
 
 	async findByName(username: string) {
-		return await this.userRepository.findOneBy({username})
+		const options = {
+			where: {
+				username,
+			},
+			relations: {
+				role: true,
+			},
+			select: {
+				role: {
+					name: true,
+				},
+			},
+		}
+		return await this.userRepository.findOne(options)
 	}
 }

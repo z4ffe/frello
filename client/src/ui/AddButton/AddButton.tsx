@@ -6,9 +6,9 @@ interface Props {
 	handler: () => void
 }
 
-export const AddButton: FC<Props> = ({handler}) => {
+export const AddButton: FC<Props> = ({handler, customClass}) => {
 	return (
-		<button className={styles.addButton} onClick={handler}>
+		<button className={`${styles.addButton} ${customClass ? customClass : ''}`} onClick={handler}>
 			+
 		</button>
 	)

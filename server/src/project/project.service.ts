@@ -10,27 +10,27 @@ import {CreateProjectDto} from './dto/createProjectDto'
 import {UpdateProjectDto} from './dto/updateProjectDto'
 import {UserAssignDto} from './dto/UserAssignDto'
 import {Project} from './entities/project.entity'
-import {ProjectAssignedEntity} from './entities/projectAssigned.entity'
+import {ProjectAssign} from './entities/projectAssign.entity'
+import {IProjectResponse} from './interfaces/project.interface'
 
 @Injectable()
 export class ProjectService {
 	constructor(
 		@InjectRepository(Project) private readonly projectRepository: Repository<Project>, private readonly jwtService: JwtService,
-		@InjectRepository(ProjectAssignedEntity) private readonly projectAssignedRepository: Repository<ProjectAssignedEntity>,
+		@InjectRepository(ProjectAssign) private readonly projectAssignedRepository: Repository<ProjectAssign>,
 		@InjectRepository(User) private readonly userRepository: Repository<User>,
 		@InjectRepository(Task) private readonly taskRepository: Repository<Task>,
 	) {
 	}
 
 	async findAll(userId: number) {
-		const response = []
 		const projects = await this.projectRepository.find({
 			relations: {
-				projectAssigned: true,
+				projectAssign: true,
 				authorId: true,
 			},
 			select: {
-				projectAssigned: {
+				projectAssign: {
 					id: true,
 					username: true,
 				},
@@ -43,15 +43,7 @@ export class ProjectService {
 				flagged: 'DESC',
 			},
 		})
-		for (let project of projects) {
-			const progress = await this.calculateProgress(project.id)
-			project.projectAssigned.forEach(user => {
-				if (user.id === userId) {
-					response.push({...project, progress: progress})
-				}
-			})
-		}
-		return response
+		return await this.filterAssignedProjects(userId, projects)
 	}
 
 
@@ -66,7 +58,7 @@ export class ProjectService {
 		return {message: 'Project created'}
 	}
 
-	async assignUser({userId, projectId}: UserAssignDto, accessToken: string) {
+	async assignUser({userId, projectId}: UserAssignDto, _accessToken: string) {
 		if (!userId || !projectId) {
 			throw new NotFoundException('Something went wrong')
 		}
@@ -119,6 +111,19 @@ export class ProjectService {
 		} else {
 			throw new UnauthorizedException('Invalid credentials')
 		}
+	}
+
+	async filterAssignedProjects(userId: number, projects: Project[]) {
+		const result: IProjectResponse[] = []
+		for (let project of projects) {
+			const progress = await this.calculateProgress(project.id)
+			project.projectAssign.forEach(user => {
+				if (user.id === userId) {
+					result.push({...project, progress: progress})
+				}
+			})
+		}
+		return result
 	}
 
 	async calculateProgress(project: number) {

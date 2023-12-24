@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Task} from '../../task/entities/task.entitiy'
 import {User} from '../../user/entities/user.entity'
 import {IComment} from '../interfaces/comment.interface'
@@ -27,16 +27,15 @@ export class Comment implements IComment {
 	childComments: Comment[]
 
 
-	@Column({
+	@CreateDateColumn({
 		name: 'created_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	createdAt: Date
 
-	@Column({
+	@UpdateDateColumn({
 		name: 'updated_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
-		onUpdate: 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	updatedAt: Date
 

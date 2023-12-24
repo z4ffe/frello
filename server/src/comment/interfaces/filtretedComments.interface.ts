@@ -1,11 +1,11 @@
-import {ERoles} from '../../user/entities/user.entity'
+import {Role} from '../../role/entities/role.entity'
 
 export interface CommentChild {
 	id: number
 	text: string
 	parent: number
 	username: string
-	role: ERoles
+	role: Role
 	createdAt: Date
 	deleted: boolean
 	child: CommentChild[]
@@ -16,7 +16,7 @@ export interface IFilteredComments {
 	text: string
 	parent: number | null
 	username: string
-	role: ERoles
+	role: Role
 	createdAt: Date
 	deleted: boolean
 	child: CommentChild[]

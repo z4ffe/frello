@@ -11,7 +11,7 @@ export interface IUser {
 	country: string
 	password: string
 	projects: Project[]
-	projectAssigned: Project[]
+	projectAssign: Project[]
 	tasks: Task[]
 	comments: Comment[]
 	createdAt: Date

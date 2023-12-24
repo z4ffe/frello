@@ -1,13 +1,14 @@
 import * as bcrypt from 'bcrypt'
-import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
+import {Role} from '../../role/entities/role.entity'
 import {Task} from '../../task/entities/task.entitiy'
 import {IUser} from '../interfaces/user.interface'
 
 export enum ERoles {
-	Admin = 'admin',
-	User = 'user'
+	Admin = 1,
+	User = 2
 }
 
 @Entity()
@@ -15,7 +16,7 @@ export class User implements IUser {
 	@PrimaryGeneratedColumn()
 	id: number
 
-	@Column({length: 50})
+	@Column({length: 50, unique: true})
 	username: string
 
 	@Column({name: 'first_name', length: 25})
@@ -33,8 +34,9 @@ export class User implements IUser {
 	@Column({nullable: true})
 	avatar: string
 
-	@Column({default: ERoles.User})
-	role: ERoles
+	@ManyToOne(() => Role, (role) => role.id, {nullable: false})
+	@JoinColumn({name: 'role_id'})
+	role: Role
 
 	@OneToMany(() => Project, (project) => project.authorId)
 	projects: []
@@ -46,28 +48,17 @@ export class User implements IUser {
 	comments: Comment[]
 
 	@ManyToMany(() => Project, (project) => project.id)
-	@JoinTable({
-		name: 'project_assigned',
-		joinColumn: {
-			name: 'user_id',
-			referencedColumnName: 'id',
-		}, inverseJoinColumn: {
-			name: 'project_id',
-			referencedColumnName: 'id',
-		},
-	})
-	projectAssigned: Project[]
+	projectAssign: Project[]
 
-	@Column({
+	@CreateDateColumn({
 		name: 'created_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	createdAt: Date
 
-	@Column({
+	@UpdateDateColumn({
 		name: 'updated_at',
-		default: () => 'CURRENT_TIMESTAMP(3)',
-		onUpdate: 'CURRENT_TIMESTAMP(3)',
+		type: 'timestamp',
 	})
 	updatedAt: Date
 

@@ -2,8 +2,9 @@
   display: flex;
   width: rem(28);
   height: rem(28);
-  border: 1px dashed #D0D0D0;
+  border: 1.5px dashed #D0D0D0;
   color: #D0D0D0;
+  padding-top: rem(1);
   border-radius: 50%;
   font-weight: 300;
   font-size: rem(22);
@@ -13,7 +14,7 @@
   &:hover {
     animation: push_and_rotate 3s infinite ease;
     color: var(--var--lighgray);
-    border: 1px dashed var(--var--lighgray);
+    border: 1.5px dashed var(--var--lighgray);
   }
 
   &:active {
