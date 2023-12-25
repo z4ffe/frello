@@ -27,16 +27,16 @@ export class ProjectController {
 	@HttpCode(HttpStatus.CREATED)
 	@UseGuards(AuthGuard)
 	@ApiBearerAuth('access-token')
-	async createProject(@Body() body: CreateProjectDto) {
-		return await this.projectService.create(body)
+	async createProject(@Body() body: CreateProjectDto, @Token('accessToken') accessToken: string) {
+		return await this.projectService.create(body, accessToken)
 	}
 
 	@Patch('/assign')
 	@HttpCode(HttpStatus.OK)
 	@UseGuards(AuthGuard)
 	@ApiBearerAuth('access-token')
-	async assignUserToProject(@Body() body: UserAssignDto, @Token('accessToken') accessToken: string) {
-		return await this.projectService.assignUser(body, accessToken)
+	async assignUserToProject(@Body() body: UserAssignDto) {
+		return await this.projectService.assignUser(body)
 	}
 
 	@Patch()

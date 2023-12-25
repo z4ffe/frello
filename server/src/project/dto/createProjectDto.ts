@@ -1,17 +1,11 @@
 import {ApiProperty} from '@nestjs/swagger'
-import {IsBoolean, IsNotEmpty, IsNumber, IsString} from 'class-validator'
-import {User} from '../../user/entities/user.entity'
+import {IsBoolean, IsNotEmpty, IsString} from 'class-validator'
 
 export class CreateProjectDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsString()
 	readonly name: string
-
-	@ApiProperty()
-	@IsNotEmpty()
-	@IsNumber()
-	readonly authorId: Pick<User, 'id'>
 
 	@ApiProperty()
 	@IsNotEmpty()

@@ -47,18 +47,23 @@ export class ProjectService {
 	}
 
 
-	async create(body: CreateProjectDto) {
-		const {name, authorId, description, deadline, flagged} = body
-		const user = await this.userRepository.findOneBy({id: +authorId})
+	async create(body: CreateProjectDto, accessToken: string) {
+		const {name, description, deadline, flagged} = body
+		const {userId} = this.jwtService.decode(accessToken) as TokenDto
+		const user = await this.userRepository.findOneBy({id: userId})
 		const newProject = this.projectRepository.create({
-			name, authorId, description, deadline, flagged,
+			name,
+			description,
+			deadline,
+			flagged,
+			authorId: user,
 		})
 		const project = await this.projectRepository.save(newProject)
-		await this.projectAssignedRepository.save({userId: user.id, projectId: project.id})
-		return {message: 'Project created'}
+		await this.projectAssignedRepository.save({userId: userId, projectId: project.id})
+		return {message: `Project ${newProject.name} created`}
 	}
 
-	async assignUser({userId, projectId}: UserAssignDto, _accessToken: string) {
+	async assignUser({userId, projectId}: UserAssignDto) {
 		if (!userId || !projectId) {
 			throw new NotFoundException('Something went wrong')
 		}

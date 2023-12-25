@@ -34,3 +34,41 @@ a:visited {
   border-color: black;
   outline: none;
 }
+
+.react-datepicker {
+  border: none !important;
+  overflow: hidden !important;
+  border-radius: rem(8) !important;
+  box-shadow: var(--var--main-shadow);
+
+  &__header {
+    background-color: var(--var--background-color) !important;
+    border-bottom: none !important;
+  }
+
+  &__current-month {
+    font-weight: 500 !important;
+  }
+
+  &__month {
+    padding: rem(3) rem(3) !important;
+    font-size: rem(15) !important;
+  }
+
+  &__day {
+    &--keyboard-selected,
+    &--selected {
+      background-color: #DAECFC !important;
+      color: black !important;
+      font-weight: 500 !important;
+      font-size: rem(16);
+    }
+  }
+
+  &__today-button {
+    padding: rem(10) 0 !important;
+    background-color: var(--var--background-color) !important;
+    border-top: none !important;
+    font-weight: 500 !important;
+  }
+}

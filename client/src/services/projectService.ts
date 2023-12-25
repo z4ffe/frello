@@ -11,6 +11,11 @@ class ProjectService {
 		})
 		return response.data
 	}
+
+	async addProject(data: any) {
+		const response = await apiInstance.post('/project', data)
+		return response.data
+	}
 }
 
 export const projectService = new ProjectService()

@@ -1,3 +1,112 @@
 .projectCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: rem(28);
+  background-color: #fff;
+  border-radius: rem(8);
+  box-shadow: var(--var--main-shadow);
+  gap: rem(10);
 
+  &__title {
+    font-size: rem(15);
+    font-weight: 500;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    width: rem(280);
+    align-items: center;
+
+    label {
+      width: inherit;
+
+      input {
+        width: inherit;
+        padding: rem(10) rem(10);
+        font-size: rem(14);
+        border: 1px solid transparent;
+        border-bottom: 1px solid var(--var--lighgray);;
+        border-radius: rem(0);
+        transition: .3s;
+
+        &:focus {
+          outline: none;
+          border: 1px solid #7784EE;
+          box-shadow: 0 5px 15px 0 rgba(119, 132, 238, 0.30);
+          border-radius: rem(4);
+        }
+      }
+
+      .desc {
+        width: inherit;
+        padding: rem(10) rem(10);
+        font-size: rem(14);
+        height: rem(150);
+        resize: none;
+        border: 1px solid var(--var--lighgray);
+        border-radius: rem(4);
+        transition: .3s;
+        color: var(--var--main-font-color);
+
+        &:focus {
+          outline: none;
+          border: 1px solid #7784EE;
+          box-shadow: 0 5px 15px 0 rgba(119, 132, 238, 0.30);
+        }
+      }
+    }
+
+    .date {
+      display: flex;
+      width: 100%;
+      padding: 0 rem(5);
+      justify-content: space-between;
+      align-items: center;
+
+      &__label {
+        display: flex;
+        align-items: center;
+        gap: rem(4);
+
+        span {
+          font-size: rem(13);
+          opacity: .7;
+        }
+      }
+
+      .picker {
+        color: #1778B0;
+        font-size: rem(13);
+        padding: rem(5);
+        border-radius: rem(8);
+        background-color: rgba(8, 160, 247, 0.2);
+        text-align: center;
+        border: 1px solid transparent;
+        transition: .3s;
+
+        &:focus {
+          outline: none;
+          border: 1px solid #1778B0;
+        }
+      }
+    }
+
+    .addBtn {
+      width: 60%;
+    }
+  }
+
+
+  .closeBtn {
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+  }
+}
+
+.popper {
+  z-index: 99999 !important;
 }

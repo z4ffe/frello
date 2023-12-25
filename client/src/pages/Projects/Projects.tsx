@@ -11,7 +11,7 @@ import styles from './projects.module.scss'
 export const Projects = () => {
 	const dispatch = useAppDispatch()
 	const userId = useAppSelector(state => state.user.id)
-	const [fetchEnabled, setEnabled] = useState(false)
+	const [fetchEnabled, setFetchEnabled] = useState(false)
 	const queryClient = useQueryClient()
 	const {isPending, data} = useQuery({
 		queryKey: ['projects'],
@@ -25,20 +25,16 @@ export const Projects = () => {
 
 	useEffect(() => {
 		if (userId) {
-			setEnabled(true)
+			setFetchEnabled(true)
 		} else if (!userId) {
-			setEnabled(false)
+			setFetchEnabled(false)
 			queryClient.removeQueries({queryKey: ['projects']})
 		}
 	}, [userId])
 
-	if (!fetchEnabled) {
-		return 'Login'
-	}
 
 	if (isPending) {
 		return <div><LoaderDots /></div>
-
 	}
 
 	return (

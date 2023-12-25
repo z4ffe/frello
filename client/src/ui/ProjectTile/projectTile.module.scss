@@ -9,6 +9,7 @@
   transition: 0.4s;
   padding: rem(28);
   position: relative;
+  height: fit-content;
 
   &:hover {
     transform: scale(102%);

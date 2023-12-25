@@ -14,6 +14,11 @@ export const ModalContent = () => {
 	useEffect(() => {
 		if (!login && !register && !taskAdd && !assign && !projectAdd && !(task && taskEdit)) {
 			dispatch(uiActions.resetState())
+			document.body.style.overflow = 'unset'
+		}
+		document.body.style.overflow = 'hidden'
+		return () => {
+			document.body.style.overflow = 'unset'
 		}
 	}, [])
 
