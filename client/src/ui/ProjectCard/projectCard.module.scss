@@ -16,8 +16,8 @@
   .form {
     display: flex;
     flex-direction: column;
-    gap: rem(10);
-    width: rem(280);
+    gap: rem(12);
+    width: rem(300);
     align-items: center;
 
     label {
@@ -59,6 +59,82 @@
       }
     }
 
+    .flagged {
+      display: flex;
+      width: 100%;
+      padding: 0 rem(5);
+      align-items: center;
+      justify-content: space-between;
+
+      &__label {
+        display: flex;
+        align-items: center;
+        gap: rem(4);
+
+        img {
+          color: red;
+          fill: red;
+        }
+
+        span {
+          font-size: rem(13);
+          opacity: .7;
+        }
+      }
+
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 45px;
+        height: 22px;
+
+        input[type="checkbox"] {
+          display: none;
+        }
+
+        input[type="checkbox"]:checked + .switch::before {
+          transform: translateX(21px);
+          background-color: #fff;
+          background-image: url('../../assets/images/svg/checked.svg');
+        }
+
+        input[type="checkbox"]:checked + .switch {
+          background-color: #08A0F7;
+        }
+
+        .switch {
+          position: absolute;
+          cursor: pointer;
+          background-color: #08A0F70F;
+          border-radius: 25px;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transition: background-color 0.2s ease;
+          border: 1px solid #08A0F7;
+
+          &:before {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            content: '';
+            left: 2px;
+            top: 1px;
+            width: 19px;
+            height: 18px;
+            background-color: #93c9ff;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 60%;
+          }
+        }
+      }
+    }
+
     .date {
       display: flex;
       width: 100%;
@@ -78,6 +154,7 @@
       }
 
       .picker {
+        width: rem(150);
         color: #1778B0;
         font-size: rem(13);
         padding: rem(5);
@@ -86,6 +163,7 @@
         text-align: center;
         border: 1px solid transparent;
         transition: .3s;
+        cursor: pointer;
 
         &:focus {
           outline: none;
@@ -95,6 +173,7 @@
     }
 
     .addBtn {
+      margin-top: rem(5);
       width: 60%;
     }
   }

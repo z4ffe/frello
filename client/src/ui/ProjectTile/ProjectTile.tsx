@@ -55,7 +55,7 @@ export const ProjectTile: FC<Props> = ({project}) => {
 				</div>
 				{role === ERoles.Admin ? <AddButton handler={() => dispatch(uiActions.openUserAssign(project.id))} /> : null}
 			</div>
-			<ProjectDropDown />
+			<ProjectDropDown project={project} />
 		</div>
 	)
 }

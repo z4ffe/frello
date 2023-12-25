@@ -1,26 +1,39 @@
 import {zodResolver} from '@hookform/resolvers/zod'
 import {useQueryClient} from '@tanstack/react-query'
-import {useState} from 'react'
+import {FC, useState} from 'react'
 import ReactDatePicker from 'react-datepicker'
-import {useForm} from 'react-hook-form'
+import {Controller, useForm} from 'react-hook-form'
+import avatar from '../../assets/images/avatar.png'
+import assignImg from '../../assets/images/svg/assign_icon.svg'
 import closeImg from '../../assets/images/svg/close.svg'
 import clockImg from '../../assets/images/svg/icon-clock.svg'
-import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
+import flagImg from '../../assets/images/svg/icon-flag.svg'
+import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {projectService} from '../../services/projectService.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {projectDefaultValues, projectSchema, projectSchemaType} from '../../validations/projectSchema.ts'
+import {Avatar} from '../Avatar/Avatar.tsx'
 import {Divider} from '../Divider/Divider.tsx'
 import {RegularButton} from '../RegularButton/RegularButton.tsx'
 import styles from './projectCard.module.scss'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export const ProjectCard = () => {
+interface Props {
+	editMode: boolean
+}
+
+export const ProjectCard: FC<Props> = ({editMode}) => {
 	const dispatch = useAppDispatch()
-	const [startDate, setStartDate] = useState<Date>(new Date())
+	const {id, flagged, description, title, deadline} = useAppSelector(state => state.ui.modal.projectEditData)
 	const [loading, setLoading] = useState(false)
 	const queryClient = useQueryClient()
-	const {handleSubmit, register} = useForm<projectSchemaType>({
-		defaultValues: projectDefaultValues,
+	const {handleSubmit, register, control} = useForm<projectSchemaType>({
+		defaultValues: editMode ? {
+			title,
+			deadline: new Date(deadline),
+			description,
+			flagged,
+		} : projectDefaultValues,
 		resolver: zodResolver(projectSchema),
 	})
 
@@ -29,8 +42,8 @@ export const ProjectCard = () => {
 		const data = {
 			name: values.title,
 			description: values.description,
-			deadline: '2023-12-12 19:55:04.899+00',
-			flagged: false,
+			deadline: values.deadline,
+			flagged: values.flagged,
 		}
 		try {
 			void await projectService.addProject(data)
@@ -52,20 +65,36 @@ export const ProjectCard = () => {
 				<label>
 					<textarea className={styles.desc} placeholder='Project description' {...register('description')} autoFocus />
 				</label>
-				<label>
-					<input type='radio' />
-				</label>
+				<div className={styles.flagged}>
+					<div className={styles.flagged__label}>
+						<img src={flagImg} alt='flagged' />
+						<span>Flagged</span>
+					</div>
+					<label className={styles.toggle}>
+						<input type='checkbox' {...register('flagged')} />
+						<span className={styles.switch} />
+					</label>
+				</div>
 				<Divider />
 				<div className={styles.date}>
 					<div className={styles.date__label}>
 						<img src={clockImg} alt='deadline' />
 						<span>Due</span>
 					</div>
-					<ReactDatePicker className={styles.picker} portalId='portal' popperClassName={styles.popper} onChange={(data) => console.log(data)} selected={startDate} dateFormat='d MMM yyyy'
-										  todayButton='Today' />
+					<Controller control={control} name='deadline' render={({field}) => (
+						<ReactDatePicker className={styles.picker} portalId='portal' popperClassName={styles.popper} onChange={(date) => field.onChange(date)} selected={field.value} dateFormat='d MMM yyyy'
+											  todayButton='Today' minDate={new Date()} />
+					)} />
 				</div>
 				<Divider />
-				<RegularButton customClass={styles.addBtn} type='submit' text='Add' loading={loading} disabled={loading} />
+				<div className={styles.flagged}>
+					<div className={styles.flagged__label}>
+						<img src={assignImg} alt='assign' />
+						<span>Assign users</span>
+					</div>
+					<Avatar src={avatar} />
+				</div>
+				<RegularButton customClass={styles.addBtn} type='submit' text={editMode ? 'Edit' : 'Add'} loading={loading} disabled={loading} />
 			</form>
 			<div className={styles.closeBtn}>
 				<img src={closeImg} alt='Close Button' />

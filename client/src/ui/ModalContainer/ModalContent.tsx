@@ -12,7 +12,7 @@ export const ModalContent = () => {
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (!login && !register && !taskAdd && !assign && !projectAdd && !(task && taskEdit)) {
+		if (!login && !register && !taskAdd && !assign && !projectAdd && !projectEdit && !(task && taskEdit)) {
 			dispatch(uiActions.resetState())
 			document.body.style.overflow = 'unset'
 		}
@@ -35,6 +35,10 @@ export const ModalContent = () => {
 		case (!!assign):
 			return <Assign />
 		case (projectAdd):
-			return <ProjectCard />
+			return <ProjectCard editMode={false} />
+		case (projectEdit):
+			return <ProjectCard editMode={projectEdit} />
+		default:
+			dispatch(uiActions.resetState())
 	}
 }

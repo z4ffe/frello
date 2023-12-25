@@ -1,11 +1,19 @@
 import {AnimatePresence, motion} from 'framer-motion'
-import {useEffect, useRef, useState} from 'react'
+import {FC, useEffect, useRef, useState} from 'react'
 import editIcon from '../../assets/images/svg/edit.svg'
 import deleteIcon from '../../assets/images/svg/remove.svg'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
+import {uiActions} from '../../store/ui/uiSlice.ts'
+import {IProject} from '../../types/interfaces/project.interface.ts'
 import {Divider} from '../Divider/Divider.tsx'
 import styles from './projectDropDown.module.scss'
 
-export const ProjectDropDown = () => {
+interface Props {
+	project: IProject
+}
+
+export const ProjectDropDown: FC<Props> = ({project}) => {
+	const dispatch = useAppDispatch()
 	const [dropDown, setDropDown] = useState(false)
 	const dropDownRef = useRef<HTMLDivElement>(null)
 
@@ -35,7 +43,7 @@ export const ProjectDropDown = () => {
 						animate={{opacity: 1, scale: '100%'}}
 						exit={{opacity: 0, scale: '0'}}
 						className={styles.dropdown__project}>
-						<div className={styles.btn__wrapper}>
+						<div className={styles.btn__wrapper} onClick={() => dispatch(uiActions.editProject(project))}>
 							<img src={editIcon} alt='edit' />
 							<button className={styles.btn}>Edit</button>
 						</div>

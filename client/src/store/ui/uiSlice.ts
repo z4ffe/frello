@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {IProject} from '../../types/interfaces/project.interface.ts'
 
 interface IUISlice {
 	search: boolean,
@@ -11,7 +12,14 @@ interface IUISlice {
 		taskAdd: boolean
 		taskEdit: boolean
 		projectAdd: boolean
-		projectEdit: number | null
+		projectEdit: boolean,
+		projectEditData: {
+			id: number | null,
+			title: string,
+			description: string,
+			deadline: string,
+			flagged: boolean,
+		},
 		assign: number | null
 	}
 }
@@ -27,7 +35,14 @@ const initState: IUISlice = {
 		taskAdd: false,
 		taskEdit: false,
 		projectAdd: false,
-		projectEdit: null,
+		projectEdit: false,
+		projectEditData: {
+			id: null,
+			title: '',
+			description: '',
+			deadline: '',
+			flagged: false,
+		},
 		assign: null,
 	},
 }
@@ -41,9 +56,16 @@ const uiSlice = createSlice({
 			state.modal.isOpen = true
 			state.modal.projectAdd = true
 		},
-		edit: (state, action: PayloadAction<number>) => {
+		editProject: (state, action: PayloadAction<IProject>) => {
 			state.modal.isOpen = true
-			state.modal.projectEdit = action.payload
+			state.modal.projectEdit = true
+			state.modal.projectEditData = {
+				id: action.payload.id,
+				title: action.payload.name,
+				description: action.payload.description,
+				deadline: action.payload.deadline,
+				flagged: action.payload.flagged,
+			}
 		},
 		changeTasksLayout: (state) => {
 			state.tasksLayout = !state.tasksLayout
