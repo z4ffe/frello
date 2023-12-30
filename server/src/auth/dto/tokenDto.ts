@@ -1,9 +1,12 @@
-import {ERoles} from '../../user/entities/user.entity'
+export enum ETokenRoles {
+	'Admin' = 'admin',
+	'user' = 'user'
+}
 
 export class TokenDto {
 	readonly userId: number
 	readonly username: string
-	readonly role: ERoles
+	readonly role: ETokenRoles
 	readonly iat: number
 	readonly exp: number
 }

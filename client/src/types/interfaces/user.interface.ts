@@ -19,6 +19,6 @@ export interface IUsers {
 	firstName: string
 	lastName: string
 	createdAt: string
-	projectAssigned: boolean
+	projectAssign: boolean
 	projectsCount: number
 }

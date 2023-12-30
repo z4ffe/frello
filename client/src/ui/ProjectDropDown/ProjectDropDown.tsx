@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {AnimatePresence, motion} from 'framer-motion'
 import {FC, useEffect, useRef, useState} from 'react'
 import editIcon from '../../assets/images/svg/edit.svg'
@@ -50,7 +51,7 @@ export const ProjectDropDown: FC<Props> = ({project}) => {
 						<Divider />
 						<div className={styles.btn__wrapper}>
 							<img src={deleteIcon} alt='remove project' />
-							<button className={`${styles.btn} ${styles.delete__btn}`}>Delete</button>
+							<button className={clsx(styles.btn, styles.delete__btn)}>Delete</button>
 						</div>
 					</motion.div>
 				}

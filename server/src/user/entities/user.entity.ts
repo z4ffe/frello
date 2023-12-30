@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt'
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Comment} from '../../comment/entities/comment.entitiy'
 import {Project} from '../../project/entities/project.entity'
 import {Role} from '../../role/entities/role.entity'
@@ -48,6 +48,16 @@ export class User implements IUser {
 	comments: Comment[]
 
 	@ManyToMany(() => Project, (project) => project.id)
+	@JoinTable({
+		name: 'project_assign',
+		joinColumn: {
+			name: 'user_id',
+			referencedColumnName: 'id',
+		}, inverseJoinColumn: {
+			name: 'project_id',
+			referencedColumnName: 'id',
+		},
+	})
 	projectAssign: Project[]
 
 	@CreateDateColumn({

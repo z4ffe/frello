@@ -15,12 +15,13 @@ interface IUISlice {
 		projectEdit: boolean,
 		projectEditData: {
 			id: number | null,
-			title: string,
+			name: string,
 			description: string,
 			deadline: string,
 			flagged: boolean,
 		},
 		assign: number | null
+		confirm: boolean
 	}
 }
 
@@ -38,12 +39,13 @@ const initState: IUISlice = {
 		projectEdit: false,
 		projectEditData: {
 			id: null,
-			title: '',
+			name: '',
 			description: '',
 			deadline: '',
 			flagged: false,
 		},
 		assign: null,
+		confirm: false,
 	},
 }
 
@@ -61,7 +63,7 @@ const uiSlice = createSlice({
 			state.modal.projectEdit = true
 			state.modal.projectEditData = {
 				id: action.payload.id,
-				title: action.payload.name,
+				name: action.payload.name,
 				description: action.payload.description,
 				deadline: action.payload.deadline,
 				flagged: action.payload.flagged,

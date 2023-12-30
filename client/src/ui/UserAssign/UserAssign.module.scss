@@ -3,10 +3,10 @@
   flex-direction: column;
   background-color: #fff;
   filter: drop-shadow(0px 30px 60px rgba(32, 56, 85, 0.15));
-  padding: rem(10) rem(17);
   border-radius: rem(8);
-  min-width: rem(400);
-  gap: rem(5);
+  max-height: 80%;
+  width: 25%;
+  padding: rem(10) 0;
   overflow: hidden;
 
   .title {
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: start;
     gap: rem(10);
-    padding: rem(10);
+    padding: rem(10) rem(20);
 
     img {
       width: rem(26);
@@ -26,81 +26,49 @@
     }
   }
 
-  .search {
+  .search__wrapper {
     display: flex;
-    width: 100%;
-    height: rem(35);
-    align-self: center;
-    justify-content: start;
     align-items: center;
-    border-radius: 200px;
-    background-color: #F4F7FC;
-    font-size: rem(14);
-    transition: .3s;
-    overflow: scroll;
+    justify-content: center;
+    padding: rem(10) rem(20);
 
-    &:focus-within {
-      box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
-    }
+    .search {
+      display: flex;
+      width: 100%;
+      height: rem(35);
+      align-self: center;
+      justify-content: start;
+      align-items: center;
+      border-radius: 200px;
+      background-color: #F4F7FC;
+      font-size: rem(14);
+      transition: .3s;
+      overflow: scroll;
 
-    .icon {
-      margin-left: rem(18);
-    }
+      &:focus-within {
+        box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
+      }
 
-    .input {
-      padding-left: rem(12);
-      border: none;
-      background-color: transparent;
+      .icon {
+        margin-left: rem(18);
+      }
 
-      &:focus {
-        outline: none;
+      .input {
+        padding-left: rem(12);
+        border: none;
+        background-color: transparent;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }
 
   .users {
-    display: flex;
+    display: block;
     flex-direction: column;
     margin-top: rem(10);
-    gap: rem(10);
-
-    .user {
-      height: rem(60);
-      display: flex;
-      align-items: center;
-      border-radius: rem(8);
-      padding: rem(5) rem(10);
-      transition: .3s;
-
-      &:hover {
-        background-color: #F0F5FC;
-        transform: scale(102%);
-      }
-
-      &:active {
-        background-color: #F0F5FC;
-        transform: scale(98%);
-      }
-
-
-      .name {
-        padding-left: rem(6);
-        font-weight: 500;
-        font-size: rem(14);
-        opacity: .7;
-      }
-
-      .inprogress {
-        margin-left: auto;
-        color: #41475E;
-        opacity: .5;
-        font-size: rem(12);
-        padding-left: rem(50)
-      }
-    }
+    overflow-y: auto;
   }
-}
-
-.user__active {
-  background-color: #F0F5FC;
 }

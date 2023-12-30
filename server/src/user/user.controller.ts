@@ -16,9 +16,11 @@ export class UserController {
 
 	@Get()
 	@HttpCode(HttpStatus.OK)
-	async getAllUser(@Query() query: {project: string}) {
-		const {project} = query
-		return await this.userService.findAll(project)
+	async getAssignedUsers(@Query('project') project: string) {
+		if (!project) {
+			return this.userService.findAll()
+		}
+		return await this.userService.findAllAssignedToProject(project)
 	}
 
 	@Post()

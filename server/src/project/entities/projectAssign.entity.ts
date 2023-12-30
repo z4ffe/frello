@@ -15,14 +15,14 @@ export class ProjectAssign implements IProjectAssigned {
 	})
 	userId: number
 
-	@ManyToOne(() => Project, (project) => project.projectAssign)
+	@ManyToOne(() => Project, (project) => project.projectAssign, {onDelete: 'CASCADE'})
 	@JoinColumn({
 		name: 'project_id',
 		referencedColumnName: 'id',
 	})
 	project: Project
 
-	@ManyToOne(() => User, (user) => user.projectAssign)
+	@ManyToOne(() => User, (user) => user.projectAssign, {onDelete: 'CASCADE'})
 	@JoinColumn({
 		name: 'user_id',
 		referencedColumnName: 'id',

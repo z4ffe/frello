@@ -1,0 +1,39 @@
+.userCard {
+  height: rem(60);
+  display: flex;
+  align-items: center;
+  padding: rem(5) rem(20);
+  transition: .3s;
+  margin-bottom: rem(10);
+
+  &:hover {
+    background-color: #F0F5FC;
+    transform: scale(102%);
+  }
+
+  &:active {
+    background-color: #F0F5FC;
+    transform: scale(98%);
+  }
+
+
+  .name {
+    padding-left: rem(6);
+    font-weight: 500;
+    font-size: rem(14);
+    opacity: .7;
+  }
+
+  .inprogress {
+    margin-left: auto;
+    color: #41475E;
+    opacity: .5;
+    font-size: rem(12);
+    padding-left: rem(50)
+  }
+}
+
+.userCard__active {
+  border-left: 2px solid #08A0F7;
+  background-color: #F0F5FC;
+}

@@ -3,8 +3,6 @@ import {useQueryClient} from '@tanstack/react-query'
 import {FC, useState} from 'react'
 import ReactDatePicker from 'react-datepicker'
 import {Controller, useForm} from 'react-hook-form'
-import avatar from '../../assets/images/avatar.png'
-import assignImg from '../../assets/images/svg/assign_icon.svg'
 import closeImg from '../../assets/images/svg/close.svg'
 import clockImg from '../../assets/images/svg/icon-clock.svg'
 import flagImg from '../../assets/images/svg/icon-flag.svg'
@@ -12,7 +10,6 @@ import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.
 import {projectService} from '../../services/projectService.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {projectDefaultValues, projectSchema, projectSchemaType} from '../../validations/projectSchema.ts'
-import {Avatar} from '../Avatar/Avatar.tsx'
 import {Divider} from '../Divider/Divider.tsx'
 import {RegularButton} from '../RegularButton/RegularButton.tsx'
 import styles from './projectCard.module.scss'
@@ -24,29 +21,22 @@ interface Props {
 
 export const ProjectCard: FC<Props> = ({editMode}) => {
 	const dispatch = useAppDispatch()
-	const {id, flagged, description, title, deadline} = useAppSelector(state => state.ui.modal.projectEditData)
+	const {id, flagged, description, name, deadline} = useAppSelector(state => state.ui.modal.projectEditData)
 	const [loading, setLoading] = useState(false)
 	const queryClient = useQueryClient()
 	const {handleSubmit, register, control} = useForm<projectSchemaType>({
-		defaultValues: editMode ? {
-			title,
-			deadline: new Date(deadline),
-			description,
-			flagged,
-		} : projectDefaultValues,
+		defaultValues: editMode ? {name, deadline: new Date(deadline), description, flagged} : projectDefaultValues,
 		resolver: zodResolver(projectSchema),
 	})
 
-	const addProject = async (values: projectSchemaType) => {
+	const submitForm = async (values: projectSchemaType) => {
 		setLoading(true)
-		const data = {
-			name: values.title,
-			description: values.description,
-			deadline: values.deadline,
-			flagged: values.flagged,
-		}
 		try {
-			void await projectService.addProject(data)
+			if (editMode && id) {
+				void await projectService.updateProject(id, values)
+			} else {
+				void await projectService.addProject(values)
+			}
 			await queryClient.invalidateQueries({queryKey: ['projects']})
 			dispatch(uiActions.resetState())
 		} catch (error) {
@@ -58,9 +48,9 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 	return (
 		<div className={styles.projectCard}>
 			<h1 className={styles.projectCard__title}>Create New Project</h1>
-			<form className={styles.form} onSubmit={handleSubmit(addProject)}>
+			<form className={styles.form} onSubmit={handleSubmit(submitForm)}>
 				<label>
-					<input type='text' placeholder='Project title' {...register('title')} />
+					<input type='text' placeholder='Project name' {...register('name')} />
 				</label>
 				<label>
 					<textarea className={styles.desc} placeholder='Project description' {...register('description')} autoFocus />
@@ -86,14 +76,14 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 											  todayButton='Today' minDate={new Date()} />
 					)} />
 				</div>
-				<Divider />
+				{/* <Divider />
 				<div className={styles.flagged}>
 					<div className={styles.flagged__label}>
 						<img src={assignImg} alt='assign' />
 						<span>Assign users</span>
 					</div>
 					<Avatar src={avatar} />
-				</div>
+				</div> */}
 				<RegularButton customClass={styles.addBtn} type='submit' text={editMode ? 'Edit' : 'Add'} loading={loading} disabled={loading} />
 			</form>
 			<div className={styles.closeBtn}>

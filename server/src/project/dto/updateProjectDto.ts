@@ -1,5 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger'
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator'
+import {IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
 
 export class UpdateProjectDto {
 	@ApiProperty()
@@ -8,12 +8,22 @@ export class UpdateProjectDto {
 	readonly id: number
 
 	@ApiProperty()
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	readonly name: string
 
 	@ApiProperty()
-	@IsNotEmpty()
-	@IsNumber()
-	readonly authorId: number
+	@IsOptional()
+	@IsString()
+	readonly description: string
+
+	@ApiProperty()
+	@IsOptional()
+	@IsString()
+	readonly deadline: string
+
+	@ApiProperty()
+	@IsOptional()
+	@IsBoolean()
+	readonly flagged: boolean
 }

@@ -44,7 +44,7 @@ export class ProjectController {
 	@UseGuards(AuthGuard)
 	@ApiBearerAuth('access-token')
 	async updateProject(@Body() body: UpdateProjectDto, @Token('accessToken') accessToken: string) {
-		return await this.projectService.updateName(body, accessToken)
+		return await this.projectService.update(body, accessToken)
 	}
 
 	@Delete('')

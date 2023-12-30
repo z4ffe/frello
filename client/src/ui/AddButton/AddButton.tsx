@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {FC} from 'react'
 import styles from './addButton.module.scss'
 
@@ -8,7 +9,7 @@ interface Props {
 
 export const AddButton: FC<Props> = ({handler, customClass}) => {
 	return (
-		<button className={`${styles.addButton} ${customClass ? customClass : ''}`} onClick={handler}>
+		<button className={clsx(styles.addButton, customClass)} onClick={handler}>
 			+
 		</button>
 	)

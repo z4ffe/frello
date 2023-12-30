@@ -18,31 +18,39 @@ export class UserService {
 					private readonly ConfigService: ConfigService) {
 	}
 
-	async findAll(project?: string) {
-		const users = await this.userRepository.find({
-			relations: {
-				projectAssign: !!project,
-			},
+	async findAll() {
+		return await this.userRepository.find({
 			select: {
 				id: true,
+				username: true,
 				firstName: true,
 				lastName: true,
 				createdAt: true,
-				projectAssign: {
-					id: !!project,
-				},
 			},
 		})
-		if (!project) {
-			return users
-		}
+	}
+
+	async findAllAssignedToProject(projectId: string) {
+		const users = await this.userRepository.find({
+			relations: {
+				projectAssign: true,
+			},
+			select: {
+				id: true,
+				username: true,
+				firstName: true,
+				lastName: true,
+				createdAt: true,
+				projectAssign: true,
+			},
+		})
 		return users.map(user => {
 			const projectsCount = user.projectAssign.length
-			const isAssigned = user.projectAssign.find(arrProject => arrProject.id === +project)
+			const isAssigned = user.projectAssign.find((project) => project.id === +projectId)
 			if (isAssigned) {
-				return {...user, projectAssigned: true, projectsCount}
+				return {...user, projectAssign: true, projectsCount}
 			} else {
-				return {...user, projectAssigned: false, projectsCount}
+				return {...user, projectAssign: false, projectsCount}
 			}
 		})
 	}

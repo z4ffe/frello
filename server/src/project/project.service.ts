@@ -1,11 +1,11 @@
-import {Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common'
+import {BadRequestException, Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common'
 import {JwtService} from '@nestjs/jwt'
 import {InjectRepository} from '@nestjs/typeorm'
 import {Repository} from 'typeorm'
-import {TokenDto} from '../auth/dto/tokenDto'
+import {ETokenRoles, TokenDto} from '../auth/dto/tokenDto'
 import {Task} from '../task/entities/task.entitiy'
 import {ETaskStatus} from '../task/interfaces/task.interface'
-import {ERoles, User} from '../user/entities/user.entity'
+import {User} from '../user/entities/user.entity'
 import {CreateProjectDto} from './dto/createProjectDto'
 import {UpdateProjectDto} from './dto/updateProjectDto'
 import {UserAssignDto} from './dto/UserAssignDto'
@@ -86,17 +86,24 @@ export class ProjectService {
 		return {message: 'User assigned'}
 	}
 
-	async updateName(body: UpdateProjectDto, accessToken: string) {
-		const {userId} = this.jwtService.decode(accessToken) as TokenDto
-		const {name, id, authorId} = body
-		if (+authorId !== userId) {
-			throw new UnauthorizedException('Invalid user identifiers')
-		}
-		const project = await this.projectRepository.findOneBy({id})
+	async update(body: UpdateProjectDto, accessToken: string) {
+		const {userId, role} = this.jwtService.decode(accessToken) as TokenDto
+		const {id} = body
+		const project = await this.projectRepository.findOne({where: {id}, relations: {authorId: true}})
 		if (!project) {
 			throw new NotFoundException('Project not found')
 		}
-		return await this.projectRepository.update({id}, {name})
+		const hasProjectAssigned = await this.projectAssignedRepository.findOne({
+			where: {
+				userId,
+				projectId: project.id,
+			},
+		})
+		if (!hasProjectAssigned && role !== ETokenRoles.Admin) {
+			throw new BadRequestException('You are not allowed')
+		}
+		await this.projectRepository.update({id}, {...body})
+		return {message: `Project ${project.name} updated`}
 	}
 
 	async remove(id: string, accessToken: string) {
@@ -111,7 +118,7 @@ export class ProjectService {
 		if (!project) {
 			throw new NotFoundException('Project not found')
 		}
-		if (userId === +project.authorId.id || role === ERoles.Admin) {
+		if (userId === +project.authorId.id || role === ETokenRoles.Admin) {
 			return await this.projectRepository.delete({id: +id})
 		} else {
 			throw new UnauthorizedException('Invalid credentials')

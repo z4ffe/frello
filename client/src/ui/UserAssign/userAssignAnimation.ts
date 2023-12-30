@@ -14,4 +14,11 @@ export const userAssignAnimation = {
 	transition: {
 		duration: .3,
 	},
+	whileTap: {
+		scale: '98%',
+		transition: {
+			duration: .1,
+			easy: 'linear',
+		},
+	},
 }

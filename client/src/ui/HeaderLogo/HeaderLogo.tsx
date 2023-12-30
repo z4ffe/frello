@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {FC} from 'react'
 import {useNavigate} from 'react-router-dom'
 import styles from './headerLogo.module.scss'
@@ -17,7 +18,7 @@ export const HeaderLogo: FC<Props> = ({customClass, homeRedirect}) => {
 	}
 
 	return (
-		<div className={`${styles.logo} ${customClass}`} onClick={handleHomeRedirect}>
+		<div className={clsx(styles.logo, customClass)} onClick={handleHomeRedirect}>
 			<div className={styles.icon}>
 				<span className={styles.icon__text}>F</span>
 			</div>
