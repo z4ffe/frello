@@ -26,6 +26,7 @@ export class AuthService {
 			userId: user.id,
 			username: user.username,
 			role: user.role.name,
+			avatar: user.avatar,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
 		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '30d'})
@@ -46,6 +47,7 @@ export class AuthService {
 			userId: decodedToken.userId,
 			username: decodedToken.username,
 			role: decodedToken.role,
+			avatar: decodedToken.avatar,
 		}
 		const accessToken = await this.jwtService.signAsync(userData)
 		const refreshToken = await this.jwtService.signAsync(userData, {expiresIn: '30d'})

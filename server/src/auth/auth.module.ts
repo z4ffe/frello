@@ -3,6 +3,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config'
 import {JwtModule} from '@nestjs/jwt'
 import {PassportModule} from '@nestjs/passport'
 import {TypeOrmModule} from '@nestjs/typeorm'
+import {FirebaseService} from '../firebase/firebase.service'
 import {Role} from '../role/entities/role.entity'
 import {RoleService} from '../role/role.service'
 import {User} from '../user/entities/user.entity'
@@ -24,8 +25,8 @@ import {AuthService} from './auth.service'
 				expiresIn: '30m',
 			},
 		})],
-	providers: [AuthService, UserService, RoleService],
 	controllers: [AuthController],
+	providers: [AuthService, UserService, RoleService, FirebaseService],
 })
 export class AuthModule {
 }

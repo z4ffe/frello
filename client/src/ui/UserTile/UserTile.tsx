@@ -2,7 +2,6 @@ import {useMutation, useQueryClient} from '@tanstack/react-query'
 import clsx from 'clsx'
 import {motion} from 'framer-motion'
 import {FC} from 'react'
-import avatar from '../../assets/images/avatar.png'
 import {useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {projectService} from '../../services/projectService.ts'
 import {IUsers} from '../../types/interfaces/user.interface.ts'
@@ -35,8 +34,8 @@ export const UserTile: FC<Props> = ({user}) => {
 			{...userAssignAnimation}
 			onClick={() => mutate()}
 			className={clsx(styles.userCard, {[styles.userCard__active]: user.projectAssign})}>
-			{isPending ? <Spinner /> : <Avatar src={avatar} />}
-			<span className={styles.name}>{user.firstName}{' '}{user.lastName}</span>
+			{isPending ? <Spinner /> : <Avatar src={user.avatar} />}
+			<span className={styles.name}>{`${user.firstName} ${user.lastName}`}</span>
 			<span className={styles.inprogress}>{user.projectsCount} projects on progress</span>
 		</motion.div>
 	)

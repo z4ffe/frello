@@ -26,7 +26,7 @@
     filter: drop-shadow(0 30px 60px rgba(32, 56, 85, 0.15));
     padding: rem(5) rem(15);
     gap: rem(3);
-    border-left: 2px solid rgba(52, 167, 112, 0.75);
+    border-left: 2px solid #489EF0;
 
     .btn__wrapper {
       display: flex;
@@ -48,6 +48,10 @@
         &:hover {
           transform: scale(102%) translateX(5px);
         }
+      }
+
+      .choose__btn {
+        color: rgba(248, 86, 64, 0.75);
       }
 
       .delete__btn {

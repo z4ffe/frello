@@ -2,6 +2,7 @@ import {Module} from '@nestjs/common'
 import {TypeOrmModule} from '@nestjs/typeorm'
 import {AuthService} from '../auth/auth.service'
 import {Comment} from '../comment/entities/comment.entitiy'
+import {FirebaseService} from '../firebase/firebase.service'
 import {Project} from '../project/entities/project.entity'
 import {Role} from '../role/entities/role.entity'
 import {RoleService} from '../role/role.service'
@@ -14,7 +15,7 @@ import {TaskService} from './task.service'
 @Module({
 	imports: [TypeOrmModule.forFeature([User, Project, Task, Comment, Role])],
 	controllers: [TaskController],
-	providers: [TaskService, AuthService, UserService, RoleService],
+	providers: [TaskService, AuthService, UserService, RoleService, FirebaseService],
 })
 export class TaskModule {
 }

@@ -1,11 +1,10 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, Res, UseGuards} from '@nestjs/common'
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Query, UploadedFiles, UseGuards, UseInterceptors} from '@nestjs/common'
+import {FilesInterceptor} from '@nestjs/platform-express'
 import {ApiBearerAuth, ApiTags} from '@nestjs/swagger'
-import {Response} from 'express'
 import {AuthGuard} from '../auth/auth.guard'
 import {CreateUserDto} from './dto/createUserDto'
 import {DeleteUserDto} from './dto/deleteUserDto'
 import {UpdateUserDto} from './dto/updateUserDto'
-import {User} from './entities/user.entity'
 import {UserService} from './user.service'
 
 @ApiTags('User')
@@ -25,9 +24,9 @@ export class UserController {
 
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
-	async createUser(@Body() body: CreateUserDto, @Res() res: Response<Record<string, string>>) {
-		const createdUser = await this.userService.create(body)
-		return res.json(createdUser)
+	@UseInterceptors(FilesInterceptor('avatar'))
+	async createUser(@Body() body: CreateUserDto, @UploadedFiles() avatar: Express.Multer.File[]) {
+		return await this.userService.create(body, avatar)
 	}
 
 	@Patch()

@@ -29,10 +29,8 @@ export const Assign = () => {
 		if (usersData) {
 			const value = event.currentTarget.value.toLowerCase()
 			const filtredUsers = usersData.filter(user => {
-				const fullName = (user.firstName + ' ' + user.lastName).toLowerCase()
-				if (fullName.includes(value)) {
-					return user
-				}
+				const fullName = (`${user.firstName} ${user.lastName}`).toLowerCase()
+				if (fullName.includes(value)) return user
 			})
 			setUsers(filtredUsers)
 		}

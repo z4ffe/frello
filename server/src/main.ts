@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser'
 import {AppModule} from './app.module'
 import {swaggerConfig} from './config/swagger.config'
 
+
 async function bootstrap() {
 	const PREFIX = new ConfigService().getOrThrow('PREFIX')
 	const app = await NestFactory.create(AppModule, {

@@ -1,9 +1,12 @@
 import clsx from 'clsx'
 import {AnimatePresence, motion} from 'framer-motion'
 import {FC, useEffect, useRef, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import chooseIcon from '../../assets/images/svg/choose.svg'
 import editIcon from '../../assets/images/svg/edit.svg'
 import deleteIcon from '../../assets/images/svg/remove.svg'
 import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
+import {projectsActions} from '../../store/projects/projectsSlice.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {IProject} from '../../types/interfaces/project.interface.ts'
 import {Divider} from '../Divider/Divider.tsx'
@@ -17,6 +20,13 @@ export const ProjectDropDown: FC<Props> = ({project}) => {
 	const dispatch = useAppDispatch()
 	const [dropDown, setDropDown] = useState(false)
 	const dropDownRef = useRef<HTMLDivElement>(null)
+
+	const navigate = useNavigate()
+
+	const handleProjectDispatch = () => {
+		dispatch(projectsActions.setProject(project))
+		navigate(`/tasks/${project.id}`)
+	}
 
 	const handleDropDown = () => {
 		setDropDown(prevState => !prevState)
@@ -44,6 +54,11 @@ export const ProjectDropDown: FC<Props> = ({project}) => {
 						animate={{opacity: 1, scale: '100%'}}
 						exit={{opacity: 0, scale: '0'}}
 						className={styles.dropdown__project}>
+						<div className={styles.btn__wrapper} onClick={handleProjectDispatch}>
+							<img src={chooseIcon} alt='choose' />
+							<button className={styles.btn}>Choose</button>
+						</div>
+						<Divider />
 						<div className={styles.btn__wrapper} onClick={() => dispatch(uiActions.editProject(project))}>
 							<img src={editIcon} alt='edit' />
 							<button className={styles.btn}>Edit</button>

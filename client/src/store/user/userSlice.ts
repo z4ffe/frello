@@ -9,6 +9,7 @@ interface IUserSlice {
 	id: null | number
 	username: string
 	role: string
+	avatar: string
 	saveSession: boolean
 	loading: boolean
 }
@@ -19,6 +20,7 @@ const initState: IUserSlice = {
 	id: null,
 	username: '',
 	role: '',
+	avatar: '',
 	saveSession: false,
 	loading: false,
 }
@@ -46,6 +48,7 @@ const userSlice = createSlice({
 				state.username = tokenPayloadData.username
 				state.role = tokenPayloadData.role
 				state.token = action.payload.accessToken
+				state.avatar = tokenPayloadData.avatar
 				state.isAuth = true
 			}
 			state.loading = false
@@ -63,6 +66,7 @@ const userSlice = createSlice({
 				state.username = tokenPayloadData.username
 				state.role = tokenPayloadData.role
 				state.token = action.payload.accessToken
+				state.avatar = tokenPayloadData.avatar
 				state.isAuth = true
 			}
 			localStorage.setItem('accessToken', action.payload.accessToken)

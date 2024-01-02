@@ -115,3 +115,6 @@ server/.env.development
 .$frello.drawio.bkp
 */.env.development
 taskWindow.png
+/server/firebase.json
+firebase.json
+server/firebase.json

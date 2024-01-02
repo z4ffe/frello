@@ -3,6 +3,7 @@ import {ConfigService} from '@nestjs/config'
 import {InjectRepository} from '@nestjs/typeorm'
 import * as bcrypt from 'bcrypt'
 import {Repository} from 'typeorm'
+import {FirebaseService} from '../firebase/firebase.service'
 import {Role} from '../role/entities/role.entity'
 import {CreateUserDto} from './dto/createUserDto'
 import {DeleteUserDto} from './dto/deleteUserDto'
@@ -15,6 +16,7 @@ export class UserService {
 
 	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>,
 					@InjectRepository(Role) private readonly roleRepository: Repository<Role>,
+					private readonly firebaseService: FirebaseService,
 					private readonly ConfigService: ConfigService) {
 	}
 
@@ -25,6 +27,7 @@ export class UserService {
 				username: true,
 				firstName: true,
 				lastName: true,
+				avatar: true,
 				createdAt: true,
 			},
 		})
@@ -40,6 +43,7 @@ export class UserService {
 				username: true,
 				firstName: true,
 				lastName: true,
+				avatar: true,
 				createdAt: true,
 				projectAssign: true,
 			},
@@ -55,7 +59,7 @@ export class UserService {
 		})
 	}
 
-	async create({username, password, firstName, lastName, avatar, country}: CreateUserDto) {
+	async create({username, password, firstName, lastName, country}: CreateUserDto, avatar: Express.Multer.File[]) {
 		const isUserExist = await this.findByName(username)
 		if (isUserExist) {
 			throw new ConflictException('User already exist')
@@ -65,13 +69,14 @@ export class UserService {
 		if (!defaultRole) {
 			throw new BadRequestException('Default role not found')
 		}
+		const avatarLink = await this.firebaseService.uploadAvatar(avatar[0], username)
 		const user = {
 			username: username.trim(),
 			password: hashedPassword,
 			role: defaultRole,
+			avatar: avatarLink,
 			firstName,
 			lastName,
-			avatar,
 			country,
 		}
 		const newUser = this.userRepository.create(user)

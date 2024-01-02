@@ -1,13 +1,9 @@
 import dayjs from 'dayjs'
 import {FC} from 'react'
-import avatar from '../../assets/images/avatar.png'
-import avatar2 from '../../assets/images/avatar2.png'
-import avatar3 from '../../assets/images/avatar3.png'
 import flag from '../../assets/images/svg/icon-flag.svg'
-import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
+import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
 import {IProject} from '../../types/interfaces/project.interface.ts'
-import {ERoles} from '../../types/roleType.ts'
 import {AddButton} from '../AddButton/AddButton.tsx'
 import {Avatar} from '../Avatar/Avatar.tsx'
 import {ProgressBar} from '../ProgressBar/ProgressBar.tsx'
@@ -19,20 +15,7 @@ interface Props {
 }
 
 export const ProjectTile: FC<Props> = ({project}) => {
-	const role = useAppSelector(state => state.user.role)
 	const dispatch = useAppDispatch()
-
-	/* const navigate = useNavigate()
-
-	const handleProjectDispatch = () => {
-		dispatch(projectsActions.setProject(project))
-		navigate(`/tasks/${project.id}`)
-	} */
-
-	const randomAvatar = () => {
-		const avatars = [avatar, avatar2, avatar3]
-		return avatars[Math.floor(Math.random() * 3)]
-	}
 
 	return (
 		<div className={styles.projectTile}>
@@ -49,11 +32,13 @@ export const ProjectTile: FC<Props> = ({project}) => {
 				</div>
 				<ProgressBar percent={project.progress} />
 			</div>
-			<div className={styles.authorSection}>
-				<div className={styles.authorAvatars}>
-					{new Array(project.projectAssign.length).fill(null).map((_, idx) => <Avatar key={idx} src={randomAvatar()} />)}
+			<div className={styles.assignedUsers}>
+				<div className={styles.usersAvatar}>
+					{project.projectAssign.map((user) => (
+						<Avatar key={user.id} src={user.avatar} />
+					))}
 				</div>
-				{role === ERoles.Admin ? <AddButton handler={() => dispatch(uiActions.openUserAssign(project.id))} /> : null}
+				<AddButton handler={() => dispatch(uiActions.openUserAssign(project.id))} />
 			</div>
 			<ProjectDropDown project={project} />
 		</div>

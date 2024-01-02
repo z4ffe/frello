@@ -1,7 +1,9 @@
-interface projectAssign {
+interface Users {
 	id: number
 	username: string
-	avatar: null | string
+	firstName: string
+	lastName: string
+	avatar: string
 }
 
 export interface IProject {
@@ -13,7 +15,7 @@ export interface IProject {
 	deadline: string
 	createdAt: string
 	updatedAt: string
-	projectAssign: projectAssign[]
+	projectAssign: Users[]
 	authorId: {
 		id: number
 		username: string
