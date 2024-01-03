@@ -31,7 +31,7 @@ export class User implements IUser {
 	@Column()
 	country: string
 
-	@Column({nullable: true})
+	@Column({default: ''})
 	avatar: string
 
 	@ManyToOne(() => Role, (role) => role.id, {nullable: false})

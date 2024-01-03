@@ -28,6 +28,7 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 		defaultValues: editMode ? {name, deadline: new Date(deadline), description, flagged} : projectDefaultValues,
 		resolver: zodResolver(projectSchema),
 	})
+	const title = editMode ? `Edit Project` : 'Create New Project'
 
 	const submitForm = async (values: projectSchemaType) => {
 		setLoading(true)
@@ -47,7 +48,7 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 
 	return (
 		<div className={styles.projectCard}>
-			<h1 className={styles.projectCard__title}>Create New Project</h1>
+			<h1 className={styles.projectCard__title}>{title}</h1>
 			<form className={styles.form} onSubmit={handleSubmit(submitForm)}>
 				<label>
 					<input type='text' placeholder='Project name' {...register('name')} />
@@ -76,14 +77,6 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 											  todayButton='Today' minDate={new Date()} />
 					)} />
 				</div>
-				{/* <Divider />
-				<div className={styles.flagged}>
-					<div className={styles.flagged__label}>
-						<img src={assignImg} alt='assign' />
-						<span>Assign users</span>
-					</div>
-					<Avatar src={avatar} />
-				</div> */}
 				<RegularButton customClass={styles.addBtn} type='submit' text={editMode ? 'Edit' : 'Add'} loading={loading} disabled={loading} />
 			</form>
 			<div className={styles.closeBtn}>

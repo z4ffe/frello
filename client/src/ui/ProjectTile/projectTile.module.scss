@@ -10,6 +10,7 @@
   padding: rem(28);
   position: relative;
   height: fit-content;
+  cursor: pointer;
 
   &:hover {
     transform: scale(102%);
@@ -84,23 +85,6 @@
         font-weight: 500;
         line-height: 20px;
         letter-spacing: 0.3px;
-      }
-    }
-  }
-
-  .assignedUsers {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: rem(23);
-    color: var(--var--lighgray);
-
-    .usersAvatar {
-      display: flex;
-      align-items: center;
-
-      div:not(:first-child) {
-        margin-left: rem(-10);
       }
     }
   }

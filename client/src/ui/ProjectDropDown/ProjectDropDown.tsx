@@ -20,7 +20,6 @@ export const ProjectDropDown: FC<Props> = ({project}) => {
 	const dispatch = useAppDispatch()
 	const [dropDown, setDropDown] = useState(false)
 	const dropDownRef = useRef<HTMLDivElement>(null)
-
 	const navigate = useNavigate()
 
 	const handleProjectDispatch = () => {

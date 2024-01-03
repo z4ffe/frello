@@ -1,0 +1,25 @@
+.usersList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: rem(23);
+  color: var(--var--lighgray);
+
+  .usersAvatar {
+    display: flex;
+    align-items: center;
+
+    div:not(:first-child) {
+      margin-left: rem(-10);
+    }
+  }
+
+  .moreUsers {
+    margin-left: rem(5);
+    color: #121212;
+    font-size: rem(12);
+    font-weight: 400;
+    line-height: rem(18);
+    opacity: .7;
+  }
+}

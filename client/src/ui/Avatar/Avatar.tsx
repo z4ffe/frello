@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Avatar: FC<Props> = ({src}) => {
-	const avatar = !src.length ? defaultAvatar : src
+	const avatar = !src ? defaultAvatar : src
 
 	return (
 		<div className={styles.avatar}>
