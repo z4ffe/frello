@@ -1,10 +1,12 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {useEffect, useState} from 'react'
+import {useAppSelector} from '../libs/redux/hooks/typedHooks.ts'
 import {taskService} from '../services/taskService.ts'
 import {ITask} from '../types/interfaces/task.interface.ts'
 import {ETaskStatus} from '../types/taskType.ts'
 
 export const useTasksQuery = (id: number) => {
+	const isAuth = useAppSelector(state => state.user.isAuth)
 	const [tasks, setTasks] = useState<ITask[] | undefined>([])
 	const queryClient = useQueryClient()
 
@@ -12,6 +14,7 @@ export const useTasksQuery = (id: number) => {
 		queryKey: ['tasks', id],
 		queryFn: () => taskService.getAllTasks(id),
 		refetchOnWindowFocus: 'always',
+		enabled: isAuth,
 	})
 
 	const {mutate} = useMutation({
@@ -30,5 +33,5 @@ export const useTasksQuery = (id: number) => {
 	}, [data])
 
 
-	return {tasks, isError, isLoading, mutate, updateTasks}
+	return {tasks, isError, isLoading, mutate, updateTasks, tasksData: data}
 }

@@ -13,6 +13,16 @@ body, html {
   color: var(--var--main-font-color);
 }
 
+::-webkit-scrollbar {
+  background-color: #fff;
+  width: rem(4);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(12, 115, 171, 0.8);
+  // border-radius: rem(4);
+}
+
 #root {
   min-height: 100vh;
 }

@@ -21,7 +21,6 @@ export const Projects = () => {
 		removeProjectsQueries()
 	}, [userId])
 
-
 	if (projectsIsPending) {
 		return <LoaderDots />
 	}

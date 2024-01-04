@@ -4,6 +4,7 @@ import {taskService} from '../services/taskService.ts'
 
 
 export const useTaskQuery = (description: string, enabled: boolean = true) => {
+	const isAuth = useAppSelector(state => state.user.isAuth)
 	const taskId = useAppSelector(state => state.ui.modal.task) as number
 	const queryClient = useQueryClient()
 
