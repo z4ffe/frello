@@ -1,0 +1,63 @@
+.tasksPanel {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 rem(22);
+
+  &__title {
+    display: flex;
+    gap: rem(30);
+    align-items: center;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: rem(7);
+
+      .icon {
+        width: rem(20);
+      }
+
+      .text {
+        font-weight: 600;
+        letter-spacing: .3px;
+        font-size: rem(18);
+        opacity: .75;
+        transition: .4s;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__assigned {
+    display: flex;
+    align-items: center;
+
+    div:not(:first-child) {
+      margin-left: rem(-10);
+    }
+
+    .assignBtn {
+      display: flex;
+      margin-left: rem(10);
+      width: rem(25);
+      height: rem(25);
+      background-image: url('../../app/assets/images/svg/assign_icon.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      transition: .5s;
+
+      &:hover {
+        transform: scale(105%);
+      }
+
+      &:active {
+        transform: scale(95%);
+        transition: .3s;
+      }
+    }
+  }
+}
