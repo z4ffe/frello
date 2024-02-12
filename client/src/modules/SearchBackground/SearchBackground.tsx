@@ -1,6 +1,6 @@
 import {AnimatePresence, motion} from 'framer-motion'
 import {useAppSelector} from '../../shared/lib/redux/hooks/typedHooks.ts'
-import {modalAnimation} from '../ModalContainer/modalAnimation.ts'
+import {modalAnimation} from '../Modal/modalAnimation.ts'
 import styles from './searchBackground.module.scss'
 
 export const SearchBackground = () => {

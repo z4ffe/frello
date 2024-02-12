@@ -3,16 +3,27 @@ import {uiActions} from '../../app/store/ui/uiSlice.ts'
 import {ErrorPage} from '../../pages/ErrorPage/ui/ErrorPage.tsx'
 import {useAppDispatch, useAppSelector} from '../../shared/lib/redux/hooks/typedHooks.ts'
 import {Login} from '../../widgets/Login/Login.tsx'
+import {ConfirmDialog} from '../ConfirmDialog/ConfirmDialog.tsx'
 import {ProjectCard} from '../ProjectCard/ProjectCard.tsx'
 import {TaskCard} from '../TaskCard/TaskCard.tsx'
 import {Assign} from '../UserAssign/UserAssign.tsx'
 
 export const ModalContent = () => {
-	const {login, register, task, taskEdit, taskAdd, assign, projectAdd, projectEdit} = useAppSelector(state => state.ui.modal)
+	const {
+		login,
+		register,
+		task,
+		taskEdit,
+		taskAdd,
+		assign,
+		projectAdd,
+		projectEdit,
+		confirm,
+	} = useAppSelector(state => state.ui.modal)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (!login && !register && !taskAdd && !assign && !projectAdd && !projectEdit && !(task && taskEdit)) {
+		if (!login && !register && !taskAdd && !assign && !projectAdd && !projectEdit && !confirm && !(task && taskEdit)) {
 			dispatch(uiActions.resetState())
 			document.body.style.overflow = 'unset'
 		}
@@ -38,6 +49,8 @@ export const ModalContent = () => {
 			return <ProjectCard editMode={false} />
 		case (projectEdit):
 			return <ProjectCard editMode={projectEdit} />
+		case (confirm):
+			return <ConfirmDialog />
 		default:
 			dispatch(uiActions.resetState())
 	}

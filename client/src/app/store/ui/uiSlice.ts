@@ -45,7 +45,6 @@ const initState: IUISlice = {
 			flagged: false,
 		},
 		assign: null,
-		confirm: false,
 	},
 }
 
@@ -94,6 +93,10 @@ const uiSlice = createSlice({
 			state.modal.isOpen = true
 			state.modal.task = action.payload
 			state.modal.taskEdit = true
+		},
+		openConfirmDialog: (state, action: PayloadAction<number>) => {
+			state.modal.isOpen = true
+			state.modal.confirm = true
 		},
 		resetState: () => initState,
 	},

@@ -65,7 +65,7 @@ export const ProjectDropDown: FC<Props> = ({project}) => {
 						<Divider />
 						<div className={styles.btn__wrapper}>
 							<Icon iconType='remove' />
-							<button className={clsx(styles.btn, styles.delete__btn)}>Delete</button>
+							<button onClick={() => dispatch(uiActions.openConfirmDialog(project.id))} className={clsx(styles.btn, styles.delete__btn)}>Delete</button>
 						</div>
 					</motion.div>
 				}

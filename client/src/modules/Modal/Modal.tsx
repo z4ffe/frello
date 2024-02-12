@@ -3,10 +3,10 @@ import {FC, PropsWithChildren, SyntheticEvent, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {uiActions} from '../../app/store/ui/uiSlice.ts'
 import {useAppDispatch, useAppSelector} from '../../shared/lib/redux/hooks/typedHooks.ts'
+import styles from './modal.module.scss'
 import {modalAnimation} from './modalAnimation.ts'
-import styles from './ModalContainer.module.scss'
 
-export const ModalContainer: FC<PropsWithChildren> = ({children}) => {
+export const Modal: FC<PropsWithChildren> = ({children}) => {
 	const isOpen = useAppSelector(state => state.ui.modal.isOpen)
 	const auth = useAppSelector(state => state.user.isAuth)
 	const dispatch = useAppDispatch()
