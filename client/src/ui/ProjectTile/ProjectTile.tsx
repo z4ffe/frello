@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import {FC, SyntheticEvent} from 'react'
 import {useNavigate} from 'react-router-dom'
-import flag from '../../assets/images/svg/icon-flag.svg'
+import flag from '../../assets/images/svg/flag.svg'
 import {useAppDispatch} from '../../libs/redux/hooks/typedHooks.ts'
 import {projectsActions} from '../../store/projects/projectsSlice.ts'
 import {IProject} from '../../types/interfaces/project.interface.ts'
@@ -17,7 +17,7 @@ interface Props {
 export const ProjectTile: FC<Props> = ({project}) => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
-	
+
 	const handleProjectDispatch = () => {
 		dispatch(projectsActions.setProject(project))
 		navigate(`/tasks/${project.id}`)
@@ -34,14 +34,17 @@ export const ProjectTile: FC<Props> = ({project}) => {
 		<div className={styles.projectTile} onMouseUp={handleProject}>
 			<h2 className={styles.projectTile__title}>{project.name}</h2>
 			<div className={styles.information}>
-				{project.flagged && <img className={styles.flag} src={flag} alt='flagged' />}
-				<span className={styles.deadline}>Due {dayjs(project.deadline).format('MMM DD')}</span>
+				{project.flagged &&
+					<img className={styles.flag} src={flag} alt='flagged' />}
+				<span
+					className={styles.deadline}>Due {dayjs(project.deadline).format('MMM DD')}</span>
 			</div>
 			<p className={styles.projectTile__desc}>{project.description}</p>
 			<div className={styles.projectTile__progress}>
 				<div className={styles.header}>
 					<h3 className={styles.header__title}>Project progress</h3>
-					<span className={styles.header__percent}>{project.progress}%</span>
+					<span
+						className={styles.header__percent}>{project.progress}%</span>
 				</div>
 				<ProgressBar percent={project.progress} />
 			</div>

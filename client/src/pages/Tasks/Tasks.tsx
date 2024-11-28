@@ -48,10 +48,14 @@ export const Tasks = () => {
 	return (
 		<div className={styles.tasks}>
 			<TasksPanel />
-			<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
+			<DndContext collisionDetection={closestCenter}
+							onDragEnd={handleDragEnd} onDragStart={handleDragStart}
+							sensors={sensors}>
 				{tasks ? <TaskContainer data={tasks} /> : <LoaderDots />}
 				<DragOverlay modifiers={[restrictToWindowEdges]}>
-					{active && <div className={styles.dragOverlay}><TaskItem task={active} /></div>}
+					{active &&
+						<div className={styles.dragOverlay}><TaskItem task={active} />
+						</div>}
 				</DragOverlay>
 			</DndContext>
 		</div>

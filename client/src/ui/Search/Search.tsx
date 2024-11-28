@@ -25,7 +25,7 @@ export const Search = () => {
 	const [tasks, setTasks] = useState<ITask[]>([])
 	const [searchStatus, setSearchStatus] = useState(false)
 	const {projectsData} = useProjectsQuery(userId, true)
-	const {tasksData} = useTasksQuery(projectId!)
+	const {tasksData} = useTasksQuery(projectId, !!projectId)
 	const location = useLocation()
 
 	useEffect(() => {
@@ -36,6 +36,7 @@ export const Search = () => {
 	const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
 		const searchText = event.target.value.toLowerCase()
 		if (!searchText) {
+			setTasks([])
 			return setProjects([])
 		}
 		const filterElements = (arr: IProject[] | ITask[] | undefined) => {
@@ -61,9 +62,11 @@ export const Search = () => {
 	const searchResult = () => {
 		switch (mode) {
 			case ESearchMode.projects:
-				return projects.map(project => <SearchProjectTile key={project.id} project={project} />)
+				return projects.map(project => <SearchProjectTile key={project.id}
+																				  project={project} />)
 			case ESearchMode.tasks:
-				return tasks.map(task => <SearchTaskTile key={task.id} task={task} />)
+				return tasks.map(task => <SearchTaskTile key={task.id}
+																	  task={task} />)
 		}
 	}
 
@@ -80,7 +83,9 @@ export const Search = () => {
 	return (
 		<div className={styles.search}>
 			<img className={styles.search__icon} src={searchIcon} alt='search' />
-			<input className={styles.input} placeholder={`Search ${mode}...`} onChange={handleSearch} onFocus={handleSearchOn} onBlur={handleSearchOff} />
+			<input className={styles.input} placeholder={`Search ${mode}...`}
+					 onChange={handleSearch} onFocus={handleSearchOn}
+					 onBlur={handleSearchOff} />
 			{searchStatus && <div className={styles.result}>
 				{searchResult()}
 			</div>}

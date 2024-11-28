@@ -3,9 +3,9 @@ import {useQueryClient} from '@tanstack/react-query'
 import {FC, useState} from 'react'
 import ReactDatePicker from 'react-datepicker'
 import {Controller, useForm} from 'react-hook-form'
+import clockImg from '../../assets/images/svg/clock.svg'
 import closeImg from '../../assets/images/svg/close.svg'
-import clockImg from '../../assets/images/svg/icon-clock.svg'
-import flagImg from '../../assets/images/svg/icon-flag.svg'
+import flagImg from '../../assets/images/svg/flag.svg'
 import {useAppDispatch, useAppSelector} from '../../libs/redux/hooks/typedHooks.ts'
 import {projectService} from '../../services/projectService.ts'
 import {uiActions} from '../../store/ui/uiSlice.ts'
@@ -21,11 +21,15 @@ interface Props {
 
 export const ProjectCard: FC<Props> = ({editMode}) => {
 	const dispatch = useAppDispatch()
-	const {id, flagged, description, name, deadline} = useAppSelector(state => state.ui.modal.projectEditData)
+	const {
+		id, flagged, description, name, deadline,
+	} = useAppSelector(state => state.ui.modal.projectEditData)
 	const [loading, setLoading] = useState(false)
 	const queryClient = useQueryClient()
 	const {handleSubmit, register, control} = useForm<projectSchemaType>({
-		defaultValues: editMode ? {name, deadline: new Date(deadline), description, flagged} : projectDefaultValues,
+		defaultValues: editMode ? {
+			name, deadline: new Date(deadline), description, flagged,
+		} : projectDefaultValues,
 		resolver: zodResolver(projectSchema),
 	})
 	const title = editMode ? `Edit Project` : 'Create New Project'
@@ -35,7 +39,8 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 		try {
 			if (editMode && id) {
 				void await projectService.updateProject(id, values)
-			} else {
+			}
+			else {
 				void await projectService.addProject(values)
 			}
 			await queryClient.invalidateQueries({queryKey: ['projects']})
@@ -51,10 +56,13 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 			<h1 className={styles.projectCard__title}>{title}</h1>
 			<form className={styles.form} onSubmit={handleSubmit(submitForm)}>
 				<label>
-					<input type='text' placeholder='Project name' {...register('name')} />
+					<input type='text'
+							 placeholder='Project name' {...register('name')} />
 				</label>
 				<label>
-					<textarea className={styles.desc} placeholder='Project description' {...register('description')} autoFocus />
+					<textarea className={styles.desc}
+								 placeholder='Project description' {...register('description')}
+								 autoFocus />
 				</label>
 				<div className={styles.flagged}>
 					<div className={styles.flagged__label}>
@@ -72,12 +80,21 @@ export const ProjectCard: FC<Props> = ({editMode}) => {
 						<img src={clockImg} alt='deadline' />
 						<span>Due</span>
 					</div>
-					<Controller control={control} name='deadline' render={({field}) => (
-						<ReactDatePicker className={styles.picker} portalId='portal' popperClassName={styles.popper} onChange={(date) => field.onChange(date)} selected={field.value} dateFormat='d MMM yyyy'
-											  todayButton='Today' minDate={new Date()} />
-					)} />
+					<Controller control={control} name='deadline'
+									render={({field}) => (
+										<ReactDatePicker className={styles.picker}
+															  portalId='portal'
+															  popperClassName={styles.popper}
+															  onChange={(date) => field.onChange(date)}
+															  selected={field.value}
+															  dateFormat='d MMM yyyy'
+															  todayButton='Today'
+															  minDate={new Date()} />
+									)} />
 				</div>
-				<RegularButton customClass={styles.addBtn} type='submit' text={editMode ? 'Edit' : 'Add'} loading={loading} disabled={loading} />
+				<RegularButton customClass={styles.addBtn} type='submit'
+									text={editMode ? 'Edit' : 'Add'} loading={loading}
+									disabled={loading} />
 			</form>
 			<div className={styles.closeBtn}>
 				<img src={closeImg} alt='Close Button' />

@@ -1,4 +1,32 @@
 .searchTaskTile {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin: 5px auto;
+  justify-content: space-between;
+  padding: rem(5) rem(15);
+  align-items: center;
+  transition: background-color .3s;
+  cursor: pointer;
+
+  .descWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+
+    h1 {
+      font-weight: 500;
+      font-size: rem(15);
+      opacity: .7;
+    }
+
+    p {
+      margin-top: rem(5);
+      color: #41475E;
+      opacity: .5;
+      font-size: rem(13);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
 }

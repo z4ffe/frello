@@ -19,7 +19,9 @@ interface Props {
 export const TaskCard: FC<Props> = ({taskEdit}) => {
 	const [description, setDescription] = useState<string>('')
 	const projectName = useAppSelector(state => state.projects.name)
-	const {data, isLoading, mutate, resetTaskQueries} = useTaskQuery(description, taskEdit)
+	const {
+		data, isLoading, mutate, resetTaskQueries,
+	} = useTaskQuery(description, taskEdit)
 	const {data: comments} = useQuery({
 		queryKey: ['comments'],
 		queryFn: async () => {
@@ -56,10 +58,13 @@ export const TaskCard: FC<Props> = ({taskEdit}) => {
 			<h1 className={styles.tasksCard__title}>{data?.title}</h1>
 			<button className={styles.subTaskBtn}>Create subtask</button>
 			<span className={styles.tasksCard__desc}>Description</span>
-			{description && <TextEditor content={description} handleContentChange={handleDescription} handleSave={mutate} />}
+			<TextEditor content={description}
+							handleContentChange={handleDescription}
+							handleSave={mutate} />
 			<span>Activity</span>
 			{taskEdit && <div className={styles.comments}>
-				{comments?.length && comments.map(comment => <Comment key={comment.id} comment={comment} />)}
+				{comments?.length && comments.map(comment => <Comment
+					key={comment.id} comment={comment} />)}
 			</div>}
 		</div>
 	)

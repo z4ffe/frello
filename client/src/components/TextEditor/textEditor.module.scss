@@ -11,7 +11,11 @@
   border-radius: rem(8);
   min-height: rem(200);
   max-height: rem(200);
-  overflow: scroll;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    background-color: inherit;
+  }
 
   kbd,
   code {

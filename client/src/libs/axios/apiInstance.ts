@@ -1,3 +1,4 @@
+// @ts-ignore
 import {ToolkitStore} from '@reduxjs/toolkit/dist/configureStore'
 import axios from 'axios'
 

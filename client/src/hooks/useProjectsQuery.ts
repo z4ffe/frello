@@ -9,7 +9,7 @@ export const useProjectsQuery = (userId: number | null, enabled: boolean) => {
 	const {isPending, data} = useQuery({
 			queryKey: ['projects'],
 			queryFn: () => projectService.getAllProjects(userId!),
-			enabled: isAuth,
+			enabled: isAuth && enabled,
 		},
 	)
 
