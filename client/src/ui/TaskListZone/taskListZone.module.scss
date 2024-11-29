@@ -3,12 +3,16 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 8px;
-  width: 100%;
+  width: calc(100% / 3);
   height: fit-content;
   box-shadow: var(--var--main-shadow);
   padding: rem(10) rem(20) rem(20);
   color: var(--var--main-font-color);
   transition: .5s;
+
+  @include responsivePhone {
+    width: 100%;
+  }
 
   &__title {
     display: flex;

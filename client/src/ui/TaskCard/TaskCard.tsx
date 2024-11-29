@@ -16,7 +16,7 @@ export const TaskCard: FC<Props> = ({taskEdit}) => {
 	const [title, setTitle] = useState<string>('')
 	const [description, setDescription] = useState<string>('')
 	const projectName = useAppSelector(state => state.projects.name)
-	const {data, isLoading, mutate, resetTaskQueries} = useTaskQuery()
+	const {data, isLoading, mutate, resetTaskQueries} = useTaskQuery(title, description)
 
 	const handleDescription = (desc: string) => setDescription(desc)
 

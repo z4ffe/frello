@@ -12,6 +12,10 @@
   height: fit-content;
   cursor: pointer;
 
+  @include responsivePhone {
+    width: 100%;
+  }
+
   &:hover {
     transform: scale(102%);
     background: #fff;

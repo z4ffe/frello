@@ -6,6 +6,7 @@
   border-radius: 8px;
   gap: rem(10);
   cursor: pointer;
+  width: 100%;
 
   &:hover {
     box-shadow: 0 0 5px 1px rgba(34, 60, 80, 0.2);
@@ -20,6 +21,9 @@
   &__desc {
     font-size: rem(14);
     opacity: .7;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
   }
 
 

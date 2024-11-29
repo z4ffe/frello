@@ -4,6 +4,11 @@
   justify-content: center;
   gap: 2%;
 
+  @include responsivePhone {
+    flex-direction: column !important;
+    gap: rem(20) !important;
+  }
+
   .dropZone {
     display: flex;
     flex-direction: column;

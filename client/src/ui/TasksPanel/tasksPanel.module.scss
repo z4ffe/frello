@@ -3,6 +3,10 @@
   justify-content: space-between;
   padding: 0 rem(22);
 
+  @include responsivePhone {
+    padding: 0 rem(2);
+  }
+
   &__title {
     display: flex;
     gap: rem(30);
@@ -24,6 +28,10 @@
         opacity: .75;
         transition: .4s;
         cursor: pointer;
+
+        @include responsivePhone {
+          font-size: rem(14);
+        }
 
         &:hover {
           opacity: 1;

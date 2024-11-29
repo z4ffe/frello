@@ -27,5 +27,9 @@
     font-weight: 700;
     color: var(--var--main-lightblue);
     text-transform: uppercase;
+
+    @include responsivePhone {
+      display: none;
+    }
   }
 }

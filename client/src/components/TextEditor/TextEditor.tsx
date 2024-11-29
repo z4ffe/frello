@@ -13,9 +13,9 @@ interface Props {
 
 const extensions = [StarterKit, Underline]
 export const TextEditor: FC<Props> = ({handleDescription, content}) => {
-	const parsedContent = JSON.parse(content)
+	const parsedContent = content ? JSON.parse(content) : ''
 	const editor = useEditor({
-		extensions, content: (parsedContent ? parsedContent : ''), onUpdate: () => handleEditorInput(),
+		extensions, content: parsedContent, onUpdate: () => handleEditorInput(),
 	}) as Editor
 
 	const handleEditorInput = () => {

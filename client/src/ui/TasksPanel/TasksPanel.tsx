@@ -1,3 +1,4 @@
+import {useMediaQuery} from 'react-responsive'
 import avatar from '../../assets/images/avatar.png'
 import avatar2 from '../../assets/images/avatar2.png'
 import avatar3 from '../../assets/images/avatar3.png'
@@ -11,6 +12,7 @@ import styles from './tasksPanel.module.scss'
 export const TasksPanel = () => {
 	const projectName = useAppSelector(state => state.projects.name)
 	const dispatch = useAppDispatch()
+	const isMobile = useMediaQuery({query: '(max-width: 450px)'})
 
 	return (
 		<div className={styles.tasksPanel}>
@@ -19,10 +21,10 @@ export const TasksPanel = () => {
 					<img className={styles.icon} src={projectIcon} alt='project icon' />
 					<h2 className={styles.text}>{projectName}</h2>
 				</div>
-				<div onClick={() => dispatch(uiActions.changeTasksLayout())}>
+				{!isMobile && <div onClick={() => dispatch(uiActions.changeTasksLayout())}>
 					<img className={layoutIcon} src={layoutIcon} alt='layout icon' />
 					<h2 className={styles.text}>Layout</h2>
-				</div>
+				</div>}
 			</div>
 			<div className={styles.tasksPanel__assigned}>
 				<Avatar src={avatar} />

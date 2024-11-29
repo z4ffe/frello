@@ -10,3 +10,10 @@
   $valueTwo: stripUnit(16);
   @return #{math.div($valueOne, $valueTwo)}rem;
 }
+
+
+@mixin responsivePhone() {
+  @media screen and (max-width: 450px) {
+    @content;
+  }
+}
