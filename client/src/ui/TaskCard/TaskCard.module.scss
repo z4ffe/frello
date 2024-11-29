@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: rem(30);
-  width: 800px;
-  height: 600px;
+  width: 700px;
   background-color: #fff;
   border-radius: rem(8);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -13,6 +12,27 @@
     font-size: rem(14);
     font-weight: 500;
     opacity: .6;
+  }
+
+  label {
+    width: 70%;
+
+    input {
+      width: inherit;
+      padding: rem(10) rem(10);
+      font-size: rem(14);
+      border: 1px solid transparent;
+      border-bottom: 1px solid var(--var--lighgray);;
+      border-radius: rem(0);
+      transition: .3s;
+
+      &:focus {
+        outline: none;
+        border: 1px solid #7784EE;
+        box-shadow: 0 5px 15px 0 rgba(119, 132, 238, 0.30);
+        border-radius: rem(4);
+      }
+    }
   }
 
   &__title {
@@ -31,12 +51,17 @@
 
   &__desc {
     margin-top: rem(10);
-    font-size: rem(14);
+    font-size: rem(16);
     font-weight: 600;
   }
 
   .comments {
     height: 100%;
     overflow: scroll;
+  }
+
+  .addBtn {
+    width: rem(160);
+    align-self: center;
   }
 }

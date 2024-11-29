@@ -6,20 +6,21 @@ import {Divider} from '../../ui/Divider/Divider.tsx'
 import {EditorMenu} from './Menu/EditorMenu.tsx'
 import styles from './textEditor.module.scss'
 
-const extensions = [StarterKit, Underline]
-
 interface Props {
-	content: string
-	handleContentChange: (text: string) => void
-	handleSave?: () => void
+	handleDescription: any
+	content?: any
 }
 
-export const TextEditor: FC<Props> = ({content, handleContentChange, handleSave}) => {
-	const editor = useEditor({extensions, content, onUpdate: () => handleEditorInput()}) as Editor
+const extensions = [StarterKit, Underline]
+export const TextEditor: FC<Props> = ({handleDescription, content}) => {
+	const parsedContent = JSON.parse(content)
+	const editor = useEditor({
+		extensions, content: (parsedContent ? parsedContent : ''), onUpdate: () => handleEditorInput(),
+	}) as Editor
 
 	const handleEditorInput = () => {
 		const text = JSON.stringify(editor.getJSON())
-		handleContentChange(text)
+		handleDescription(text)
 	}
 
 	if (!editor) {
@@ -28,7 +29,7 @@ export const TextEditor: FC<Props> = ({content, handleContentChange, handleSave}
 
 	return (
 		<div className={styles.textEditor}>
-			<EditorMenu editor={editor} handleSave={handleSave} />
+			<EditorMenu editor={editor} />
 			<Divider />
 			<EditorContent editor={editor} />
 		</div>

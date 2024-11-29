@@ -32,6 +32,16 @@ class TaskService {
 		}
 	}
 
+	async createTask(task: any) {
+		try {
+			const response: AxiosResponse<void> = await apiInstance.post('/task', task, {})
+			return response.data
+		} catch (error) {
+			console.error(error)
+			throw new Error()
+		}
+	}
+
 	async updateTaskDescription(id: number, text: string) {
 		try {
 			const response: AxiosResponse<void> = await apiInstance.patch('/task', {
